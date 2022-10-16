@@ -346,7 +346,7 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.1.4选择相应的检查项目
 
-![img](assets/clip_image014.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image014.jpg)
 
 ##### 4.1.5项目中有需要检查的项目与非检查项
 
