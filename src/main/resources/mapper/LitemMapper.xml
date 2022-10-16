@@ -1,0 +1,19 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.LitemMapper">
+    <select id="selItems" parameterType="Litem" resultType="Litem">
+        select i.inoutpatientId,i.projectName,i.unit unitId,i.bigproJectId projectId,i.price,u.unitName,p.projectName projectNames
+        from inoutpatienttype i,unit u,projecttype p
+         <where>
+            i.unit=u.unitId and i.bigproJectId=p.projectId
+             <if test="projectName!='' and projectName!=null">
+                 and i.projectName like concat('%',concat(#{projectName},'%'))
+             </if>
+         </where>
+    </select>
+    <insert id="addItem" parameterType="Lrecord">
+        insert into inoutpatienttype(registerid,durgname,durgnum,repiceprice,repicetotal,htime,state) values(#{registerid},#{durgname},#{durgnum},#{repiceprice},#{repiceprice},now(),#{state});
+    </insert>
+</mapper>

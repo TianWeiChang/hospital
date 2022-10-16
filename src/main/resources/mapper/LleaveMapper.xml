@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.LleaveMapper">
+    <select id="selRegisters" parameterType="Register" resultType="Register">
+        select r.registerid,TO_DAYS(r.endDate)-TO_DAYS(registerDate) day,r.diagnose,r.discount,r.userName,r.age,r.sex,d.department department,r.money,c.doctorName doctorName,r.address,r.phone,r.idcard,r.registerDate,b.bedname bedName,r.operator,r.endDate,r.price,(r.money-r.price) prices
+        from register r,departments d,doctor c,bed b
+        <where>
+            r.state=1 and r.department=d.departmentId and r.doctor=c.doctorId and r.bedNum=b.bedId
+            <if test="userName!=null and userName!=''">
+                and r.userName like concat('%',concat(#{userName},'%'))
+            </if>
+            <if test="registerid!='' and registerid!=null">
+                and r.registerid=#{registerid}
+            </if>
+            order by r.endDate desc
+        </where>
+    </select>
+    <update id="updRstate" parameterType="Register">
+        update register set state=1,endDate=NOW(),price=#{price} where registerid=#{registerid};
+    </update>
+    <update id="updBstate" parameterType="Register">
+        update bed set state=0 where bedid=(select bedNum from register where registerid=#{registerid})
+    </update>
+    <select id="selYaos" parameterType="Register" resultType="int">
+        select count(*) from hospitalprice where registerId=#{registerid} and state=0
+    </select>
+</mapper>

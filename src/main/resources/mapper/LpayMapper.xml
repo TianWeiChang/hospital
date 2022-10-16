@@ -1,0 +1,18 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.LpayMapper">
+    <update id="updPay" parameterType="Register">
+        update register set money=money+#{money} where registerid=#{registerid};
+    </update>
+    <insert id="addPay" parameterType="Register">
+        insert into pay(registerid,money,payDate) values(#{registerid},#{money},NOW())
+    </insert>
+    <select id="selPays" parameterType="Register" resultType="Pay">
+        select p.payid,p.registerid,r.userName,p.money,p.payDate  from pay p,register r where p.registerid=#{registerid} and r.registerid=p.registerid order by p.payDate desc
+    </select>
+    <select id="selSurplus" parameterType="Lrecord" resultType="Lrecord">
+        select (((TO_DAYS(NOW())-TO_DAYS(ifnull(r.zhuan,r.registerDate)))*p.price)+ifnull(sum(h.repicetotal),0))*(1-(cast(replace(r.discount,'%','') as decimal(18,2))/100))+IFNULL(r.price,0) repicetotal from (select price from bed where bedid=(select bednum from register where registerid=#{registerid})) p,register r left join hospitalprice h on h.registerId=r.registerid where r.registerid=#{registerid}
+    </select>
+</mapper>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/css/public.css}" media="all"/>
+    <style>
+        #one,#two,#three,#four,#five,#six,#seven{
+            display: inline;
+            font-size: 15px;
+            left: 100px;
+            position: absolute;
+
+        }
+        #eight{
+            display: inline;
+            font-size: 15px;
+            left: 370px;
+            position: absolute;
+        }
+        .span{
+            position: absolute;
+            padding-left:30px ;
+            font-size: 15px;
+        }
+        .day{
+          margin-left:20px;
+        }
+        li{
+            float: left;
+        }
+        #big{
+            width: 1012px;
+            height: 370px;
+            border: 1px solid rgb(232,232,232);
+            position: relative;
+            top: 240px;
+            left: 100px;
+            border-radius: 2px;
+        }
+        #div{
+
+            width: 972px;
+            height: 295px;
+            border: 1px solid rgb(232,232,232);
+            position: relative;
+            top: 45px;
+            left: 20px;
+            border-radius: 3px;
+            color:rgb(51,51,51);
+        }
+        .pai{
+            position: absolute;
+            top: 10px;
+            font-size: 17px;
+            left: 20px;
+        }
+        .container{
+          position: absolute;
+        }
+        .work{
+            margin-top: 10px;
+            width: 480px;
+            height: 160px;
+            border: 1px solid rgb(232,232,232);
+            float: left;
+            border-radius: 3px;
+            background: rgb(65,178,166);
+        }
+        #work2{
+            position: absolute;
+            left: 632px;
+        }
+        #work1{
+            position: absolute;
+            left: 100px;
+        }
+        .img{
+            margin-top: 30px;
+            margin-left: 50px;
+        }
+        .num{
+            margin-left:45px;
+            margin-top: 15px;
+            color: #fff;
+        }
+        .total{
+            margin-left:200px;
+            margin-top: 30px;
+            color: #fff;
+        }
+        .desc{
+            margin-left:200px;
+            margin-top: -90px;
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="work" id="work1">
+        <div class="row">
+            <div class="img">
+                <a><img src="images/one.jpg"/></a>
+            </div>
+            <div class="num"><h5>今日门诊人数:&nbsp;<span class="currentNum"></span></h5></div>
+            <div class="desc"><h5>就诊概况</h5></div>
+            <div class="total"><h3>门诊总人数:&nbsp;<span class="Total"></span></h3></div>
+        </div>
+    </div>
+    <div class="work" id="work2">
+        <div class="row">
+            <div class="img">
+                <a><img src="images/two.jpg"/></a>
+            </div>
+            <div class="num"><h5>今日住院人数:&nbsp;<span class="currentZhuYuan"></span></h5></div>
+            <div class="desc"><h5>住院概况</h5></div>
+            <div class="total"><h3>住院总人数:&nbsp;<span class="zhuyuan"></span></h3></div>
+        </div>
+    </div>
+</div>
+<div id="big">
+    <span class="pai">排班信息</span>
+<div id="div">
+<span class="span">日期&nbsp;</span><ul id="eight"><li>排班</li></ul><br>
+    <hr>
+<label class="span">星期一</label><ul id="one"></ul><br>
+    <hr>
+<label class="span">星期二</label><ul id="two"></ul><br>
+    <hr>
+<label class="span">星期三</label><ul id="three"></ul><br>
+    <hr>
+<label class="span">星期四</label><ul id="four"></ul><br>
+    <hr>
+<label class="span">星期五</label><ul id="five"></ul><br>
+    <hr>
+<label class="span">星期六</label><ul id="six"></ul><br>
+    <hr>
+<label class="span">星期日</label><ul id="seven"></ul>
+</div>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    layui.use([ 'jquery', 'layer', 'form', 'table'  ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        $.ajax({
+            url: 'main/one',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#one").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/two',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#two").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/three',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#three").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/four',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#four").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/five',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#five").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/six',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#six").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/seven',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $("#seven").append(
+                        "<li class='day'>"+item.doctorName+"</li>"
+                    )
+                });
+            }
+        })
+        $.ajax({
+            url: 'main/currentNum',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $(".currentNum").text(data);
+            }
+        })
+        $.ajax({
+        url: 'main/Total',
+        dataType: 'json',
+        type: 'post',
+        success: function (data) {
+            $(".Total").text(data);
+        }
+    })
+        $.ajax({
+            url: 'main/zhuyuanTotal',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+               $(".zhuyuan").text(data);
+            }
+        })
+        $.ajax({
+            url: 'main/currentZhuYuan',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $(".currentZhuYuan").text(data);
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

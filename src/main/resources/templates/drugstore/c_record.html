@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>仓库操作记录</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+
+<body>
+
+<form class="layui-form"  lay-filter="dataFrm" lay-verify="required"  id="dataFrm">
+    <input type="hidden" name="jilutype" id="jilutype">
+<select  lay-filter="sel" lay-verify="required"  id="sel">
+    <option value="正常出库" >
+        正常出库
+    </option>
+    <option value="常规入库">
+        常规入库
+    </option>
+    <option value="销毁过期药品">
+        销毁
+    </option>
+    <option value="补给">
+        紧急出库
+    </option>
+    <option value="回收">
+        库房回收
+    </option>
+    <option value="" selected="selected">
+        全部类型
+    </option>
+</select>
+</form>
+<div id="dtable" style="border: 1px solid #fff;">
+    <table class="layui-hide" id="userTable" lay-filter="userTable"  ></table>
+</div>
+<div style="display: none;" id="userToolBar">
+</div>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="add" id="buji">补给</a>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+
+    var tableIns;
+    var tableIns1;
+
+    layui.extend({
+        // dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util','laydate' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var laydate = layui.laydate;
+
+        tableIns = table.render({
+            elem: '#userTable'   //渲染的目标对象
+            , url: '../record/selrecord' //
+            , title: '历史操作记录表'//数据导出来的标题
+            , toolbar: "#userToolBar"   //表格的工具条
+            , height: 'full-200'
+            , cellMinWidth: 150 //设置列的最小默认宽度
+            , page: 1  //是否启用分页, limits: [10, 20, 30]
+            , limits: [10, 20, 30]
+            , limit: 10//默认采用3
+            , cols: [[   //列表数据
+                {field: 'jiluid', title: 'ID', align: 'center', width: "10%"}
+                , {field: 'jiluname', title: '药品名称', align: 'center', width: "15%"}
+                , {field: 'jilupihao', title: '药品批号', align: 'center', width: "15%"}
+                , {field: 'jilutime', title: '操作时间', align: 'center', width: "20%" ,templet: "<div>{{layui.util.toDateString(d.jilutime, 'yyyy年MM月dd日 HH时:mm分:ss秒')}}</div>",sort:true}
+                , {field: 'jilutype', title: '操作类型', align: 'center', width: "20%"}
+                , {field: 'jilupeople', title: '经办人', align: 'center', width: "10%"}
+                , {field: 'jilunumber', title: '数量', align: 'center', width: "10%"}
+
+                ]]
+        });
+
+//下拉框 模糊查询
+        form.on('select(sel)', function(data) {
+            var jilutype = data.value;//得到被选中的值
+            $("#jilutype").val(jilutype);
+            var params=$("#dataFrm").serialize();
+            tableIns.reload({
+                url:"../record/selrecord?"+params
+            })
+
+        });
+
+    });
+
+</script>
+</body>
+</html>

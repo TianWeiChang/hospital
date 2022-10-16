@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../css/c_beputinstorage.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+    <style>
+        .layui-inline{
+            margin: 10px 80px;
+        }
+        .layui-form-item{
+          margin-top: -20px;
+        }
+    </style>
+</head>
+<body>
+<input id="jingbanren" type="hidden" th:value="${session.yonghu}">
+<div class="panel-body"  >
+</div>
+<div id="input_kuang">
+    <blockquote class="layui-elem-quote">
+    <form id="form_drug">
+
+    <!--<input type="hidden"   >  -->
+<input type="hidden"  id="supplierId"  name ="supplierId"    ><!--供货商supplierId-->
+<input type="hidden"  id="skullId"  name ="skullId"   ><!--经办人skullId-->
+<input type="hidden"  id="warehouseId"  name ="warehouseId"   ><!--仓库warehouseId-->
+    <input type="hidden"  id="unit"  name ="unit"   ><!--计量单位unit-->
+    <input type="hidden"  id="area"  name ="area"   ><!--产地area-->
+    <input type="hidden"  id="type"  name ="type"   ><!--药品类型area-->
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">供货单位:</label>
+                <div class="layui-input-inline">
+                    <input type="text"  id="text_upplier"  class="layui-input"   readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">库房名:</label>
+                <div class="layui-input-inline">
+                    <input type="text"  id="text_warehuose" class="layui-input"  readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">经办人:</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="text_skull"  class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">药品名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="drugstoreName" name="drugstoreName"  class="layui-input">
+                    <button type="button"  id="seldrugdty" class="layui-btn layui-btn-sm" style="margin-left: 150px;margin-top: -65px;">
+                        <i class="layui-icon">&#xe655;</i></button>
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">当前库存:</label>
+                <div class="layui-input-inline">
+                    <input type="text" readonly id="dqkucun"  class="layui-input" th:text="${drugnumber}" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">入库数量:</label>
+                <div class="layui-input-inline">
+                    <input type="number"id="drugstorenum" name="drugstorenum"  class="layui-input" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">批发价:</label>
+                <div class="layui-input-inline">
+                    <input type="number" id="tradePrice" name="tradePrice"  class="layui-input" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">销售价:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sellingPrice"  id="sellingPrice"  class="layui-input" autocomplete="off" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; ">入库批号:</label>
+                <div class="layui-input-inline">
+                    <input type="text"  id="batch"  name="batch"  class="layui-input"  readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline" style="width: 350px;">
+                <label class="layui-form-label" style="width:100px; ">生产日期:</label>
+                <div class="layui-input-inline">
+                    <input type="date" id="produceDate" name="produceDate"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="margin-left: 59px;">
+                <label class="layui-form-label"  style="width:100px;">有效日期:</label>
+                <div class="layui-input-inline">
+                    <input type="date"  id="validDate"  name="validDate"  class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label"  style="width:100px; "></label>
+                <div class="layui-input-inline">
+                    <button type="button"  id="beginrk"   class="layui-btn  layui-icon "> 准备入库</button>
+                    <button type="button" id="tianjia"  style="margin-top: -60px;margin-left: 135px;"
+                     class="layui-btn  layui-icon " lay-filter="doSubmit" ><i class="layui-icon">&#xe608;</i> 添加</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </blockquote>
+</div>
+
+<div id="type-content"  style="display: none">
+   <div id="ghs">
+         供货商：<select  name="upplier" id="upplier_select"  >
+            <option  th:each="map:${selupp}"  th:text="${map.supplierName}" th:value="${map.supplierId}">
+            </option>
+                 </select>
+        </div>
+    <div id="jbr">
+        经办人：<select  name="selskull" id="skull_select">
+        <option  th:each="map:${selsku}"  th:text="${map.skullName}" th:value="${map.skullId}" >
+        </option>
+               </select>
+    </div>
+    <div id="ck">
+        仓库：<select  name="selwar" id="warhuose_select" >
+        <option  th:each="map:${selwar}"  th:text="${map.supplierName}"th:value="${map.warehouseId}" >
+        </option>
+            </select>
+    </div>
+    <button type="button"  id="sure_button" class="layui-btn layui-btn-normal  layui-icon "><i class="layui-icon">&#xe605;</i> 确定</button></br>
+    </div>
+<div>
+    <div id="chaxunkuang" style="display: none">
+    <form class="layui-form" method="post" id="searchFrm">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">药名:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="drugName"   class="layui-input" >
+                    <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
+                    <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+
+
+<table class="layui-hide" id="userTable" lay-filter="userTable">
+
+</table>
+</div>
+<div style="display: none; " id="userToolBar" >
+
+</div>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">选择</a>
+</div>
+
+
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+
+    var tableIns;
+    layui.extend({
+        // dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util'], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var url;
+        var mainIndex;
+        //保存
+
+
+//点击准备入库
+        $('#beginrk').click(function(e){
+            //获取系统当前时间
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth()+1;
+            var day = date.getDate();
+            var d=(year+"-"+month+"-"+day);
+
+
+        $("#batch").val(year+""+month+""+day);//批号
+           /* alert(year+""+month+""+day);*/
+            mainIndex=layer.open({
+                content: $("#type-content"),
+                type:1,
+                title:'入库准备',
+                area:['600px','400px']
+            });
+            //准备入库里面的确定
+            $('#sure_button').click(function(){
+                layer.close(mainIndex);
+                //获得下拉框里的选中的值
+               var a1= $("#upplier_select option:selected").val();
+               //赋给页面对应的文本框
+                $("#supplierId").val(a1);
+                var a2= $("#skull_select option:selected").val();
+                $("#skullId").val(a2);
+                var a3= $("#warhuose_select option:selected").val();
+                $("#warehouseId").val(a3);
+                var selectupplier = $("#upplier_select option:selected").text();
+                $("#text_upplier").val(selectupplier);
+                var selectskull = $("#skull_select option:selected").text();
+                $("#text_skull").val(selectskull);
+                var selectwarhuose = $("#warhuose_select option:selected").text();
+                $("#text_warehuose").val(selectwarhuose);
+
+
+                $('#tianjia').click(function() {
+                    var dateAStr=$("input[name=produceDate]").val();//获取生产日期文本框内容
+                    var produceDate=new Date(dateAStr);//获取时间 Date 对象用于处理日期和时间
+                    var dateAT=produceDate.getTime();//时间戳转化为日期类型
+                    var dateBStr=$("input[name=validDate]").val();//获取有效日期文本框内容
+                    var validDate=new Date(dateBStr);
+                    var dateBT=validDate.getTime();
+
+
+                    var shuliang=$("#drugstorenum").val();
+                    var tradePrice=$("#tradePrice").val();
+                    var dgsename=$("#drugstoreName").val();
+                    var shengri=$("#produceDate").val();
+                    var youri=$("#validDate").val();
+
+                    var shuliang=$("#drugstorenum").val();
+                    var jilunamez=$("#drugstoreName").val();
+                    var jilupihao= $("#batch").val();
+                    var jbr= $("#jingbanren").val();
+                    if(shuliang==""){
+                        layer.msg("数量不可为空");
+                        return false;
+                    }else if(shengri==""){
+                        layer.msg("输入正确的生产日期");
+                        return false;
+                    }  else if(youri==""){
+                        layer.msg("输入正确的有效日期");
+                        return false;
+                    }else if(dateAT>dateBT||dateAT==dateBT){
+                        layer.msg("日期格式不符");
+                        return false;
+                    }else if(dgsename==""){
+                        layer.msg("请选择药品");
+                        return false;
+                    }else if(tradePrice==""){
+
+                        layer.msg("请输入批发价");
+                        return false;
+                    }else if(shengri>d||shengri==d){
+                        layer.msg("生产日期不能大于或等于今天");
+                        return false;
+
+                    }else if(youri<d||youri==d){
+                        layer.msg("有效日期不能小于或等于今天");
+                        return false;
+
+                    }
+                    else {
+                        var params = $("#form_drug").serialize();
+
+                 $.ajax({
+
+                            url: '../seldrugstore/adddrugs',
+                            data: params+"&jiluname="+jilunamez+"&jilutype="+"常规入库"+"&jilupeople="+jbr+
+                                "&jilupihao="+jilupihao+"&jilunumber="+shuliang,
+                            dataType: 'JSON',
+                            type: 'post',
+                            success: function (data) {
+                                if (data >=0){
+                                    //清空对应文本框
+                                    $("#drugstoreName").val("");
+                                    $("#drugstorenum").val("");
+                                    $("#tradePrice").val("");
+                                    $("#produceDate").val("");
+                                    $("#validDate").val("");
+                                    $("#dqkucun").val("");
+                                    $("#sellingPrice").val("");
+                                    setTimeout(function () {
+                                        layer.msg("添加成功");
+                                    },1000)
+                                }else{
+                                    layer.msg("添加失败");
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+        });
+        $('#seldrugdty').click(function(){
+            $("#div_table").hide();
+            $("#chaxunkuang").show();
+        tableIns=table.render({
+            elem: '#userTable'   //渲染的目标对象
+            ,url:'../seldrugstore/selectdgty' //数据接口
+            ,title: '库房药品表'//数据导出来的标题
+          /*  ,toolbar:"#userToolBar"   //表格的工具条*/
+            ,height:'full-200'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                /*  SELECT dr.drugId,dr.drugName,un.unitName,dr.sellingPrice,ar.areaName,ty.typeName from drugdictionary dr,unit un,type ty,area ar where
+                  dr.unitId=un.unitId and dr.areaId=ar.areaId and dr.typeId=ty.typeId;*/
+                {field:'drugId', title:'序号',align:'center',width:"13%"}
+                ,{field:'drugName', title:'名称',align:'center',width:"13%"}
+                ,{field:'unitName', title:'单位',align:'center',width:"13%"}
+                ,{field:'sellingPrice', title:'售价',align:'center',width:"13%"}
+                ,{field:'typeName', title:'类型',align:'center',width:"13%"}
+                ,{field:'areaName', title:'产地',align:'center',width:"13%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar',align:'center',width:'17%'}
+            ]]
+        })
+
+            //模糊查询
+            $("#doSearch").click(function(){
+                var params=$("#searchFrm").serialize();
+                tableIns.reload({
+                    url:"../seldrugstore/selectdgty?"+params
+                })
+            });
+
+
+//监听行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'edit') { //编辑
+                var gonghuo = $("#text_upplier").val();
+                if (gonghuo == "") {
+                    alert("请先准备入库信息")
+                } else {
+                    layer.confirm('确定添加【' + data.drugName + '】这个药品吗', function (index) {
+                        //向服务端发送查询指令
+                        var batch = $("#batch").val()
+
+                        var drugstoreName = data.drugName;//获取药品名称
+                        $("#drugstoreName").val(drugstoreName);//放入添加入库表的药品名中drugstoreName
+                        var dName = data.unitName;//获取药品单位
+                        var dNunitId = data.unitId;//获取药品单位
+                        $("#unit").val(dNunitId);
+                        var dNareaId = data.areaId;//获取药品产地
+                        $("#area").val(dNareaId);
+                        var dNtypeId = data.typeId//获取药品类型
+                        $("#type").val(dNtypeId);
+                        var dNtsellingPrice = data.sellingPrice//获取药品清单 价格
+                        $("#sellingPrice").val(dNtsellingPrice);
+                        $.ajax({
+                            url: '../seldrugstore/selnumber',
+                            data: {"drugstoreName": drugstoreName, "batch": batch},
+                            dataType: 'JSON',
+                            type: 'post',
+                            success: function (data) {
+                                //当前药品的剩余数量
+                                $("#dqkucun").val((data+0)+ "" + dName);
+                            }
+                        });
+
+//关闭警告框
+                        layer.closeAll('dialog');
+                    });
+                }
+            }
+        });
+    });
+
+
+    });
+
+    </script>
+
+</body>
+</html>

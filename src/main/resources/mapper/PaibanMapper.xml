@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.PaibanMapper">
+ <select id="findAllPaiban" resultType="paiban">
+select d.doctorId doctorId,d.doctorName  doctorName, p.one one,p.two two,p.three three,p.four four,p.five five,p.six six,p.seven seven from doctor d LEFT JOIN paiban p on  p.doctorId=d.doctorId where d.dstate!=3
+  <where>
+   <if test="doctorName!=null and doctorName!=''">
+    doctorName like concat('%' ,concat(#{doctorName},'%'))
+   </if>
+  </where> order by d.doctorId desc
+ </select>
+ <update id="editPaiban" parameterType="paiban">
+  update paiban set one=#{one},two=#{two},three=#{three},four=#{four},five=#{five},six=#{six},seven=#{seven} where doctorId=#{doctorId}
+ </update>
+    <select id="findAllBan" resultType="ban">
+        select*from ban
+    </select>
+    <insert id="insertPaiban" parameterType="paiban">
+        insert into paiban (one,two,three,four,five,six,seven,doctorId)values (#{one},#{two},#{three},#{four},#{five},#{six},#{seven},#{doctorId})
+    </insert>
+    <select id="count" resultType="Integer">
+        select count(doctorId) from paiban where doctorId=#{Id}
+    </select>
+</mapper>

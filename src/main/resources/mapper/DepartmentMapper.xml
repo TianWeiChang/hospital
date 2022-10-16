@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.DepartmentMapper">
+ <select id="departmentList" resultType="departments">
+     select *from departments
+     <where>
+         <if test="department!=null and department!=''">
+            and department like concat('%',concat(#{department},'%'))
+         </if>
+     </where> order by departmentid desc
+ </select>
+    <insert id="addDepartment" parameterType="departments">
+        insert into departments(department)values(#{department})
+    </insert>
+    <update id="deleteDepartment" parameterType="Integer">
+        update departments set ddstate=1  where departmentId=#{departmentId}
+    </update>
+    <select id="count" resultType="int">
+        select count(*) from departments where department = #{department}
+    </select>
+
+
+</mapper>

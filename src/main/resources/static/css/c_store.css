@@ -1,0 +1,80 @@
+#ruku{
+    position: absolute;
+width: 100px;
+    height: 120px;
+    border: 1px solid #fff;
+ left:450px ;
+ top:160px ;
+    text-align: center;
+}
+#kucun{
+    position: absolute;
+    width: 100px;
+    height: 120px;
+    border: 1px solid #fff;
+    left:720px ;
+ top:160px ;
+    text-align: center;
+}
+#chuku{
+    position: absolute;
+    width: 100px;
+    height: 120px;
+    border: 1px solid #fff;
+    left:980px ;
+    top:160px ;
+    text-align: center;
+}
+#quehuo{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #fff;
+    left:720px ;
+    top:300px ;
+    text-align: center;
+
+}
+#jiya{
+    position: absolute;
+    width: 100px;
+    height: 110px;
+    border: 1px solid #fff;
+    left:720px ;
+    top:420px ;
+    text-align: center;
+}
+#guoqi{
+
+    position: absolute;
+    width: 100px;
+    height: 110px;
+    border: 1px solid #fff;
+    left:720px ;
+    top:540px ;
+    text-align: center;
+
+}
+
+.c{
+
+    margin-top:10px ;
+
+}
+.p_f{
+    font-weight: bold;
+
+}
+#ruku :hover,#kucun :hover,#chuku:hover{
+     border-radius:20px;
+     transition:1s;
+    border: 2px solid #01AAED;
+ }
+
+#quehuo:hover,#jiya:hover,#guoqi:hover{
+    border-radius:20px;
+    transition:1s;
+    border: 2px solid #01AAED;
+
+
+}

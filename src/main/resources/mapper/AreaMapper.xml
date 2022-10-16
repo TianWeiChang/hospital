@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.AreaMapper">
+ <select id="findAllArea" resultType="com.tian.entity.Area">
+     select *from Area
+     <where>
+         <if test="areaName!=null and areaName!=''">
+             areaName like concat('%',concat(#{areaName},'%'))
+         </if>
+     </where>
+ </select>
+    <insert id="addArea" parameterType="com.tian.entity.Area">
+        insert into Area(areaName)values(#{areaName})
+    </insert>
+    <delete id="deleteArea" parameterType="Integer">
+        delete from Area where areaId=#{areaId}
+    </delete>
+    <select id="count" resultType="int">
+        select count(*) from Area where areaName=#{areaName}
+    </select>
+</mapper>

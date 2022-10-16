@@ -1,0 +1,49 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.CTakeMapper">
+    <!--查询所有患者-->
+    <select id="sel" resultType="ReportVo">
+        SELECT r.reportId,r.reportName,r.carid,r.phone,r.sex,r.age,p.department,d.doctorName,r.price,e.type,r.time,r.users,r.state,e.registeredid dregisteredid,d.doctorid ddoctorid,p.departmentId ddepartmentid
+            FROM  report r,doctor d,registeredtype e,departments p
+            WHERE r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=2 AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+    </select>
+    <!--修改用户状态出院-->
+    <update id="chuku" parameterType="ReportVo">
+        UPDATE report set state=3 WHERE reportId=#{reportId}
+    </update>
+    <!--查看出院的患者-->
+    <select id="selhuan" parameterType="ReportVo" resultType="ReportVo">
+        SELECT r.reportId,r.reportName,r.sex,r.age,p.department,r.phone,r.carid,d.doctorName,r.price,e.type,r.time,r.users,r.state,r.zhuan,e.registeredid dregisteredid,d.doctorid ddoctorid,p.departmentId ddepartmentid
+        FROM  report r,doctor d,registeredtype e,departments p
+        WHERE r.doctor=d.doctorId
+        and d.registeredid=e.registeredId
+        and  r.department=p.departmentId and r.state=3
+        <if test="reportName!=null and reportName!=''">
+            and r.reportName like concat('%' ,concat(#{reportName},'%'))
+            or d.doctorName like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=3
+            or e.type like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=3
+            or p.department like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=3
+            or r.phone like concat('%' ,concat(#{phone},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=3
+            or r.carid like concat('%' ,concat(#{carid},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=3
+        </if>
+        ORDER BY r.reportid DESC
+    </select>
+    <!--查询用户的总账单价格-->
+    <select id="zong" resultType="int" parameterType="Integer">
+        select sum(repicetotal) from  cashier where  reportId=#{reid}
+    </select>
+</mapper>

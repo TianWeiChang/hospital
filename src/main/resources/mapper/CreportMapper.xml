@@ -1,0 +1,137 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.CreportMapper">
+    <!--查询所有的挂号信息-->
+    <select id="sel" resultType="ReportVo" parameterType="ReportVo">
+            SELECT r.reportId,r.reportName,DATE_FORMAT(r.time,'%Y-%m-%d') datime,substr(r.carid,1,6) carido, substr(r.carid,16,18) caridt,r.phone,r.sex,r.age,p.department,d.doctorName,r.price,e.type,r.time,r.users,r.state,e.registeredid dregisteredid,d.doctorid ddoctorid,p.departmentId ddepartmentid
+            FROM  report r,doctor d,registeredtype e,departments p
+            WHERE r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=1
+        <if test="cc==2">
+            AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+        </if>
+        <if test="cc==3">
+            AND DATE_FORMAT(r.time,'%Y-%m-%d') &gt; DATE_FORMAT(now(),"%Y-%m-%d")
+        </if>
+        <if test="reportName!=null and reportName!=''">
+            and r.reportName like concat('%' ,concat(#{reportName},'%'))
+            or d.doctorName like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=1
+          <if test="cc==2">
+            AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+          </if>
+            <if test="cc==3">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d') &gt; DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            or e.type like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=1
+            <if test="cc==2">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            <if test="cc==3">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d') &gt; DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            or p.department like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=1
+            <if test="cc==2">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            <if test="cc==3">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d') &gt; DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            or r.phone like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=1
+            <if test="cc==2">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            <if test="cc==3">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d') &gt; DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            or r.carid like concat('%' ,concat(#{reportName},'%')) and r.doctor=d.doctorId
+            and d.registeredid=e.registeredId
+            and  r.department=p.departmentId and r.state=1
+            <if test="cc==2">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d')=DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+            <if test="cc==3">
+                AND DATE_FORMAT(r.time,'%Y-%m-%d') &gt; DATE_FORMAT(now(),"%Y-%m-%d")
+            </if>
+
+        </if>
+        ORDER BY r.reportId DESC
+    </select>
+    <!--查询所有的科室-->
+    <select id="seldep" resultType="CDepartments">
+        select * from  departments
+    </select>
+    <!--查询所有的挂号类型-->
+    <select id="selreg" resultType="CRegisteredtype">
+        select * from  registeredtype
+    </select>
+    <!--根据科室和挂号类型查询医生-->
+    <select id="seldector" parameterType="CDoctor" resultType="CDoctor">
+        select * FROM doctor where departmentId=#{departmentId} and registeredid=#{registeredid} and dstate=0
+    </select>
+    <!--根据挂号类型去查找多钱-->
+    <select id="seltymo" parameterType="CRegisteredtype" resultType="Integer">
+        select price from registeredtype where registeredId=#{registeredId}
+    </select>
+    <!--添加挂号人员-->
+    <insert id="addre" parameterType="CReport">
+        INSERT INTO report (reportname,sex,age,department,doctor,reporttype,price,time,users,state,phone,carid)
+ VALUES (#{reportName},#{sex},#{age},#{department},#{doctor},#{reporttype},#{price},NOW(),#{users},1,#{phone},#{carid})
+    </insert>
+    <!--根据患者id修改该患者的状态让他在前台不显示-->
+    <update id="delre" parameterType="Integer">
+        UPDATE report SET state = 0 WHERE reportid = #{id}
+    </update>
+    <!--根据患者ID查询患者的详细信息-->
+    <select id="selById" resultType="ReportVo">
+        select*from report where reportId=#{reportId}
+    </select>
+    <!--判断正在就诊的电话唯一-->
+    <select id="phone" parameterType="ReportVo" resultType="int">
+        select count(*)from report where phone=#{phone} and state=1
+    </select>
+    <!--判断正在就诊的电话唯一-->
+    <select id="carid" parameterType="ReportVo" resultType="int">
+        select count(*) from report where carid=#{carid} and state=1
+    </select>
+    <!--查询排班的日期-->
+    <select id="one" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.one  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <select id="two" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.two  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <select id="three" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.three  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <select id="four" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.four  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <select id="five" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.five  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <select id="six" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.six  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <select id="seven" parameterType="CDoctor" resultType="CDoctor">
+    select d.doctorName doctorName,d.doctorId from doctor d, paiban p where departmentId=#{departmentId} and registeredid=#{registeredid} and d.doctorId=p.doctorId and p.seven  != '无班' and  d.dstate!=3 and d.dstate=0
+    </select>
+    <!--如果今日挂的病人没有来则删除-->
+    <update id="upddang">
+         UPDATE report SET state = 0 WHERE DATE_FORMAT(time,'%Y-%m-%d') &lt; DATE_FORMAT(now(),"%Y-%m-%d") and state=1
+    </update>
+    <!--转入住院-->
+    <update id="zhuanyuan" parameterType="CReport">
+        UPDATE report SET state =4,zhuan=#{zhuan} WHERE reportId=#{reportId}
+</update>
+</mapper>

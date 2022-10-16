@@ -1,0 +1,102 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.StoreMapper">
+   <!-- 仓库库存药品信息-->
+    <select id="selStore" resultType="Drugstore">
+        SELECT d.rugstoreId,wa.supplierName warehouseName ,wa.warehouseId,d.type typeId,d.unit unitId,d.area areaId,d. skullId , d. supplierId ,d.drugstoreName,su.supplierName ,sk.skullName,un.unitName,d.tradePrice,
+        d.sellingPrice,ar.areaName,d.produceDate,d.validDate,d.batch,d.drugstorenum,ty.typeName	from
+        drugstore d,upplier su,skull sk,warehuose wa,unit un,area ar,type ty  where d.supplierId=su.supplierId
+        and d.skullId=sk.skullId and d.warehouseId=wa.warehouseId and d.unit=un.unitId and d.type=ty.typeId and d.area=ar.areaId
+        <if test="drugstoreName!=null and drugstoreName!=''">
+        and d.drugstoreName like concat('%' ,concat(#{drugstoreName},'%'))
+        </if>
+        ORDER BY d.rugstoreId desc
+    </select>
+  <!--  药品类型-->
+    <select id="seltype" resultType="Type">
+        select * from type
+    </select>
+    <!--  单位-->
+    <select id="selunit" resultType="Unit">
+        select * from unit
+    </select>
+    <!--  产地-->
+    <select id="selarea" resultType="Area">
+        select * from area
+    </select>
+    <!--  经办人-->
+    <select id="selskull" resultType="Skull">
+        select skullId,skullName from skull
+    </select>
+    <!--  供货商-->
+    <select id="selupplier" resultType="Upplier">
+        select  supplierId,supplierName from upplier
+    </select>
+    <select id="selwarehuose" resultType="Warehuose">
+        select  * from warehuose
+    </select>
+<update id="updrugstore" parameterType="Drugstore">
+  update drugstore set drugstoreName=#{drugstoreName},
+    unit=#{unitId} , tradePrice=#{tradePrice} , sellingPrice=#{sellingPrice} ,
+area=#{areaId} , type=#{typeId} ,
+drugstorenum=#{drugstorenum},  batch=#{batch} where rugstoreId=#{rugstoreId}
+</update>
+
+   <!-- 查询缺货的药品都有哪些-->
+    <select id="selectlackdrug" resultType="Drugstore">
+        SELECT d.rugstoreId,wa.supplierName warehouseName ,d.type typeId,d.unit unitId,d.area areaId,d. skullId , d.
+        supplierId ,d.drugstoreName,su.supplierName ,sk.skullName,un.unitName,d.tradePrice,
+        d.sellingPrice,ar.areaName,d.produceDate,d.validDate,d.batch,sum(d.drugstorenum) drugstorenum,ty.typeName	from
+        drugstore d,upplier su,skull sk,warehuose wa,unit un,area ar,type ty  where d.supplierId=su.supplierId
+        and d.skullId=sk.skullId and d.warehouseId=wa.warehouseId and d.unit=un.unitId and d.type=ty.typeId
+        and d.area=ar.areaId  GROUP BY d.drugstoreName HAVING sum(d.drugstorenum)&lt;30
+    </select>
+  <!--  数量不足的药品一共有多少条-->
+    <select id="selcountless" resultType="Integer" >
+        SELECT count(d.rugstoreId)from
+        drugstore d,upplier su,skull sk,warehuose wa,unit un,area ar,type ty  where d.supplierId=su.supplierId
+        and d.skullId=sk.skullId and d.warehouseId=wa.warehouseId and d.unit=un.unitId and d.type=ty.typeId
+        and d.area=ar.areaId  GROUP BY d.drugstoreName HAVING sum(d.drugstorenum)&lt;30
+    </select>
+    <!--    仓库已经过期的药品-->
+    <select id="seldrugDate" resultType="Drugstore">
+         SELECT d.rugstoreId,wa.supplierName warehouseName ,d.type typeId,d.unit unitId,d.area areaId,d. skullId , d. supplierId ,d.drugstoreName,su.supplierName ,sk.skullName,un.unitName,d.tradePrice,
+        d.sellingPrice,ar.areaName,d.produceDate,d.validDate,d.batch,d.drugstorenum,ty.typeName	from
+        drugstore d,upplier su,skull sk,warehuose wa,unit un,area ar,type ty  where d.supplierId=su.supplierId
+        and d.skullId=sk.skullId and d.warehouseId=wa.warehouseId and d.unit=un.unitId and d.type=ty.typeId and
+         d.area=ar.areaId and d.validDate &lt;now()
+    </select>
+    <!--  过期的药品一共有多少条-->
+    <select id="selcountlessnum" resultType="Integer" >
+        SELECT count(*) from drugstore where validDate &lt;now()
+    </select>
+   <!-- 删除过期药品-->
+    <delete id="delguoqidurg" parameterType="drugstore">
+        DELETE from drugstore where rugstoreId =#{rugstoreId};
+    </delete>
+   <!-- 添加采购单-->
+    <insert id="addcaigou" parameterType="Caigou" >
+      INSERT into caigou(caigouname,gonghuoshang,danwei,candi,leixing,shuliang)
+      VALUES(#{caigouname},#{gonghuoshang},#{danwei},#{candi},#{leixing},#{shuliang})
+    </insert>
+    <!-- 添加采购药品时 查询采购表是否已存在此药-->
+    <select id="selcaigouname" resultType="Integer">
+    SELECT count(*)from  caigou where caigouname=#{caigouname}
+
+</select>
+    <!--   已存在则修改数量-->
+    <update id="upcaigounumber">
+        UPDATE caigou set shuliang =(shuliang+#{shuliang}) where caigouname=#{caigouname}
+    </update>
+ <!--   查询采购单-->
+    <select id="selcaigou" resultType="Caigou">
+        select  * from caigou
+    </select>
+<!--    删除采购数据-->
+    <delete id="delcaigou"  parameterType="Integer" >
+        delete  from caigou where caigouid =#{caigouid}
+    </delete>
+
+</mapper>

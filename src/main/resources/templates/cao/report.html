@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>门诊挂号</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+<style>
+    .image{
+        padding:30px;
+        width: 95%;
+    }
+    .image li{
+        display: block;
+        float: left;
+        border: #CCCCCC solid 1px;
+        height: 400px;
+        width: 230px;
+        text-align: center;
+        border-radius: 12px;
+        margin: 30px;
+    }
+    .xiang{
+        line-height: 400px;
+        cursor:pointer;
+    }
+    #dang{
+        height: 50px;
+        width: 500px;
+        line-height: 50px;
+        margin-left: 30px;
+    }
+</style>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>查询条件</legend>
+</fieldset>
+<form class="layui-form" id="sel">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户信息:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="reportName" id="im" placeholder="请输入你要查询的信息"  autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div id="dang">
+    <input type="radio" id="bang1"  name="dang" value="1" title="" >&nbsp;&nbsp;&nbsp;&nbsp;查看全部&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="bang2" name="dang" value="2" title="" >&nbsp;&nbsp;&nbsp;&nbsp;当天挂号&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="bang3"  name="dang" value="3" title="">&nbsp;&nbsp;&nbsp;&nbsp;预约挂号&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="hidden" id="ban" th:value="${session.ban}"/>
+</div>
+    <div id="all">
+        <ul class="image">
+            <li class="xiang" lay-event="add"><span style="font-size: 150px">+</span></li>
+            <li th:each="map:${report}" style="line-height: 40px;">
+                <form class="layui-form"  lay-filter="reall" id="reall" name="reall">
+                <div class="layui-form-item" style="height: 30px;line-height: 30px;">
+                    <label class="layui-form-label"  style="text-align: right">就诊号:</label>
+                    <div class="layui-input-block" style="text-align: left">
+                        <span th:text="${map.reportId}"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-top: -5px;">
+                    <label class="layui-form-label"  style="text-align: right">患者姓名:</label>
+                        <div class="layui-input-block" style="text-align: left">
+                        <span th:text="${map.reportName}"></span>
+                    </div>
+                </div>
+                    <div class="layui-form-item"style="margin-top:-10px;">
+                        <label class="layui-form-label"  style="text-align: right">手机号:</label>
+                        <div class="layui-input-block" style="text-align: left">
+                            <span th:text="${map.phone}"></span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item"style="margin-top:-10px;">
+                        <label class="layui-form-label"  style="text-align: right">身份证号:</label>
+                        <div class="layui-input-block" style="text-align: left">
+                            <span th:text="${map.carido}"></span><span>****</span><span th:text="${map.caridt}"></span>
+                        </div>
+                    </div>
+                <div class="layui-form-item"style="margin-top:-10px;">
+                    <label class="layui-form-label" style="text-align: right">挂号类型:</label>
+                    <div class="layui-input-block"  style="text-align: left">
+                        <span th:text="${map.type}"></span>
+                    </div>
+                </div>
+                    <div class="layui-form-item"style="margin-top:-10px;">
+                        <label class="layui-form-label" style="text-align: right">挂号时间:</label>
+                        <div class="layui-input-block"  style="text-align: left">
+                            <span th:text="${map.datime}"></span>
+                        </div>
+                    </div>
+                <div class="layui-form-item"style="margin-top:-10px;">
+                    <label class="layui-form-label" >所属科室:</label>
+                    <div class="layui-input-block"  style="text-align: left">
+                        <span th:text="${map.department}"></span>
+                    </div>
+                </div>
+                <div class="layui-form-item"style="margin-top:-10px;">
+                    <label class="layui-form-label" >就诊医生:</label>
+                    <div class="layui-input-block" style="text-align: left">
+                        <span th:text="${map.doctorName}"></span>
+                    </div>
+                </div>
+                    <input type="hidden" th:value="${map.reportId}">
+                    <button type="button"style="width:100px;margin-top:-10px;" id="delre" class="layui-btn">删除</button>
+                    <input type="hidden" th:value="${map.reportName}">
+                    <button type="button"style="width:100px;margin-top:-10px;" id="zhuanyuan" class="layui-btn">转住院</button>
+                    <input type="hidden" th:value="${map.datime}">
+                </form>
+            </li>
+        </ul>
+    </div>
+<div style="display: none;padding-top: 20px" id="saveOrUpdateDiv" >
+    <form class="layui-form"  lay-filter="dataFrm" id="dataFrm">
+        <div class="layui-form-item" style="margin-left: 0">
+            <div class="layui-inline">
+                <label class="layui-form-label">姓名:</label>
+                <div class="layui-input-inline">
+                    <input type="hidden" name="id">
+                    <input type="text" name="reportName"  lay-verify="required"   placeholder="请输入用户姓名" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="sex" value="男" title="男" checked>
+                    <input type="radio" name="sex" value="女" title="女" >
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">年龄:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="age" id="age" lay-verify="required|number"   placeholder="请输入用户年龄" autocomplete="off"
+                           class="layui-input">
+                    <input type="hidden" name="users" th:value="${session.yonghu}"/>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">电话:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" id="phon"  lay-verify="required|phone|number"   placeholder="请输入用户电话" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">身份证号:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="carid" id="idcard" lay-verify="required|identity|number"  placeholder="请输入用户身份证号" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">科室：</label>
+                <div class="layui-input-inline">
+                    <select name="department" id="departmentId"  lay-verify="required" lay-filter="departmentId">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">挂号类型:</label>
+                <div class="layui-input-inline">
+                    <select name="reporttype" id="registeredId" lay-verify="required" lay-filter="registeredId">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">医生:</label>
+                <div class="layui-input-inline">
+                    <select name="doctor" id="doctorId" lay-verify="required" lay-filter="doctorId">
+                        <option value="" class="doct"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">挂号费:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="price" id="typemoney" lay-verify="required" autocomplete="off"
+                           class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-left: 0">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="doSubmit" lay-submit="">提交</button>
+                <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="zhaunyu" style="display:none;padding-left: 20px;">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">请填写病因:</label>
+            <div class="layui-input-inline">
+                <input type="hidden" name="areaId">
+                <input type="text" name="areaName" id="bingying"  lay-verify="required"   placeholder="请输入病因" autocomplete="off"
+                       class="layui-input ">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="text-align: center;">
+        <div class="layui-input-block" style=" margin-left:0px">
+            <input type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"  id="zhuncheng" value="提交">
+            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+
+    var tableIns;
+    layui.use([ 'jquery', 'layer', 'form', 'table' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //模糊查询
+        $("#doSearch").click(function(){
+            var name=$("#im").val();
+           var cc= $('input[name="dang"]:checked').val();
+            //alert(cc);
+            location.href ="index?params="+name+"&cc="+cc;
+        });
+        //单选框选择当天的和全部的病人
+       $("input[name='dang']").click(function(){
+           var name=$("#im").val();
+           var cc= $('input[name="dang"]:checked').val();
+           location.href ="index?params="+name+"&cc="+cc;
+       })
+        $(function (){
+            var ban=$("#ban").val();
+            if(ban==1||ban==''){
+                $("#bang1").prop("checked",true);
+            }else if(ban==2){
+                $("#bang2").prop("checked",true);
+            }else{
+                $("#bang3").prop("checked",true);
+            }
+        });
+        //挂号类型的id
+        var registeredId=null;
+        //科室id
+        var departmentId=null;
+        //查看选中科室id
+        form.on('select(departmentId)', function(data){
+            departmentId=data.value;//得到被选中的值
+            //获取select属性下的所有
+            var doctorId1 = document.getElementById("doctorId");
+            doctorId1.length=0;
+            if(registeredId==null){
+                return false;
+            }else{
+                //渲染下拉框中的值
+                $.ajax({
+                    //要跳转的地址
+                    url: '../cao/seldoctor',
+                    data:{"registeredid":registeredId,"departmentId":departmentId},
+                    //数据类型
+                    dataType: 'json',
+                    //提交类型
+                    type: 'post',
+                    //查询成功后执行的方法
+                    success: function (data) {
+                        $.each(data, function (index, item) {
+                            $('#doctorId').append(new Option(""));
+                            $('#doctorId').append(new Option(item.doctorName, item.doctorId));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");//重新渲染 固定写法
+                    }
+                })
+            }
+        });
+        //查看选中的挂号类型的id
+        form.on('select(registeredId)', function(data){
+            registeredId=data.value;//得到被选中的值
+            $.ajax({
+                //要跳转的地址
+                url: '../cao/seltymo',
+                data:{"registeredId":registeredId},
+                //数据类型
+                dataType: 'json',
+                //提交类型
+                type: 'post',
+                //查询成功后执行的方法
+                success: function (data) {
+                    $('#typemoney').val(data);
+                }
+            })
+            var doctorId1 = document.getElementById("doctorId");
+            doctorId1.length=0;
+            if(departmentId==null){
+                return false;
+            }else{
+                //alert("科室"+departmentId+"类型"+registeredId);
+                //渲染下拉框中的值
+                $.ajax({
+                    //要跳转的地址
+                    url: '../cao/seldoctor',
+                    data:{"registeredid":registeredId,"departmentId":departmentId},
+                    //数据类型
+                    dataType: 'json',
+                    //提交类型
+                    type: 'post',
+                    //查询成功后执行的方法
+                    success: function (data) {
+                        $.each(data, function (index, item) {
+                            $('#doctorId').append(new Option(item.doctorName, item.doctorId));// 下拉菜单里添加元素
+                        });
+                        layui.form.render("select");//重新渲染 固定写法
+                    }
+                })
+            }
+        });
+        //渲染科室下拉框中的值
+        $.ajax({
+            //要跳转的地址
+            url: '../cao/seldep',
+            //数据类型
+            dataType: 'json',
+            //提交类型
+            type: 'post',
+            //查询成功后执行的方法
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#departmentId').append(new Option(item.department, item.departmentId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+        //渲染挂号类型的下拉框
+        $.ajax({
+            //要跳转的地址
+            url: '../cao/selreg',
+            //数据类型
+            dataType: 'json',
+            //提交类型
+            type: 'post',
+            //查询成功后执行的方法
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#registeredId').append(new Option(item.type, item.registeredId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+
+        var url;
+        var mainIndex;
+        //打开添加页面
+        $(".xiang").click(function(){
+            mainIndex=layer.open({
+                type:1,
+                title:'添加病人',
+                content:$("#saveOrUpdateDiv"),
+                area:['400px','550px'],
+                success:function(index){
+                    //清空表单数据
+                    $("#dataFrm")[0].reset();
+                    url="addre";
+                }
+            });
+        });
+        //保存
+        form.on("submit(doSubmit)",function(obj){
+            var phone=$("#phon").val();
+            var carid=$("#idcard").val();
+            var age=$("#age").val();
+            //序列化表单数据
+            var ad=$("#doctorId").val();
+            if(ad==null){
+                layer.msg("请选择要就诊的医生")
+            }else if(age<=0){
+                layer.msg("请输入正确的年龄")
+            }else{
+                $.post("../cao/phone",{"phone":phone,"carid":carid},function(obj){
+                    if(obj==1){
+                        layer.msg("该手机号的患者已存在");
+                    }else if(obj==2){
+                        layer.msg("该身份证号的患者已存在");
+                    }else if(obj==3){
+                        var params=$("#dataFrm").serialize();
+                        $.post(url,params,function(obj){
+                            layer.msg(obj);
+                            //关闭弹出层
+                            layer.close(mainIndex)
+                            //刷新数据 表格
+                            location.reload();
+                        })
+                    }
+                })
+
+            }
+        });
+        //删除
+        $(document).on("click","#delre",function(){
+            var params=$(this).prev().val();
+           $.post("../caoout/selch",{reportId:params},function(res) {
+                if (res == 0) {
+                    layer.confirm('真的删除这个用户吗', function (index) {
+                        $.post('delre',{'id':params},function(obj){
+                            layer.msg(obj);
+                            location.reload();
+                        })
+                    })
+                }else{
+                    layer.msg("该患者已经就诊请缴费后进行操作");
+                }
+            })
+        })
+        //转院
+        $(document).on("click","#zhuanyuan",function(){
+            var now = new Date();
+            var year = now.getFullYear(); //得到年份
+            var month = now.getMonth();//得到月份
+            var date = now.getDate();//得到日期
+            var params=$(this).prev().val();
+            var ids=$(this).prev().prev().prev().val();
+            var dat=$(this).next().val();//获取选中的这个时间
+            var da=year+"-"+month+"-"+date;//拼接当前时间
+            var now2 = new Date(dat);
+            var year2 = now2.getFullYear(); //得到年份
+            var month2 = now2.getMonth();//得到月份
+            var date2 = now2.getDate();//得到日期
+            var da2=year2+"-"+month2+"-"+date2;//拼接当前时间
+            if(da!=da2){
+                layer.msg("对不起您选择的不是当天的挂号")
+            }else{
+                //查询该用户处方上是否有药品
+                $.post("../caoout/selch",{reportId:ids},function(res) {
+                    if (res == 0) {
+                        //判断该用户是否有缴费未做的项目
+                        $.post("../caocc/seljiao",{"reid":ids},function(res) {
+                            if (res > 0) {
+                                layer.msg("你还有未缴费的项目请缴费后在进行该操作")
+                            } else {
+                                $.post("../caocc/selwei", {"reid": ids}, function (res) {
+                                    if (res == 1) {
+                                        layer.confirm('你确定要【' + params + '】转入住院部吗', function (index) {
+                                            $.post("../caocc/selbing", {"reid": ids}, function (obj) {
+                                                $("#bingying").val(obj);
+                                            });
+                                            mainIndex = layer.open({
+                                                type: 1,
+                                                title: '转入住院部',
+                                                content: $("#zhaunyu"),
+                                                area: ['400px', '200px']
+                                            });
+                                        })
+                                    } else {
+                                        layer.confirm("你有项目未做是否继续操作", function () {
+                                            layer.confirm('你确定要【' + params + '】转入住院部吗', function (index) {
+                                                $.post("../caocc/selbing", {"reid": ids}, function (obj) {
+                                                    $("#bingying").val(obj);
+                                                });
+                                                mainIndex = layer.open({
+                                                    type: 1,
+                                                    title: '转入住院部',
+                                                    content: $("#zhaunyu"),
+                                                    area: ['400px', '200px']
+                                                });
+                                            })
+                                        })
+                                    }
+
+                                })
+                            }
+                        })
+                        $("#zhuncheng").click(function(){
+                            var zh=$("#bingying").val();
+                            $.post('zhuanyuan',{'id':ids,'zhuan':zh},function(obj){
+                                layer.msg("转出成功");
+                                location.reload();
+                            })
+                        })
+                    }else{
+                        layer.msg("该患者已经就诊请缴费后进行操作");
+                    }
+                })
+            }
+        })
+
+    })
+
+</script>
+</html>

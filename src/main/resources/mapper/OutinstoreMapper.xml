@@ -1,0 +1,67 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.OutinstoreMapper">
+
+<select id="selbaoquedan" resultType="Baoque">
+    SELECT * from baoque  ORDER BY baoqueid desc
+
+</select>
+   <!-- 根据需要补给的药名 查询仓库表-->
+<select id="selbaoquedrugname" resultType="Drugstore" >
+              SELECT rugstoreId,drugstoreName,batch,drugstorenum from drugstore where drugstoreName=#{drugstoreName}
+</select>
+   <!-- 从库房减掉相应的补给数量-->
+    <update id="updatedrugnumber" parameterType="Drugstore" >
+        UPDATE drugstore set drugstorenum =(drugstorenum-#{drugstorenum}) where rugstoreId=#{rugstoreId}
+    </update>
+    <!-- 左边补给从报缺减掉相应的需补给数量-->
+    <update id="upbaoquenumber" >
+        update baoque set baoqueNum=(baoqueNum-#{drugstorenum}) where baoqueName=#{drugstoreName}
+    </update>
+<!--    库房拨出多少 药房加多少-->
+    <update id="uppharmacynumber">
+        update pharmacy set drugstorenum=(drugstorenum+#{drugstorenum}) where pharmacyName=#{drugstoreName}
+    </update>
+    <!--查询库房给出补给时的数量=这条药品的最大数量-->
+    <select id="seldrugnamenum" resultType="Integer">
+        SELECT count(*) from drugstore where rugstoreId=#{rugstoreId}  and drugstorenum=#{drugstorenum}
+    </select>
+    <delete id="deldrugnamenum">
+delete  from drugstore where rugstoreId=#{rugstoreId}
+    </delete>
+   <!-- 查询报缺表的数据是否有补给完毕的-->
+    <select id="selbaoquenamenum" resultType="Integer">
+        SELECT count(*) from baoque where baoqueNum &lt;1 ;
+    </select>
+    <!-- 查询报缺表的数据是否有补给完毕的   查询有则删除此条报缺-->
+    <delete id="delbaoquenamenum">
+        delete  from baoque where  baoqueNum &lt;1;
+    </delete>
+<!--    添加到药房-->
+    <insert id="addpharmacy" parameterType="Ypharmacy">
+        INSERT into pharmacy(warehouseId,pharmacyName,drugstorenum,skullId,unit,sellingPrice,area,produceDate,validDate,skullbatch,type)
+        VALUES(#{warehouseId},#{pharmacyName},#{drugstorenum},#{skullId},#{unit},#{sellingPrice},#{area},#{produceDate},#{validDate},#{skullbatch},#{type})
+    </insert>
+   <!-- //查询药房是否已存在此药-->
+    <select id="selpharymacyname" parameterType="Ypharmacy" resultType="Integer">
+         SELECT count(*)from pharmacy where pharmacyName=#{pharmacyName}
+    </select>
+<!--    //已经存在则修改此药数量-->
+    <update id="uppharymacy">
+        UPDATE pharmacy set drugstorenum=(drugstorenum+#{drugstorenum}) where pharmacyName=#{pharmacyName}
+    </update>
+  <!--  查询报缺数据有几条-->
+    <select id="selbaoquecount" resultType="Integer">
+    select count(*) from baoque
+    </select>
+  <!--  出库时某种药品时 先看看此药是否在紧急报缺表里面，有的话出库时 报缺表的此药也要随之减少-->
+    <select id="selbaoqueName" resultType="Integer">
+        SELECT count(* )from baoque where baoqueName=#{pharmacyName}
+    </select>
+    <!-- 右边出库从报缺减掉相应的需补给数量-->
+    <update id="upbaoquenumber1" >
+        update baoque set baoqueNum=(baoqueNum-#{drugstorenum}) where baoqueName=#{pharmacyName}
+    </update>
+</mapper>

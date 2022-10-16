@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.UpplierMapper">
+     <select id="findAllUpplier" resultType="Upplier">
+             select *from Upplier where state=0
+             <if test="supplierName!=null and supplierName!=''">
+                 and supplierName like concat('%',concat(#{supplierName},'%'))
+             </if>
+     </select>
+    <insert id="addUpplier" parameterType="Upplier">
+        insert into Upplier(supplierName,state)values(#{supplierName},0)
+    </insert>
+    <update id="deleteUpplier" parameterType="Integer">
+        update Upplier set  state=1 where supplierId=#{supplierId}
+    </update>
+    <select id="count" resultType="int">
+        select count(*) from Upplier where supplierName=#{supplierName} and state=0
+    </select>
+</mapper>

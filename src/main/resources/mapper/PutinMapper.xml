@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.PutinMapper">
+    <!--查询药品清单-->
+    <select id="seldcy" resultType="Drugdictionary">
+        SELECT dr.drugId,dr.drugName,un.unitId,un.unitName,dr.sellingPrice,ar.areaId,ar.areaName,ty.typeId,ty.typeName from drugdictionary dr,unit un,type ty,area ar where
+        dr.unitId=un.unitId and dr.areaId=ar.areaId and dr.typeId=ty.typeId
+        <if test="drugName!=null and drugName!=''">
+            and dr.drugName like concat('%' ,concat(#{drugName},'%'))
+        </if>
+        ORDER BY dr.drugId desc
+    </select>
+
+    <insert id="adddrugstore" parameterType="Drugstore">
+INSERT into  drugstore(drugstoreName,supplierId,skullId,warehouseId,unit,tradePrice,sellingPrice,area,type,produceDate,validDate,drugstorenum,batch)
+ VALUES(#{drugstoreName},#{supplierId},#{skullId},#{warehouseId},#{unit},#{tradePrice},#{sellingPrice},#{area},#{type},#{produceDate},#{validDate},#{drugstorenum},#{batch})
+    </insert>
+    <select id="seldrugname" resultType="Integer">
+        SELECT count(*) from drugstore where drugstoreName=#{drugstoreName} and batch=#{batch}
+    </select>
+    <!--   根据批号添加药品数量-->
+    <update id="updrugnumber">
+        UPDATE drugstore set drugstorenum=(drugstorenum+#{drugstorenum}) where batch=#{batch}
+    </update>
+    <!-- 查询即将入库的药品 库房的库存-->
+    <select id="selnumber" resultType="int" >
+        SELECT sum(drugstorenum) from drugstore where drugstoreName=#{drugstoreName}
+    </select>
+</mapper>

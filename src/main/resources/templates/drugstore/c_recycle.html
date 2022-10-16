@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>药品回收</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+<body>
+<span style="font-family: 新宋体;font-size: 1.3em;margin-left: 500px;" >问题药品</span>
+<input id="jingbanren" type="hidden" th:value="${session.yonghu}">
+
+<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+<div style="display: none;" id="userToolBar">
+
+</div>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">已处理</a>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    layui.extend({
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util','laydate' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var  util = layui.util;
+        var laydate = layui.laydate;
+
+        tableIns=table.render({
+            elem: '#userTable'   //渲染的目标对象
+            ,url:'../pharmacy/selecthuishou' //数据接口
+            ,title: '库房药品表'//数据导出来的标题
+            ,toolbar:"#userToolBar"   //表格的工具条
+            ,height:'full-200'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                {field:'huishouid', title:'ID',align:'center',width:"8%"}
+                ,{field:'huishouname', title:'药品名称',align:'center',width:"12%"}
+                ,{field:'huishounumber', title:'数量',align:'center',width:"10%"}
+                ,{field:'huishoupihao', title:'批号',align:'center',width:"10%"}
+                ,{field:'jbr', title:'经办人',align:'center',width:"12%"}
+                ,{field:'beizhu', title:'备注信息',align:'center',width:"35%"}
+                , {fixed: 'right', title: '操作', toolbar: '#userBar', align: 'center', width: '13%'}
+
+            ]]
+        });
+
+
+        //监听行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                var jbr= $("#jingbanren").val();
+                layer.confirm('确定处理【'+data.huishouname+'】这个药品吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("../pharmacy/delhuishou",{huishouid:data.huishouid,
+                        jiluname:data.huishouname,jilutype:"处理回收药品",jilupeople:jbr,
+                        jilupihao:data.huishoupihao,jilunumber:data.huishounumber
+                    },function(res){
+                        if(res==1){
+                            layer.msg("已处理");
+                            //刷新数据 表格
+                            tableIns.reload();
+                        }else{
+                            layer.msg("失败");
+                        }
+
+                    })
+                });
+            }
+        });
+
+
+    });
+</script>
+</body>
+</html>

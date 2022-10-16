@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>处方划价</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+    <style>
+        .nam{
+            width: 80px;
+            font-size:16px;
+            color: #737383;
+            padding-left: 20px;
+        }
+        .sbb{
+            width: 150px;
+            text-align: center;
+        }
+        #repi{
+            margin-top:60px;
+            margin-left: 60px;
+            height: 400px;
+        }
+        #pay{
+            text-align: center;
+            font-size: 16px;
+            color: #737383;
+            margin-top: 10px;
+        }
+        .inp{
+            border: #CCCCCC solid 1px;
+            height: 35px;
+            border-radius: 3px;
+            width: 200px;
+        }
+        #tibu{
+            width: 100px;
+            background-color:rgb(1,150,136);
+            border: 0px;
+            border-radius: 3px;
+            margin-right: 20px;
+            height: 30px;
+            font-size: 14px;
+            color: white;
+            cursor: pointer;
+        }
+        #qubu{
+            width: 100px;
+            background-color:#CCCCCC;
+            border: 0px;
+            border-radius: 3px;
+            margin-left: 20px;
+            height: 30px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #selinp1{
+            width: 200px;
+            height: 40px;
+            border:solid #CCCCCC 1px;
+            border-radius: 2px;
+            margin-left: 20px;
+        }
+        #selbut1{
+            width: 100px;
+            height: 40px;
+            background-color:rgb(1,150,136);
+            color: white;
+            border: 0px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body>
+<!--头部显示信息开始-->
+<div>
+    <form class="layui-form" method="post" id="dataFrm">
+        <table style="margin-top: 20px;margin-left: 30px;">
+            <tr>
+                <td class="nam">姓名:</td>
+                <td class="valu">
+                    <input id="reid" type="hidden" class="layui-input" readonly name="reportId"/>
+                    <input id="rename" class="layui-input" type="text" readonly name="reportName"/> </td>
+                <td class="nam">身份证号:</td>
+                <td class="valu"><input id="carid" class="layui-input" type="text" readonly name="carid"/> </td>
+                <td class="nam">性别:</td>
+                <td class="valu"><input id="resex" class="layui-input" type="text" readonly/> </td>
+                <td class="nam">年龄:</td>
+                <td class="valu"><input id="age" class="layui-input" type="text" readonly/> </td>
+                <td rowspan="3" class="sbb">
+                    <input id="sbut" type="button" class="layui-btn layui-icon-add-circle-fine" value="选择患者">
+                </td>
+            </tr>
+            <tr style="height: 10px"></tr>
+            <tr>
+                <td class="nam">科室:</td>
+                <td class="valu"><input class="layui-input" id="rede" type="text" readonly/> </td>
+                <td class="nam">医生:</td>
+                <td class="valu"><input class="layui-input" id="redo" type="text" readonly/> </td>
+                <td class="nam">电话:</td>
+                <td class="valu"><input class="layui-input"  id="phone" type="text" readonly/> </td>
+                <td class="nam">挂号费:</td>
+                <td class="valu"><input class="layui-input"  id="price" type="text" readonly/> </td>
+        </table>
+    </form>
+</div>
+<!--头部显示信息结束-->
+
+<!--病号信息弹出层开始-->
+<div style="display: none;padding-top: 20px" id="peopleimgeDiv" >
+    <div id="adddrug1">
+        <input type="text" placeholder="请输入你要查询的信息" id="selinp1" autocomplete="off" >
+        <input type="button" id="selbut1" value="查询"/>
+    </div>
+    <table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+    <div  id="userBar" style="display: none;">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">选择</a>
+    </div>
+</div>
+<!--病号信息弹出层结束-->
+<!--处方页面开始-->
+<div id="repi">
+    <table class="layui-hide" id="repiid" lay-filter="repiid"></table>
+</div>
+<!--处方页面结束-->
+<!--编辑按钮-->
+<div  id="userbian" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</div>
+<!--编辑按钮结束-->
+<!--填写病因页面开始-->
+<div style="display: none;padding-top: 20px" id="bingye" >
+    <div style="height: 30px;width: 100px;margin-left:30px;line-height: 30px;">填写用户病状:</div>
+    <textarea id="bingyi" style="width: 600px;margin-left: 30px;height: 300px;" required lay-verify="required" placeholder="请输入症状病状" class="layui-textarea"></textarea>
+    <div style="height: 100px;width: 600px;margin-left:30px;text-align: center;line-height: 100px;">
+        <input type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" id="addbing" style="height:40px;width: 100px;" value="提交">
+        <input type="button" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh layui-icon-delete" id="qu" style="height:40px;width: 100px;" value="取消" >
+    </div>
+</div>
+<input type="hidden" id="cashier"><!--项目id-->
+<!--填写病因页面结束-->
+</body>
+<script th:src="@{/layui/layui.js}"></script>
+
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    var hua;
+    var xinagmu;
+    var people;
+    layui.use([ 'jquery', 'layer', 'form', 'table' ], function() {
+
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //查询患者信息表
+        var mainIndex;
+        $("#sbut").click(function(){
+            mainIndex=layer.open({
+                type:1,
+                title:'选择病人',
+                content:$("#peopleimgeDiv"),
+                area:['1300px','500px'],
+                success:function(index){
+                    people=table.render({
+                        elem: '#userTable'   //渲染的目标对象
+                        ,url:'../caocc/selpreson' //数据接口
+                        ,title: '用户数据表'//数据导出来的标题
+                        ,cellMinWidth:200 //设置列的最小默认宽度
+                        /*,parseData:function(res){
+                             return{
+                                 "code":0,//如果不用分页后台没有用分页设置code:0的话需要加上这句话
+                                 data:res//要不然会报会报返回的数据类型不符合规范
+                             }
+                         }*/
+                        ,page: 1  //是否启用分页, limits: [10, 20, 30]
+                        ,limits: [5, 10, 15]
+                        ,limit: 5//默认采用3
+                        ,cols: [[   //列表数据
+                            {field:'reportId', title:'单据号',align:'center',width:"8%"}
+                            ,{field:'reportName', title:'姓名',align:'center',width:"8%"}
+                            ,{field:'phone', title:'电话',align:'center',width:"8%"}
+                            ,{field:'carid', title:'身份证号',align:'center',width:"8%"}
+                            ,{field:'sex', title:'性别',align:'center',width:"8%"}
+                            ,{field:'age', title:'年龄',align:'center',width:"8%"}
+                            ,{field:'department', title:'科室',align:'center',width:"8%"}
+                            ,{field:'doctorName', title:'医生',align:'center',width:"8%"}
+                            ,{field:'type', title:'挂号类别',align:'center',width:"8%"}
+                            ,{field:'time', title:'挂号时间',align:'center',width:"8%"}
+                            ,{field:'price', title:'挂号费',align:'center',width:"8%"}
+                            ,{fixed: 'right', title:'操作', toolbar: '#userBar',align:'center',width:'8%'}
+                        ]]
+                    })
+                }
+            });
+        });
+        //监听患者行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'edit'){ //编辑
+                $("#reid").val(data.reportId)
+                $("#rename").val(data.reportName)
+                $("#resex").val(data.sex)
+                $("#age").val(data.age)
+                $("#rede").val(data.department);
+                $("#redo").val(data.doctorName);
+                $("#carid").val(data.carid);
+                $("#phone").val(data.phone);
+                $("#price").val(data.price);
+                var perid=data.reportId;
+                //查询该用户的处方
+                layer.close(mainIndex)
+                wareid=data.value;//获取选中的药房的id
+                hua=table.render({
+                    elem: '#repiid'   //渲染的目标对象
+                    ,url:'../xpay/selcha?perid='+perid //数据接口
+                    ,title: '患者项目'
+                    ,cellMinWidth:200 //设置列的最小默认宽度
+                    ,page: 1  //是否启用分页, limits: [10, 20, 30]
+                    ,limits: [5, 10, 15]
+                    ,limit: 5//默认采用3
+                    ,cols: [[   //列表    数据
+                        {field:'durgname', title:'药品名称',align:'center',width:"15%"}
+                        ,{field:'durgnum', title:'数量',align:'center',width:"15%"}
+                        ,{field:'repiceprice', title:'单价',align:'center',width:"15%"}
+                        ,{field:'repicetotal', title:'小计',align:'center',width:"15%"}
+                        ,{fixld: 'jie', title:'状态',align:'center',width:'15%',templet:function(d){
+                            if(d.jie==null||d.jie==''){
+                                return '<font color=red>未检查</font>'
+                            }else{
+                                return '<font color=blue>已检查</font>'
+                            }
+                            }}
+                        ,{fixed: 'right', title:'操作', toolbar: '#userbian',align:'center',width:'15%'}
+                    ]]
+                })
+            }
+        });
+        var bingying;
+        //打开填写页面
+        function openUpdate(data) {
+            bingying=layer.open({
+                type:1,
+                title:'填写症状',
+                content:$("#bingye"),
+                area:['700px','500px']
+            });
+            $("#bingyi").val(data.jie);
+            $("#cashier").val(data.cashier);
+        }
+        //监听项目表格数据
+        table.on('tool(repiid)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'edit'){ //查看
+                openUpdate(data);
+            }
+        });
+        //点击病因提交按钮
+        $("#addbing").click(function(){
+            var reid=$("#reid").val();
+            var bing=$("#bingyi").val();
+            var cashier=$("#cashier").val();
+            $.post("../xpay/addbing",{"reid":reid,"bing":bing,cashier:cashier},function(obj){
+                if(obj>0){
+                    $("#bingyi").val("");
+                    layer.msg("添加成功");
+                    layer.close(bingying);
+                    hua.reload();
+                }else{
+                    $("#bingyi").val("");
+                    layer.close(bingying);
+                    hua.reload();
+                    layer.msg("添加失败");
+                }
+            });
+        })
+        //点击病因取消按钮
+        $("#qu").click(function(){
+            $("#bingyi").val("");
+            layer.close(bingying)
+        })
+        //关闭病况页面
+        $("#qubu").click(function(){
+        })
+        //用户模糊查询
+        $(document).on('click',"#selbut1",function(){
+            var durgname=$("#selinp1").val()
+            people.reload({
+                url:"../caocc/mohu?durgname="+durgname
+            })
+        });
+    })
+</script>
+</html>

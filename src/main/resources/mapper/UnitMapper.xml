@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.UnitMapper">
+ <select id="findAllUnit" resultType="Unit">
+     select *from Unit
+     <where>
+         <if test="unitName!=null and unitName!=''">
+             unitName like concat('%',concat(#{unitName},'%'))
+         </if>
+     </where> order by unitid desc
+ </select>
+    <insert id="addUnit" parameterType="Unit">
+        insert into Unit(unitName)values(#{unitName})
+    </insert>
+    <delete id="deleteUnit" parameterType="Integer">
+        delete from Unit where unitId=#{unitId}
+    </delete>
+    <select id="count" resultType="int">
+        select count(*) from Unit where unitName=#{unitName}
+    </select>
+</mapper>

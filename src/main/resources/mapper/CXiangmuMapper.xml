@@ -1,0 +1,26 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.CXiangmuPayMapper">
+    <!--查询该患者的所有收费项目-->
+   <select id="selxiang" parameterType="Integer" resultType="CCashier">
+       select * from cashier where reportId=#{reid} and state=1 and mstate=0 ORDER BY cashier DESC
+   </select>
+    <!--查询该患者有没有收费项目-->
+    <select id="selshoux" parameterType="Integer" resultType="Integer">
+        select sum(repicetotal) from  cashier where  reportId=#{perid} and state =1 and mstate=0
+    </select>
+    <!--用户项目收费修改用户的项目收费状态-->
+    <update id="updxiang" parameterType="Integer" >
+        UPDATE cashier SET mstate = 1 WHERE reportId=#{perid} and mstate = 0
+    </update>
+    <!--项目检查页面查询用户所有要检查的项目-->
+    <select id="selcha" parameterType="Integer" resultType="CCashier">
+        select  * from  cashier where reportId=#{perid} and state=1 and ostate=1 and mstate=1 ORDER BY cashier DESC
+    </select>
+    <!--添加项目的检查结果-->
+    <update id="addjie" parameterType="CCashier">
+      UPDATE cashier SET jie = #{jie} WHERE reportId=#{reportId} and cashier = #{cashier}
+    </update>
+</mapper>

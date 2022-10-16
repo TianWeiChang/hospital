@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>菜单管理</title>
+        <link rel="icon" href="favicon.ico">
+        <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+        <link rel="stylesheet" th:href="@{/css/public.css}" media="all"/>
+        <link rel="stylesheet" th:href="@{/layui_ext/dtree/dtree.css}">
+        <link rel="stylesheet" th:href="@{/layui_ext/dtree/font/dtreefont.css}">
+    </head>
+    <body>
+        <ul id="menuTree" class="dtree" data-id="0"></ul>
+        <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+        <script type="text/javascript">
+            var menuTree;
+            layui.extend({
+                dtree: 'layui_ext/dist/dtree'
+            }).use(['jquery', 'layer', 'form', 'dtree'], function () {
+                var $ = layui.jquery;
+                var layer = layui.layer;
+                var form = layui.form;
+                var dtree = layui.dtree;
+
+                // 初始化树
+                menuTree = dtree.render({
+                    elem: "#menuTree",
+                    dataStyle: "layuiStyle",  //使用layui风格的数据格式
+                    response: {message: "msg", statusCode: 0},  //修改response中返回数据的定义
+                    dataFormat: "list",  //配置data的风格为list
+                    url: "sel/loadMenuMangerLeftTreeJson" // 使用url加载（可与data加载同时存在）
+                });
+
+                //监听树的节点点击 事件
+                dtree.on("node('menuTree')", function (obj) {
+                    var id = obj.param.nodeId;
+                    window.parent.right.reloadTable(id);
+                });
+            });
+        </script>
+    </body>
+</html>

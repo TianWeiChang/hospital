@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.RoleMapper">
+    <select id="loadAllRole" resultType="role">
+        select roleid,rolename,roledesc,available from sys_role
+        <where>
+            <if test="rolename!=null and rolename!=''">
+                rolename like concat('%' ,concat(#{rolename},'%'))
+            </if>
+            <if test="roledesc!=null and roledesc!=''">
+                and roledesc like concat('%' ,concat(#{roledesc},'%'))
+            </if>
+            <if test="available!=null">
+                and available=#{available}
+            </if>
+        </where>
+    </select>
+    <insert id="insertRole" parameterType="role">
+        insert into sys_role(rolename,roledesc,available)values(#{rolename},#{roledesc},#{available})
+    </insert>
+    <update id="updateRole" parameterType="role">
+        update sys_role set rolename=#{rolename},roledesc=#{roledesc},available=#{available} where roleid=#{roleid}
+    </update>
+    <!--删除角色与角色所对应的菜单还有角色与菜单的中间表-->
+    <delete id="deleteRoleId" parameterType="Integer">
+        delete from sys_role where roleid=#{roleid}
+    </delete>
+    <delete id="deleteRoleMenuId" parameterType="Integer">
+        delete from sys_role_menu where rid=#{roleid}
+    </delete>
+    <delete id="deleteRoleUserId" parameterType="Integer">
+        delete from sys_role_user where rid=#{roleid}
+    </delete>
+    <insert id="insertRoleMenu">
+        insert into sys_role_menu(rid,mid)values(#{rid},#{mid});
+    </insert>
+</mapper>

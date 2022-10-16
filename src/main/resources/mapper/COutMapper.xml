@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.COutMapper">
+    <!--查询所有药品信息-->
+    <select id="selout" resultType="Coutpatienttype" parameterType="coutpatienttype">
+        SELECT o.*,u.unitName FROM outpatienttype o,unit u WHERE o.unit=u.unitId
+        <if test="projectName!=null and projectName!=''">
+        and  o.projectName like concat('%' ,concat(#{projectName},'%'))
+        </if>
+    </select>
+    <!--查询该用户上有没有该项目-->
+    <select id="selchuo" resultType="Integer" parameterType="CCashier">
+        SELECT * FROM cashier WHERE reportId=#{reportId} AND durgname=#{durgname} ORDER BY cashier DESC
+    </select>
+    <!--添加处方项目-->
+    <insert id="addchuo" parameterType="CCashier">
+        INSERT INTO cashier (reportId,durgname,durgnum,repiceprice,repicetotal,state,ctime,ostate,mstate)
+        VALUES (#{reportId},#{durgname},#{durgnum},#{repiceprice},#{repicetotal},1,NOW(),#{ostate},0)
+    </insert>
+    <!--修改处方表上的信息-->
+    <update id="updchuo" parameterType="CCashier">
+        UPDATE cashier SET durgnum = durgnum+#{durgnum},repicetotal=repicetotal+#{repicetotal} WHERE durgname = #{durgname}
+    </update>
+    <!--删除处方中的项目-->
+    <delete id="delo" parameterType="CCashier">
+        DELETE FROM cashier WHERE cashier = #{cashier}
+    </delete>
+    <!--查询该用户的处方总价-->
+    <select id="selch" parameterType="CCashier" resultType="Double">
+      SELECT SUM(repicetotal) FROM cashier WHERE reportId=#{reportId} and state=0
+    </select>
+    <!--修改患者信息-->
+    <update id="shoufei" parameterType="ReportVo">
+        UPDATE report set state=2 WHERE reportId=#{reportId}
+    </update>
+    <!--添加挂号费到收费白上-->
+    <insert id="guafei" parameterType="ReportVo">
+        insert into cashier (reportid,durgname,durgnum,repiceprice,repicetotal,state,ctime)values (#{reportId},'挂号费',1,#{price},#{price},2,NOW())
+    </insert>
+</mapper>

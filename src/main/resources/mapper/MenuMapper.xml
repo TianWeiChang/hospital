@@ -1,0 +1,57 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.MenuMapper">
+    <select id="loginname" resultType="User">
+        select*from sys_user where loginname=#{loginname} and available=1
+    </select>
+
+    <!-- 加载左侧导航 查询所有可用菜单-->
+    <select id="loadAvailableMenu" resultType="Menu">
+        select *from sys_menu where available=1
+    </select>
+    <!--查询右侧加载的菜单-->
+    <select id="queryMenuAllList" resultType="menu">
+        select*from sys_menu
+        <where>
+            <if test="title!=null and title!=''">
+                title like concat('%',concat(#{title},'%'))
+            </if>
+            <if test="id!=null and id!=''">
+                and id = #{id}
+            </if>
+        </where>
+    </select>
+    <!--添加菜单-->
+    <insert id="addMenu" parameterType="menu">
+        insert into
+        sys_menu(pid,title,href,spread,target,icon,available)values(#{pid},#{title},#{href},#{spread},null,#{icon},#{available})
+    </insert>
+    <!--删除菜单-->
+    <delete id="deleteMenu" parameterType="Integer">
+        delete from sys_menu where id=#{id}
+    </delete>
+    <!--检查父级中是否有子级菜单-->
+    <select id="checkMenuHasChildren" parameterType="Integer" resultType="Integer">
+        select count(1) from sys_menu s1,sys_menu s2 where s1.id=s2.pid and s1.id=#{id}
+    </select>
+    <!--修改菜单-->
+    <update id="updateMenu" parameterType="menu">
+        update sys_menu set
+        pid=#{pid},title=#{title},href=#{href},spread=#{spread},target=#{target},icon=#{icon},available=#{available}
+        where id=#{id}
+    </update>
+    <!--按照角色id查询菜单-->
+    <select id="queryMenuByRoleId" parameterType="Integer" resultType="menu">
+        select t1.* from sys_menu t1 INNER JOIN sys_role_menu t2 on t1.id=t2.mid where available=1 and t2.rid=#{rid}
+    </select>
+    <!-- 根据用户ID查询菜单 -->
+    <select id="queryMenuByUid" resultType="menu">
+		select distinct t1.* from
+		sys_menu t1 inner join sys_role_menu t2 inner join sys_role_user t3 inner join sys_role t4
+		on(t1.id=t2.mid and t2.rid=t3.rid and t2.rid=t4.roleid)
+		where t3.uid=#{uid} and t1.available=1 and t4.available=1
+	</select>
+
+</mapper>

@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.SkullMapper">
+ <select id="findAllSkull" resultType="Skull">
+     select *from Skull
+     <where>
+         <if test="skullName!=null and skullName!=''">
+             skullName like concat('%',concat(#{skullName},'%'))
+         </if>
+     </where>
+ </select>
+    <insert id="addSkull" parameterType="Skull">
+        insert into Skull(skullName)values(#{skullName})
+    </insert>
+    <update id="editSkull" parameterType="Skull">
+        update Skull set skullName=#{skullName} where skullId=#{skullId}
+    </update>
+    <delete id="deleteSkull" parameterType="Integer">
+        delete from Skull where skullId=#{skullId}
+    </delete>
+</mapper>

@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.TypeMapper">
+ <select id="findAllType" resultType="type">
+     select *from type
+     <where>
+         <if test="typeName!=null and typeName!=''">
+             typeName like concat('%',concat(#{typeName},'%'))
+         </if>
+     </where>
+ </select>
+    <insert id="addType" parameterType="type">
+        insert into type(typeName)values(#{typeName})
+    </insert>
+    <delete id="deleteType" parameterType="Integer">
+        delete from type where typeId=#{typeId}
+    </delete>
+    <select id="count" resultType="int">
+        select count(*) from type where typeName=#{typeName}
+    </select>
+</mapper>

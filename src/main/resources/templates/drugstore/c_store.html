@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>库房管理导航</title>
+    <link href="../css/c_store.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/layui/layui.js}" media="all"/>
+</head>
+<body>
+<p><a href="../dsnavigation/pharymacyhtml">药房</a></p>
+<div id="ruku"><a href="../dsnavigation/beputinstorage"><img src="../store_image/rukudan.png"  alt="入库"  /></a></div>
+ <div id="kucun"><a href="../dsnavigation/selectdurg"><img src="../store_image/kucunchaxun.png"  alt="库存查询"  /></a></div>
+    <div id="chuku"><a href="../dsnavigation/selectchuku"><img src="../store_image/chukudan.png"  alt="出库"  class="c"/></a></div>
+        <div id="quehuo"><a href="../dsnavigation/selectless"><img src="../store_image/quehuoyaopin.png"  alt="缺货提醒" class="a"/></a>
+                <p class="p_f">缺货提醒</p>
+        </div>
+            <div id="jiya"><a href=""><img src="../store_image/jiyayaopin.png"  alt="积压药品" class="a"/></a>
+                <p class="p_f">积压药品</p></div>
+                <div id="guoqi"><a href="../dsnavigation/seldrugDate"><img src="../store_image/guoqitixing.png"  alt="过期提醒" class="a"/></a>
+                    <p class="p_f">过期提醒</p></div>
+</body>
+</html>

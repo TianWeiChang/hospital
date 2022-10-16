@@ -1,0 +1,113 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.PrjectTypeMapper">
+    <!--  项目大类增删改查开始   -->
+<select id="findAllProjecttype" resultType="projecttype">
+     select *from projecttype
+     <where>
+         <if test="projectName!=null and projectName!=''">
+             projectName like concat('%',concat(#{projectName},'%'))
+         </if>
+     </where> order by projectId desc
+ </select>
+    <insert id="addProjecttype" parameterType="projecttype">
+        insert into projecttype(projectName)values(#{projectName})
+    </insert>
+    <delete id="deleteProjecttype" parameterType="Integer">
+        delete from projecttype where projectId=#{projectId}
+    </delete>
+    <select id="count1" resultType="int">
+        select count(*) from projecttype where projectName=#{projectName}
+    </select>
+    <!--项目大类增删改查结束-->
+   <!--收费比例增删改查开始-->
+    <select id="findAllMoneytype" resultType="Moneytype">
+        select *from Moneytype
+        <where>
+            <if test="moneytype!=null and moneytype!=''">
+                moneytype like concat('%',concat(#{moneytype},'%'))
+            </if>
+        </where> order by moneyId desc
+    </select>
+    <insert id="addMoneytype" parameterType="Moneytype">
+        insert into Moneytype(moneytype,percent)values(#{moneytype},#{percent})
+    </insert>
+    <update id="editMoneytype" parameterType="Moneytype">
+        update Moneytype set percent=#{percent} where moneyId=#{moneyId}
+    </update>
+    <delete id="deleteMoneytype" parameterType="Integer">
+        delete from Moneytype where moneyId=#{moneyId}
+    </delete>
+    <select id="count4" resultType="int">
+        select  count(*) from Moneytype where moneytype=#{moneytype}
+    </select>
+     <!--收费比例增删改查结束-->
+    <!--门诊收费项目增删改查开始-->
+    <select id="findAllOutpatienttype" resultType="Outpatienttype">
+        SELECT o.ostate, o.outpatientId,p.projectName pprojectName,o.projectName projectName,p.projectId projectId,u.unitName,u.unitId unitId ,o.price from outpatienttype o,unit u, projecttype p where o.unit=u.unitId and p.projectId=o.bigprojectId
+
+        <if test="projectName!=null and projectName!=''">
+              and  o.projectName like concat('%',concat(#{projectName},'%'))
+            </if> order by o.outpatientId desc
+    </select>
+   <insert id="addOutpatienttype" parameterType="Outpatienttype">
+       insert into Outpatienttype(projectName, unit, bigprojectId, price,ostate) values (#{projectName}, #{unit}, #{bigprojectId}, #{price},#{ostate})
+   </insert>
+    <update id="editOutpatienttype" parameterType="Outpatienttype">
+        update Outpatienttype set price=#{price},unit=#{unit},bigprojectId=#{bigprojectId},ostate=#{ostate} where outpatientId=#{outpatientId}
+    </update>
+    <delete id="deleteOutpatienttype" parameterType="Integer">
+        delete from Outpatienttype where outpatientId=#{outpatientId}
+    </delete>
+    <select id="count2" resultType="int">
+        select  count(*) from Outpatienttype where projectName=#{projectName}
+    </select>
+   <!-- 门诊收费项目增删改查结束-->
+    <!-- 住院收费项目增删改查开始-->
+    <select id="findAllInoutpatienttype" resultType="Inoutpatienttype">
+        SELECT i.inoutpatientId,p.projectName pprojectName,i.projectName projectName,p.projectId projectId,u.unitName,u.unitId unitId ,i.price from inoutpatienttype i,unit u, projecttype p where i.unit=u.unitId and p.projectId=i.bigprojectId
+            <if test="projectName!=null and projectName!=''">
+                and  i.projectName like concat('%',concat(#{projectName},'%'))
+            </if> order by i.inoutpatientId desc
+    </select>
+    <insert id="addInoutpatienttype" parameterType="Inoutpatienttype">
+        insert into Inoutpatienttype(projectName,price,unit,bigprojectId)values(#{projectName},#{price},#{unit},#{bigprojectId})
+    </insert>
+    <update id="editInoutpatienttype" parameterType="Inoutpatienttype">
+        update Inoutpatienttype set price=#{price},unit=#{unit},bigprojectId=#{bigprojectId} where inoutpatientId=#{inoutpatientId}
+    </update>
+    <delete id="deleteInoutpatienttype" parameterType="Integer">
+        delete from Inoutpatienttype where inoutpatientId=#{inoutpatientId}
+    </delete>
+    <select id="count3" resultType="int">
+        select  count(*) from Inoutpatienttype where projectName=#{projectName}
+    </select>
+    <!-- 住院收费项目增删改查结束-->
+    <!-- 床位增删改查开始-->
+    <select id="findAllBed" resultType="Bed">
+        select*from bed b,departments d where b.departmentId=d.departmentId
+            <if test="bedname!=null and bedname!=''">
+                and bedname like concat('%',concat(#{bedname},'%'))
+            </if> order by b.bedId desc
+    </select>
+    <insert id="addBed" parameterType="Bed">
+        insert into Bed(bedname,price,state,departmentId)values(#{bedname},#{price},0,#{departmentId})
+    </insert>
+    <update id="editBed" parameterType="Bed">
+        update Bed set price=#{price},departmentId=#{departmentId} where bedId=#{bedId}
+    </update>
+    <delete id="deleteBed" parameterType="Integer">
+        delete from Bed where bedId=#{bedId}
+    </delete>
+    <select id="count5" resultType="int">
+        select  count(*) from Bed where bedname=#{bedname}
+    </select>
+    <!-- 床位增删改查结束-->
+
+    <!--判断-->
+    <select id="checkCount" resultType="int">
+        select count(*) from bed b,register r where r.bednum=b.bedid and b.bedid=#{bedid}
+    </select>
+</mapper>

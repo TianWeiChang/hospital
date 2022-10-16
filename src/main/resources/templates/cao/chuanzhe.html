@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>查询条件</legend>
+</fieldset>
+
+<form class="layui-form" method="post" id="searchFrm">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户姓名:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name"  autocomplete="off" placeholder="请输入你要查询的信息" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+<!-- 搜索条件结束 -->
+<!-- 数据表格开始 -->
+<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">查看</a>
+</div>
+<!-- 数据表格结束 -->
+<!--患者详细信息开始-->
+<div style="display: none;padding-top: 20px" id="peopleimgeDiv" >
+    <table class="layui-hide" id="hu" lay-filter="userTable"></table>
+    <div style="float: right;margin-right: 30px;font-size: 16px;">总费用：<span style="color: red" id="zong"></span>元</div>
+</div>
+<!--患者详细信息结束-->
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    var hua;
+    layui.use([ 'jquery', 'layer', 'form', 'table'], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //渲染数据表格
+        tableIns=table.render({
+            elem: '#userTable'   //渲染的目标对象
+            ,url:'../caotake/selhuan' //数据接口
+            ,title: '患者数据表'//数据导出来的标题
+            ,height:'full-200'
+            ,cellMinWidth:200 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [5, 10, 15]
+            ,limit: 5//默认采用3
+            ,cols: [[   //列表数据
+                {field:'reportId', title:'单据号',align:'center',width:"6%"}
+                ,{field:'reportName', title:'姓名',align:'center',width:"8%"}
+                ,{field:'phone', title:'电话',align:'center',width:"9%"}
+                ,{field:'carid', title:'身份证号',align:'center',width:"9%"}
+                ,{field:'sex', title:'性别',align:'center',width:"8%"}
+                ,{field:'age', title:'年龄',align:'center',width:"5%"}
+                ,{field:'department', title:'科室',align:'center',width:"8%"}
+                ,{field:'doctorName', title:'医生',align:'center',width:"8%"}
+                ,{field:'type', title:'挂号类别',align:'center',width:"8%"}
+                ,{field:'zhuan', title:'病况',align:'center',width:"8%"}
+                ,{field:'time', title:'挂号时间',align:'center',width:"8%"}
+                ,{field:'price', title:'挂号费',align:'center',width:"6%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar',align:'center',width:'6%'}
+            ]]
+        })
+        //模糊查询
+        $("#doSearch").click(function(){
+            var params=$("#searchFrm").serialize();
+            tableIns.reload({
+                url:"../caotake/selhuan?"+params
+            })
+        });
+        var url;
+        var mainIndex;
+        //打开查看详情页面
+        function openUpdate(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'患者详情',
+                content:$("#peopleimgeDiv"),
+                area:['800px','400px']
+            });
+            hua=table.render({
+                elem: '#hu'   //渲染的目标对象
+                ,url:'../caocc/selall?perid='+data.reportId //数据接口
+                ,title: '患者信息'
+                ,cellMinWidth:200 //设置列的最小默认宽度
+                ,page: 1  //是否启用分页, limits: [10, 20, 30]
+                ,limits: [5, 10, 15]
+                ,limit: 5//默认采用3
+                ,cols: [[   //列表    数据
+                    {field:'durgname', title:'药品名称',align:'center',width:"20%"}
+                    ,{field:'durgnum', title:'数量',align:'center',width:"20%"}
+                    ,{field:'repiceprice', title:'单价',align:'center',width:"20%"}
+                    ,{field:'repicetotal', title:'小计',align:'center',width:"20%"}
+                    ,{fixed: 'right', title:'类别/结果',align:'center',width:'20%',templet:function(d){
+                            if(d.state==1){
+                                if(d.ostate==0){
+                                    return '<font color="#ff4500">项目</font>'
+                                }else if(d.jie==null||d.jie==''){
+                                    return '<font color=red>未检查</font>'
+                                }else{
+                                    return d.jie
+                                }
+                            }
+                            else{
+                                return '<font color="blue">药品</font>'
+                            }
+                        }}
+                ]]
+            })
+            //查询该用户总费用
+            $.post("../caotake/zong",{"reid":data.reportId},function(obj){
+                $("#zong").text(obj)
+            })
+        }
+        //监听行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'edit'){ //查看
+                openUpdate(data);
+            }
+        });
+    })
+</script>
+</body>
+</html>
+

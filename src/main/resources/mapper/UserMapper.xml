@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.UserMapper">
+    <select id="selectAllUser" resultType="user">
+        select * from sys_user
+        <where>
+            <if test="realname!=null and realname!=''">
+                realname like concat('%',concat(#{realname},'%'))
+            </if>
+            <if test="loginname!=null and loginname!=''">
+                and loginname like concat('%',concat(#{loginname},'%'))
+            </if>
+            <if test="identity!=null and identity!=''">
+                and identity like concat('%',concat(#{identity},'%'))
+            </if>
+            <if test="address!=null and address!=''">
+                and address like concat('%',concat(#{address},'%'))
+            </if>
+            <if test="phone!=null and phone!=''">
+                and phone like concat('%',concat(#{phone},'%'))
+            </if>
+        </where>
+    </select>
+    <!--唯一-->
+    <select id="checkUser" resultType="int">
+        select count(*) from sys_user where loginname=#{loginname}
+    </select>
+    <update id="updateUser" parameterType="user">
+        update sys_user set
+        realname=#{realname},loginname=#{loginname},address=#{address},phone=#{phone},identity=#{identity},sex=#{sex},available=#{available},position=#{position}
+        where userid=#{userid}
+    </update>
+    <select id="queryAllRole" resultType="role">
+        select*from sys_role where available=1
+    </select>
+    <insert id="addUser" parameterType="com.tian.entity.User">
+        insert into sys_user(loginname,identity,realname,sex,address,phone,pwd,position,type,available,salt)values
+        (#{loginname},#{identity},#{realname},#{sex},#{address},#{phone},#{pwd},#{position},#{type},#{available},#{salt})
+    </insert>
+    <!--根据用户id删除-->
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from sys_user where userid=#{userid}
+    </delete>
+    <delete id="deleteRoleUser" parameterType="Integer">
+        delete from sys_role_user where uid=#{userid}
+    </delete>
+    <!--重置密码-->
+    <update id="resetUserPwd" parameterType="user">
+        update sys_user set pwd=#{pwd},salt=#{salt} where userid=#{userid}
+    </update>
+    <!-- 根据用户id查询角色列表 -->
+    <select id="queryRoleById" resultType="role">
+        select t1.* from sys_role
+		t1 inner join sys_role_user t2 on t1.roleid=t2.rid where t2.uid=#{uid}
+		and t1.available=1
+    </select>
+    <!-- 保存用户和角色的关系 -->
+    <insert id="insertUserRole">
+		insert into sys_role_user(uid,rid) values(#{uid},#{rid})
+	</insert>
+
+    <select id="updateLogin" resultType="user">
+        select*from sys_user where userid=#{userid}
+    </select>
+    <update id="editLogin" parameterType="user">
+        update sys_user set identity=#{identity},realname=#{realname},sex=#{sex},address=#{address},phone=#{phone} where userid=#{userid}
+    </update>
+    <update id="editPwd" parameterType="user">
+        update sys_user set pwd=#{pwd},salt=#{salt} where loginname=#{loginname}
+    </update>
+</mapper>

@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.DoctorMapper">
+ <select id="doctorList" resultType="com.tian.entity.Doctor">
+     select*from doctor d,departments de,registeredtype r where d.departmentId=de.departmentId and d.registeredId=r.registeredId
+         <if test="doctorName!=null and doctorName!=''">
+          and   d.doctorName like concat('%',concat(#{doctorName},'%'))
+         </if>
+         <if test="dstate!=null">
+             and   d.dstate =#{dstate}
+         </if> and dstate!=3
+          ORDER BY doctorId asc
+
+ </select>
+    <insert id="addDoctor" parameterType="com.tian.entity.Doctor">
+        insert into doctor(doctorName,departmentId,registeredId,dstate)values(#{doctorName},#{departmentId},#{registeredId},#{dstate})
+    </insert>
+    <update id="editDoctor" parameterType="com.tian.entity.Doctor">
+        update doctor set departmentId=#{departmentId},registeredId=#{registeredId},dstate=#{dstate} where doctorId=#{doctorId}
+    </update>
+    <update id="deleteDoctor" parameterType="Integer">
+        update doctor set dstate=3 where DoctorId=#{DoctorId}
+    </update>
+    <select id="findAllDepartments" resultType="com.tian.entity.Departments">
+        select*from departments
+    </select>
+    <select id="findAllRegisteredtype" resultType="com.tian.entity.Registeredtype">
+        select*from Registeredtype
+    </select>
+    <select id="count" resultType="int">
+        select count(*) from doctor where doctorName=#{doctorName} and dstate=0
+    </select>
+    <select id="checkCount" resultType="int">
+    select count(r.reportId) from report r ,doctor d where r.doctor=d.doctorId and r.doctor=#{doctorId} and d.dstate=0 and r.state=1
+    </select>
+
+</mapper>

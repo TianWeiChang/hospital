@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+<body>
+<!--选择补给哪个药  需要补给的数量传过来用于判断-->
+<input id="jingbanren" type="hidden" th:value="${session.yonghu}">
+<input type="hidden" id="bqnum">
+<span  style="font-size: 1.5em;margin-left: 180px;">药房报缺药品<span class="layui-badge" th:text="${selbaoquecount}"></span></span>
+
+
+
+<span  style="font-size: 1.5em;margin-left: 530px;">库房出库</span>
+<form class="layui-form" method="post" id="searchFrm" style="margin-left: 970px;margin-top: -20px;">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <input type="text" name="drugstoreName" placeholder="药品名称" autocomplete="off" class="layui-input" >
+                <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch" style="margin-left: 210px;margin-top: -55px;">查询</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="dtable" style="border: 1px solid #fff;width: 360px;height:460px;margin-top: -20px;">
+    <table class="layui-hide" id="userTable" lay-filter="userTable"  ></table>
+</div>
+<div style="display: none;" id="userToolBar">
+</div>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="add" id="buji">补给</a>
+</div>
+
+<div id="dtable1" style="border: 1px solid #fff;width: 900px;height:470px;left: 430px;top: 65px;position: absolute;">
+    <table class="layui-hide" id="userTable1" lay-filter="userTable1"></table></div>
+<div style="display: none;" id="userToolBar1">
+</div>
+<div  id="userBar1" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="add">出库</a>
+</div>
+
+
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv" >
+    <table class="layui-hide" id="userTable2" lay-filter="userTable2"></table>
+    <div style="display: none;" id="userToolBar2">
+    </div>
+    <div  id="userBar2" style="display: none;">
+        <a class="layui-btn layui-btn-xs" lay-event="add">发出数量</a>
+    </div>
+</div>
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv1" >
+    <input type="text"id="drugstorenum" name="drugstorenum"  class="layui-input" autocomplete="off">
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    var tableIns1;
+
+
+    layui.extend({
+        // dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util','laydate' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var  util = layui.util;
+        var laydate = layui.laydate;
+        //监听行工具事件
+        //根据报缺的药名找到对应的药品批次
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'add'){ //
+                layer.confirm('开始补给【'+data.baoqueName+'】', function(index){
+                    var drugstoreName=data.baoqueName;
+                    $("#bqnum").val(data.baoqueNum);
+                    openUpdate(data);
+                    layer.closeAll('dialog');
+                    tableIns1=table.render({
+                        elem: '#userTable2'   //渲染的目标对象
+                        ,url:'../chuku/selbaoquedrugname?drugstoreName='+drugstoreName
+                        ,title: '库房药品表'//数据导出来的标题
+                        ,toolbar:"#userToolBar2"   //表格的工具条
+                        ,cellMinWidth:150 //设置列的最小默认宽度
+                        ,page: 1  //是否启用分页, limits: [10, 20, 30]
+                        ,limits: [10, 20, 30]
+                        ,limit: 10//默认采用3
+                        ,cols: [[   //列表数据
+                            {field:'rugstoreId', title:'ID',align:'center',width:"100"}
+                            ,{field:'drugstoreName', title:'名称',align:'center',width:"100"}
+                            ,{field:'drugstorenum', title:'仓库数量',align:'center',width:"100"}
+                            ,{field:'batch', title:'批号',align:'center',width:"100"}
+                            ,{fixed: 'right', title:'操作', toolbar: '#userBar2',align:'center',width:'120'}
+                        ]]
+                    });
+
+                });
+            }
+        });
+        var url;
+        var mainIndex;
+        //监听行工具事件
+        table.on('tool(userTable2)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'add') {
+                var durnum = data.drugstorenum;
+                var bujinum=$("#bqnum").val();//获取此条报缺的数量
+                layer.prompt({
+                    title: '请输入数量',
+                    formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                    value: '', //初始时的值，默认空字符
+                    maxlength: 140, //可输入文本的最大长度，默认500
+                }, function(value, index, elem){
+                    if (value > durnum) {
+                        layer.msg("数量不足");
+                    } else  if(value>bujinum){//如果输入的数量大于需要报缺的数量 出个提示
+                        layer.confirm('确定超出补给吗', function (index) {
+                            var jbr= $("#jingbanren").val();
+                            $.post("../chuku/updatedrugnumber", {
+                                rugstoreId: data.rugstoreId,
+                                drugstorenum: value,
+                                drugstoreName: data.drugstoreName,
+                                jiluname:data.drugstoreName,jilutype:"紧急补给药房",jilupeople:jbr,
+                                jilupihao:data.batch,jilunumber:value
+                            }, function (res) {
+                                if (res == 1) {
+                                    layer.msg("出库成功");
+                                    setTimeout(function () {
+                                        tableIns.reload();
+                                        location.reload();
+                                    },500)
+                                } else {
+                                    layer.msg("出库失败");
+                                    setTimeout(function () {
+                                        tableIns.reload();
+                                        location.reload();
+                                    },500)
+                                }
+                            });
+                        });
+
+                    }
+
+                    else {
+                        var jbr= $("#jingbanren").val();
+                        $.post("../chuku/updatedrugnumber", {
+                            rugstoreId: data.rugstoreId,
+                            drugstorenum: value,
+                            drugstoreName: data.drugstoreName,
+                            jiluname:data.drugstoreName,jilutype:"紧急补给药房",jilupeople:jbr,
+                            jilupihao:data.batch,jilunumber:value
+                        }, function (res) {
+                            if (res == 1) {
+                                layer.msg("出库成功");
+                                layer.close(index);
+                                setTimeout(function () {
+                                    tableIns.reload();
+                                    location.reload();
+
+                                },500)
+
+                            } else {
+                                layer.msg("出库失败");
+                                setTimeout(function () {
+                                    tableIns.reload();
+                                    location.reload();
+                                },500)
+
+                            }
+                        });
+                    }
+                    layer.close(index);
+                });
+
+            }
+
+        });
+
+        tableIns=table.render({
+            elem: '#userTable'   //渲染的目标对象
+            ,url:'../chuku/selbaoquedan' //数量过少的药品有哪些
+            ,title: '库房药品表'//数据导出来的标题
+            ,toolbar:"#userToolBar"   //表格的工具条
+            ,height:'full-100'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                {field:'baoqueid', title:'ID',align:'center',width:"23%"}
+                ,{field:'baoqueName', title:'报缺药品',align:'center',width:"24%"}
+                ,{field:'baoqueNum', title:'需求数量',align:'center',width:"23%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar',align:'center',width:'30%'}
+            ]]
+
+        });
+
+
+        var url;
+        var mainIndex;
+        function openUpdate(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'药品信息',
+                content:$("#saveOrUpdateDiv"),
+                area:['800px','500px'],
+
+            });
+        }
+        tableIns=table.render({
+            elem: '#userTable1'   //渲染的目标对象
+            ,url:'../seldrugstore/selectdrugstore' //数据接口
+            ,title: '库房药品表'//数据导出来的标题
+            ,toolbar:"#userToolBar1"   //表格的工具条
+            ,height:'full-100'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                {field:'rugstoreId', title:'ID',align:'center',width:"100",sort:true}
+                ,{field:'warehouseName', title:'库房',align:'center',width:"100"}
+                ,{field:'drugstoreName', title:'名称',align:'center',width:"100"}
+                ,{field:'drugstorenum', title:'仓库数量',align:'center',width:"100"}
+                ,{field:'supplierName', title:'供货商',align:'center',width:"100"}
+                ,{field:'skullName', title:'经办人',align:'center',width:"100"}
+                ,{field:'unitName', title:'单位',align:'center',width:"100"}
+                ,{field:'tradePrice', title:'批发价',align:'center',width:"100"}
+                ,{field:'sellingPrice', title:'售价',align:'center',width:"100"}
+                ,{field:'areaName', title:'产地',align:'center',width:"100"}
+                ,{field:'produceDate', title:'生产日期',align:'center',width:"100"}
+                ,{field:'validDate', title:'有效日期',align:'center',width:"100"}
+                ,{field:'batch', title:'批号',align:'center',width:"100"}
+                ,{field:'typeName', title:'类型',align:'center',width:"100"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar1',align:'center',width:'120'}
+
+            ]]
+
+        });
+        //监听行工具事件
+        table.on('tool(userTable1)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'add'){
+             var sheng=data.produceDate;
+             var you=data.validDate;
+                var date = new Date();
+
+
+
+
+
+
+                var durnum=data.drugstorenum;
+                layer.confirm('确定添加【' + data.drugstoreName + '】这个药品吗', function (index) {
+                    layer.prompt({
+                        title: '请输入数量',
+                        formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                        value: '', //初始时的值，默认空字符
+                        maxlength: 140, //可输入文本的最大长度，默认500
+                    }, function (value, index, elem) {
+                        if (value > durnum) {
+                            layer.msg("数量不足")
+                        } else {
+                            var jbr = $("#jingbanren").val();
+                            //向服务端发送删除指令
+                            $.post("../chuku/addpharmacy", {
+                                rugstoreId: data.rugstoreId,
+                                warehouseId: data.warehouseId,
+                                pharmacyName: data.drugstoreName,
+                                drugstorenum: value,
+                                skullId: data.skullId,
+                                unit: data.unitId,
+                                sellingPrice: data.sellingPrice,
+                                area: data.areaId,
+                                produceDate: sheng,
+                                validDate: you,
+                                skullbatch: data.batch,
+                                type: data.typeId,
+                                jiluname: data.drugstoreName, jilutype: "正常出库", jilupeople: jbr,
+                                jilupihao: data.batch, jilunumber: value
+                            }, function (res) {
+                                if (res == 1) {
+                                    layer.msg("出库成功");
+                                        tableIns.reload();
+
+                                    layer.close(index);
+
+                                } else {
+                                    layer.msg("出库失败");
+                                    layer.close(index);
+                                        tableIns.reload();
+
+                                }
+                                setTimeout(function () {
+
+                                    location.reload();
+                                },1000)
+                            });
+                        }
+                    })
+
+                });
+            }
+
+        });
+
+        //模糊查询
+        $("#doSearch").click(function(){
+            var params=$("#searchFrm").serialize();
+            tableIns.reload({
+                url:"../seldrugstore/selectdrugstore?"+params
+            })
+        });
+    });
+</script>
+
+</body>
+</html>

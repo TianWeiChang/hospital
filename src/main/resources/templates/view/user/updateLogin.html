@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+<link rel="stylesheet" th:href="@{/css/public.css}" media="all"/>
+<script th:src="@{/layui/layui.js}"></script>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px; margin-left:200px">
+    <legend>个人资料</legend>
+</fieldset>
+
+<form class="layui-form" lay-filter="dataFrm" id="dataFrm" style="width: 600px; height: 500px;margin: 20px auto">
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-block">
+            <input type="hidden" th:value="${usersLogin.get(0).getUserid()}" name="userid">
+
+            <input type="text" th:value="${usersLogin.get(0).getRealname()}" name="realname" placeholder="请输姓名" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">身份证</label>
+        <div class="layui-input-block">
+            <input type="text" th:value="${usersLogin.get(0).getIdentity()}" name="identity" lay-verify="title" autocomplete="off" placeholder="请输入身份证" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-block">
+            <input type="text" th:value="${usersLogin.get(0).getAddress()}" name="address" lay-verify="title" autocomplete="off" placeholder="请输入地址" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系方式</label>
+        <div class="layui-input-block">
+            <input type="text" th:value="${usersLogin.get(0).getPhone()}" name="phone" lay-verify="title" autocomplete="off" placeholder="请输入联系方式" class="layui-input">
+        </div>
+    </div>
+
+    <div  th:if="${usersLogin.get(0).getSex()==1}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="男" checked="checked">
+                <input type="radio" name="sex" value="0" title="女">
+            </div>
+        </div>
+    </div>
+    <div  th:if="${usersLogin.get(0).getSex()==0}">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="radio" name="sex" value="1" title="男">
+                <input type="radio" name="sex" value="0" title="女" checked="checked">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="text-align: center;">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="doSubmit" lay-submit="">保存</button>
+            <button type="button" id="pwd" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >修改密码</button>
+        </div>
+    </div>
+    <!-- 修改的弹出层开始 -->
+    <div style="display: none;padding: 20px" id="saveOrUpdateDiv" >
+        <form class="layui-form"  lay-filter="dataFrm" id="dataPwd">
+            <div class="layui-form-item">
+                <label class="layui-form-label">输入旧密码</label>
+                <div class="layui-input-block">
+                    <input type="hidden" id="loginname" th:value="${usersLogin.get(0).getLoginname()}" name="loginname"/>
+                    <input type="password" id="jpwd" name="pwd" lay-verify="title" autocomplete="off" placeholder="请输入旧密码" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">输入新密码</label>
+                <div class="layui-input-block">
+                    <input type="password" id="pwd1" name="pwd1" lay-verify="title" autocomplete="off" placeholder="请输入新密码" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">确认密码</label>
+                <div class="layui-input-block">
+                    <input type="password" id="pwd2" name="pwd2" lay-verify="title" autocomplete="off" placeholder="确认密码" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="text-align: center; margin-left: 0">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" id="qwe">保存</button>
+                    <button type="button" id="guanbi" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-close" >取消修改</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 修改的弹出层结束 -->
+</form>
+</body>
+<script type="text/javascript" th:inline="none">
+
+    layui.extend({
+        dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table','dtree'  ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+
+        //保存
+
+
+            form.on("submit(doSubmit)",function(obj){
+                layer.confirm('确定修改吗', function(index){
+                //序列化表单数据
+                var params=$("#dataFrm").serialize();
+
+                $.post("user/editLogin",params,function(obj){
+                    layer.msg(obj);
+                    setTimeout(function(){
+                        location.reload();
+                    },1000)
+
+                })
+            });
+
+        })
+
+
+          var op;
+        $("#pwd").click(function () {
+            op=layer.open({
+                type: 1,
+                title:"修改密码",
+                area: ['500px', '300px'],
+                content:$("#saveOrUpdateDiv") //这里content是一个普通的String
+            });
+        });
+        //关闭窗口
+        $("#guanbi").click(function(){
+            layer.close(op)
+        })
+  $("#qwe").click(function(){
+
+      var loginname=$("#loginname").val();
+      var pwd=$("#jpwd").val();
+      var pwd1=$("#pwd1").val();
+      var pwd2=$("#pwd2").val();
+      if(pwd==""||loginname==""||pwd1==""){
+          layer.msg("不能为空")
+          return false;
+      }else if(pwd1!=pwd2){
+          layer.msg("密码不一致")
+          return false;
+      }
+      $.post("user/editPwd",{loginname:loginname,pwd:pwd,pwd1:pwd1},function(obj){
+          if(obj==1){
+              setTimeout(function(){
+                  window.parent.location.href="../sel/toLogin";//#设定跳转的链接地址
+              },3000)
+
+              layer.msg("修改成功",{
+                  time:3000 //取消自动关闭
+              });  // 显示倒计时
+
+              //layer.close(op);
+              return false;
+          }else{
+              layer.msg("旧密码错误");
+              return false;
+          }
+
+      })
+
+  })
+    });
+
+</script>
+</html>
+

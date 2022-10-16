@@ -1,0 +1,80 @@
+#outer{
+    border: 1px solid #01AAED;
+    height: 150px;
+    width: 1200px;
+
+}
+#upplier_select{
+    width: 300px;
+    height: 40px;
+    border: 2px solid #01AAED;
+font-family: "新宋体";
+    font-size:1.2em;
+
+}
+#ghs{
+    margin-left: 90px;
+}
+#ck{
+    margin-top: 50px;
+    margin-left: 90px;
+}
+
+#jbr{
+    margin-top: 50px;
+    margin-left: 90px;
+}
+
+
+#skull_select{
+    width: 300px;
+    height: 40px;
+    border: 2px solid #01AAED;
+    font-family: "新宋体";
+    font-size:1.2em;
+
+}
+#warhuose_select{
+    margin-left: 13px;
+    width: 300px;
+    height: 40px;
+    border: 2px solid #01AAED;
+    font-family: "新宋体";
+    font-size:1.2em;
+
+}
+#sure_button{
+    width: 304px;
+    margin-top: 20px;
+    margin-left: 143px;
+
+}
+.layui-input{
+    width: 250px;
+
+}
+#input_kuang{
+
+    font-family: "新宋体";
+    font-size: 1.3em;
+}
+.text_h{
+    width:160px;
+    height:26px;
+    border: 1px solid #4E5465;
+
+}
+#beginrk{
+    margin-left: 10px;
+   width: 110px;
+
+}
+#table  {
+    margin-top: 20px;
+   border:  1px solid #ccc;
+    width: 100%;
+}
+#table td{
+
+    height: 40px;
+}

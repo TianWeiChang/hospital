@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="container" style="height: 500px"></div>
+<script type="text/javascript" th:src="@{/js/echarts.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script type="text/javascript">
+    $.get("finance/reportYearBingFinance",function(data){
+   var dom = document.getElementById("container");
+   var myChart = echarts.init(dom);
+   var app = {};
+   option = null;
+   option = {
+       title : {
+           text: '门诊部年度统计',
+           subtext: '真实有效',
+           x:'center'
+       },
+       tooltip : {
+           trigger: 'item',
+           formatter: "{a} <br/>{b} : {c} ({d}%)"
+       },
+       legend: {
+           orient: 'vertical',
+           left: 'left',
+           data: data.name
+       },
+       series : [
+           {
+               name: '年份',
+               type: 'pie',
+               radius : '55%',
+               center: ['50%', '60%'],
+               data:data,
+               itemStyle: {
+                   emphasis: {
+                       shadowBlur: 10,
+                       shadowOffsetX: 0,
+                       shadowColor: 'rgba(0, 0, 0, 0.5)'
+                   }
+               }
+           }
+       ]
+   };
+   ;
+   if (option && typeof option === "object") {
+       myChart.setOption(option, true);
+   }
+   })
+
+</script>
+</body>
+</html>

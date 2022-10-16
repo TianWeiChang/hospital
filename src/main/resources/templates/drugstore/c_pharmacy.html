@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+<body>
+<!-- 导航栏-->
+<input id="jingbanren" type="hidden" th:value="${session.yonghu}">
+<span style="font-family: 新宋体;font-size: 1.3em;margin-left: 500px;" >药房药品详情</span>
+<form class="layui-form" method="post" id="searchFrm">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">药品名称:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="pharmacyName"  autocomplete="off" class="layui-input" >
+
+            </div>
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
+            <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
+        </div>
+    </div>
+</form>
+
+<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+<div style="display: none;" id="userToolBar">
+</div>
+<div  id="userBar" style="display: none;">
+
+    <a class="layui-btn layui-btn-xs" lay-event="edit">报缺</a>
+ <a class="layui-btn layui-btn-xs" lay-event="del">库房回收</a>
+<!--    <button type="button"  id="kfhs"   class="layui-btn  layui-icon "> 准备入库</button>-->
+</div>
+
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    layui.extend({
+        // dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util','laydate' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var laydate = layui.laydate;
+        tableIns = table.render({
+            elem: '#userTable'   //渲染的目标对象
+            , url: '../pharmacy/selectpharmacy' //数量过少的药品有哪些
+            , title: '药房药品表'//数据导出来的标题
+            , toolbar: "#userToolBar"   //表格的工具条
+            , height: 'full-200'
+            , cellMinWidth: 150 //设置列的最小默认宽度
+            , page: 1  //是否启用分页, limits: [10, 20, 30]
+            , limits: [10, 20, 30]
+            , limit: 10//默认采用3
+            , cols: [[   //列表数据
+                {field: 'pharmacyId', title: 'ID', align: 'center', width: "5%"}
+                , {field: 'pharmacyName', title: '药名', align: 'center', width: "8%"}
+                , {field: 'skullName', title: '经办人', align: 'center', width: "8%"}
+                , {field: 'unitName', title: '单位', align: 'center', width: "7%"}
+                , {field: 'sellingPrice', title: '售价', align: 'center', width: "6%"}
+                , {field: 'areaName', title: '产地', align: 'center', width: "10%"}
+                , {field: 'produceDate', title: '生产日期', align: 'center', width: "10%"}
+                , {field: 'validDate', title: '有效日期', align: 'center', width: "10%",sort:true}
+                , {field: 'skullbatch', title: '批号', align: 'center', width: "10%"}
+                , {field: 'typeName', title: '类型', align: 'center', width: "7%"}
+                , {field: 'drugstorenum', title: '数量', align: 'center', width: "7%"}
+                , {fixed: 'right', title: '操作', toolbar: '#userBar', align: 'center', width: '12%'}
+            ]]
+        });
+        //模糊查询
+        $("#doSearch").click(function () {
+            var params = $("#searchFrm").serialize();
+            tableIns.reload({
+                url: "../pharmacy/selectpharmacy?" + params
+            })
+        });
+        //监听行报缺工具事件
+        table.on('tool(userTable)', function (obj) {
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if (layEvent === 'edit') {
+                layer.confirm('确定报缺【' + data.pharmacyName + '】吗', function (index) {
+                    layer.prompt({
+                        title: '请输入数量',
+                        formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                        value: '', //初始时的值，默认空字符
+                        maxlength: 140, //可输入文本的最大长度，默认500
+                    }, function (value, index, elem) {
+                        $.post("../pharmacy/addbaoque", {
+                            baoqueName: data.pharmacyName,
+                            baoqueNum: value
+                        }, function (res) {
+                            if (res == 1) {
+                              layer.msg("已成功报缺" + data.pharmacyName + "数量为" + value);
+                                setTimeout(function () {
+                                    tableIns.reload();
+                                    location.reload();
+                                },1000)
+                            } else {
+                                layer.msg("失败");
+                                tableIns.reload();
+                            }
+                        });
+                    });
+                });
+            }
+
+            else if (layEvent === 'del') {
+                var jbr= $("#jingbanren").val();
+                layer.confirm('确定回收【' + data.pharmacyName + '】吗', function (index) {
+                    layer.prompt({
+                        formType: 2, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                        value: '', //初始时的值，默认空字符
+                        title: '请备注回收信息',
+                        area: ['300px', '150px']
+                    }, function (value, index, elem) {
+                        /!*   huishouname,huishounumber,huishoupihao,jbr,beizhu*!/
+                        $.post("../pharmacy/delpharymary", {
+                            pharmacyId:data.pharmacyId,
+                            huishouname:data.pharmacyName,
+                            huishounumber:data.drugstorenum,
+                            huishoupihao:data.skullbatch,
+                            jbr:jbr,
+                            beizhu:value
+                        }, function (res) {
+                            if (res == 1) {
+                                layer.msg("已成功回收" + data.pharmacyName + "数量为" + data.drugstorenum);
+                                setTimeout(function () {
+                                    tableIns.reload();
+                                    location.reload();
+                                },1000)
+                            } else {
+                                layer.msg("失败");
+                                tableIns.reload();
+                            }
+                        });
+                    });
+                });
+            }
+            layer.close(prompt);
+        });
+
+
+
+
+
+    });
+</script>
+</body>
+</html>

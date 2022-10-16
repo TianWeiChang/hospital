@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>库房药品信息</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+
+</head>
+<body>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+<p style="margin-left: 530px; font-size: 1.3em;">库房药品信息管理</p>
+</fieldset>
+
+<form class="layui-form" method="post" id="searchFrm">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">药品名称:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="drugstoreName"  autocomplete="off" class="layui-input" >
+
+            </div>
+        </div>
+    </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch">查询</button>
+            <button type="reset" class="layui-btn layui-btn-warm  layui-icon layui-icon-refresh">重置</button>
+        </div>
+    </div>
+</form>
+
+<!-- 搜索条件结束 -->
+<!-- 添加和修改的弹出层开始 -->
+<!-- lay-verify="required"文本框为必填项-->
+<div style="display: none;padding: 20px" id="saveOrUpdateDiv" >
+    <form class="layui-form"  lay-filter="dataFrm" id="dataFrm">
+
+            <div class="layui-inline">
+
+                <div class="layui-input-inline">
+                    <input type="hidden" name="rugstoreId" lay-verify="required"  placeholder="名称" autocomplete="off"
+                           class="layui-input" readonly >
+                </div>
+            </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="drugstoreName" lay-verify="required"  placeholder="名称" autocomplete="off"
+                           class="layui-input" readonly >
+                </div>
+            </div>
+
+
+            <div class="layui-inline" style="margin-left: 88px;">
+                <label class="layui-form-label">库房:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="warehouseName" lay-verify="required"   placeholder="库房" autocomplete="off"
+                           class="layui-input" disabled="disabled">
+                </div>
+            </div>
+
+        </div>
+
+
+       <div class="layui-inline" >
+            <label class="layui-form-label">供货商:</label>
+            <div class="layui-input-inline">
+                <select name="supplierName" id="supplierId" lay-verify="required" lay-filter="xmFilter" disabled="disabled">
+                    <option value="" ></option>
+                </select>
+            </div>
+        </div>
+
+    <div class="layui-inline" style="margin-left: 80px;">
+            <label class="layui-form-label">经办人:</label>
+            <div class="layui-input-inline">
+                <select name="skullName" id="skullId" lay-verify="required" lay-filter="xmFilter" disabled="disabled">
+                    <option value="" ></option>
+                </select>
+            </div>
+        </div>
+
+
+
+        <div class="layui-inline">
+            <label class="layui-form-label">批发价:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="tradePrice" lay-verify="required"  placeholder="批发价" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline" style="margin-left: 110px;">
+            <label class="layui-form-label">售价:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sellingPrice" lay-verify="required"  placeholder="售价" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline" >
+            <label class="layui-form-label">产地:</label>
+            <div class="layui-input-inline">
+                <select name="areaId" id="areaId" lay-verify="required" lay-filter="xmFilter" >
+                    <option value="" ></option>
+                </select>
+            </div>
+        </div>
+ <div class="layui-inline">
+            <label class="layui-form-label" style="margin-left: 80px;">生产日期:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="produceDate" lay-verify="required"  placeholder="生产日期" autocomplete="off"
+                       class="layui-input " disabled="disabled">
+            </div>
+        </div>
+      <div class="layui-inline">
+            <label class="layui-form-label">有效日期:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="validDate" lay-verify="required"  placeholder="有效日期" autocomplete="off"
+                       class="layui-input "  disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-inline" style="margin-left: 110px;">
+            <label class="layui-form-label">批号:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="batch" lay-verify="required"  placeholder="批号" autocomplete="off"
+                       class="layui-input" >
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">数量:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="drugstorenum" lay-verify="required"  placeholder="数量" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline" style="margin-left: 110px;">
+            <label class="layui-form-label">单位:</label>
+            <div class="layui-input-inline">
+                <select name="unitId" id="unitId" lay-verify="required" lay-filter="xmFilter" style="width: 300px">
+                    <option value="" ></option>
+                </select>
+            </div>
+        </div>
+            <div class="layui-inline" >
+                <label class="layui-form-label">类型:</label>
+                <div class="layui-input-inline">
+                        <select name="typeId" id="typeId" lay-verify="required" lay-filter="xmFilter" style="width: 300px">
+                        <option value="" ></option>
+
+                        </select>
+                </div>
+        </div>
+
+        <div class="layui-form-item" style="text-align: center;">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release" lay-filter="doSubmit" lay-submit="">提交</button>
+               <!-- <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>-->
+            </div>
+        </div>
+    </form>
+</div>
+<!--templet: "<div>{{layui.util.toDateString(d.produceDate, 'yyyy-MM-dd')}}</div>",-->
+
+<!-- 数据表格开始 -->
+<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+<div style="display: none;" id="userToolBar">
+
+</div>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+</div>
+<!-- 数据表格结束 -->
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    layui.extend({
+       // dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util','laydate' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+       var  util = layui.util;
+        var laydate = layui.laydate;
+
+        tableIns=table.render({
+            elem: '#userTable'   //渲染的目标对象
+            ,url:'../seldrugstore/selectdrugstore' //数据接口
+            ,title: '库房药品表'//数据导出来的标题
+            ,toolbar:"#userToolBar"   //表格的工具条
+            ,height:'full-200'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                {field:'rugstoreId', title:'ID',align:'center',width:"100",sort:true}
+                ,{field:'warehouseName', title:'库房',align:'center',width:"100"}
+                ,{field:'drugstoreName', title:'名称',align:'center',width:"100"}
+                ,{field:'drugstorenum', title:'数量',align:'center',width:"100"}
+                ,{field:'supplierName', title:'供货商',align:'center',width:"100"}
+                ,{field:'skullName', title:'经办人',align:'center',width:"100"}
+                ,{field:'unitName', title:'单位',align:'center',width:"100"}
+                ,{field:'tradePrice', title:'批发价',align:'center',width:"100"}
+                ,{field:'sellingPrice', title:'售价',align:'center',width:"100"}
+                ,{field:'areaName', title:'产地',align:'center',width:"100"}
+                ,{field:'produceDate', title:'生产日期',align:'center',width:"100"}
+                ,{field:'validDate', title:'有效日期',align:'center',width:"100"}
+                ,{field:'batch', title:'批号',align:'center',width:"100"}
+                ,{field:'typeName', title:'类型',align:'center',width:"100"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar',align:'center',width:'120'}
+            ]]
+        })
+      //模糊查询
+        $("#doSearch").click(function(){
+            var params=$("#searchFrm").serialize();
+            tableIns.reload({
+                url:"../seldrugstore/selectdrugstore?"+params
+            })
+        });
+
+
+        var url;
+        var mainIndex;
+
+     //打开修改页面
+        function openUpdate(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'修改药品信息',
+                content:$("#saveOrUpdateDiv"),
+                area:['800px','500px'],
+                success:function(index){
+                    form.val("dataFrm",data);
+                    url="../seldrugstore/updrug";
+                }
+            });
+        }
+        //保存
+        form.on("submit(doSubmit)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm").serialize();
+            $.post(url,params,function(obj){
+                layer.msg(obj);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns.reload();
+            })
+        });
+//初始化添加or修改到下拉框中的值  type药品类型
+        $.ajax({
+            url: '../seldrugstore/seltype',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#typeId').append(new Option(item.typeName, item.typeId));// 下拉菜单里添加元素
+
+                });
+
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        });
+        //初始化添加or修改到下拉框中的值  unit单位
+        $.ajax({
+            url: '../seldrugstore/selunit',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                   // 下拉菜单里添加元素
+                    $('#unitId').append(new Option( item.unitName,item.unitId));
+                });
+
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        });
+
+        $.ajax({
+            url: '../seldrugstore/selarea',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    // 下拉菜单里添加元素
+                    $('#areaId').append(new Option( item.areaName,item.areaId));
+                });
+
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        });
+        $.ajax({
+            url: '../seldrugstore/selskull',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    // 下拉菜单里添加元素
+                    $('#skullId').append(new Option( item.skullName,item.skullIdid));
+                });
+
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        });
+        $.ajax({
+            url: '../seldrugstore/selupplier',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    // 下拉菜单里添加元素
+                    $('#supplierId').append(new Option( item.supplierName,item.supplierIdid));
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        });
+
+
+//监听行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'edit') { //编辑
+                layer.confirm('确定编辑【' + data.drugstoreName + '】这个药品吗', function (index) {
+                    //向服务端发送删除指令
+                    openUpdate(data);
+                    //关闭警告框
+                    layer.closeAll('dialog');
+                });
+            }
+        });
+
+
+
+
+
+    })
+
+</script>
+</body>
+</html>
+

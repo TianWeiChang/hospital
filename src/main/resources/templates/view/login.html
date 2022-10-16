@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>登录-医院管理系统</title>
+    <link rel="icon" href="../images/timg.jpg">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/css/index.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/css/public.css}" media="all"/>
+    <style>
+        .loginBody{
+            background: url(../images/login_bg.jpg) no-repeat center center;
+            margin-top: 580px;
+            -webkit-background-size: 1920px;
+            background-size: 1720px 930px;
+        }
+    </style>
+</head>
+<body class="loginBody">
+<form class="layui-form" id="loginFrm" th:action="@{/sel/login}" method="post">
+    <div class="login_face"><img src="../images/timg.jpg" class="userAvatar"></div>
+    <div class="layui-form-item input-item">
+        <label>用户名</label>
+        <input type="text" id="loginname" placeholder="请输入用户名" autocomplete="off" name="loginname" class="layui-input" lay-verify="required">
+    </div>
+    <div class="layui-form-item input-item">
+        <label>密码</label>
+        <input type="password" id="pwd" placeholder="请输入密码" autocomplete="off" name="pwd" class="layui-input" lay-verify="required">
+    </div>
+    <div class="layui-form-item input-item">
+        <span id="msg" th:text="${msg}"></span>
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn layui-block" lay-filter="login" lay-submit>登录</button>
+    </div>
+
+</form>
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript">
+    layui.use(['form','layer','jquery'],function(){
+        var form = layui.form,
+            layer = parent.layer === undefined ? layui.layer : top.layer
+        $ = layui.jquery;
+        //登录按钮
+        form.on("submit(login)",function(data){
+            $(this).text("登录中...").attr("disabled","disabled").addClass("layui-disabled");
+            setTimeout(function(){
+                $("#loginFrm").submit();
+            },1000);
+            return false;
+        })
+        $("#loginname").click(function(){
+            $("#msg").fadeOut(500);
+        })
+        $("#pwd").click(function(){
+            $("#msg").fadeOut(500);
+        })
+        //表单输入效果
+        $(".loginBody .input-item").click(function(e){
+            e.stopPropagation();
+            $(this).addClass("layui-input-focus").find(".layui-input").focus();
+        })
+        $(".loginBody .layui-form-item .layui-input").focus(function(){
+            $(this).parent().addClass("layui-input-focus");
+        })
+        $(".loginBody .layui-form-item .layui-input").blur(function(){
+            $(this).parent().removeClass("layui-input-focus");
+            if($(this).val() != ''){
+                $(this).parent().addClass("layui-input-active");
+            }else{
+                $(this).parent().removeClass("layui-input-active");
+            }
+        })
+
+    })
+
+</script>
+</body>
+</html>

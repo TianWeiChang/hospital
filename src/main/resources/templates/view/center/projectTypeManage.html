@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/css/public.css}" media="all"/>
+</head>
+<body>
+
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+        <li class="layui-this">项目大类</li>
+        <li>门诊收费项目</li>
+        <li>住院收费项目</li>
+        <li>住院床位</li>
+        <li>收费类型</li>
+    </ul>
+    <div class="layui-tab-content">
+        <!---------------------------------------------------------------------->
+        <div class="layui-tab-item layui-show">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>查询条件</legend>
+            </fieldset>
+            <blockquote class="layui-elem-quote">
+            <form class="layui-form" method="post" id="searchFrm54321">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">类别:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="projectName"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch54321">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </blockquote>
+            <!--搜索结束-->
+            <!-- 数据表格开始 -->
+            <div style="display: none;" id="projecttypeToolBar">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">增加</button>
+            </div>
+            <table class="layui-hide" id="projecttypeTable" lay-filter="projecttypeTable"></table>
+
+
+            <!-- 数据表格结束 -->
+            <!-- 添加和修改的弹出层开始 -->
+            <div style="display: none;padding: 20px" id="saveOrUpdateDiv54321" >
+                <form class="layui-form"  lay-filter="dataFrm54321" id="dataFrm54321" style="margin-top: 20px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类别:</label>
+                            <div class="layui-input-inline">
+                                <input type="hidden" name="projectId">
+                                <input type="text" name="projectName" lay-verify="required"   placeholder="请输入类别" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" style="text-align: center;">
+                        <div class="layui-input-block" style=" margin-left:0px">
+                            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"  lay-filter="doSubmit54321" lay-submit="">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- 添加和修改的弹出层结束 -->
+        </div>
+        <!---------------------------------------------------------------------->
+        <!---------------------------------------------------------------------->
+        <div class="layui-tab-item">
+            <!-- 搜索条件开始 -->
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>查询条件</legend>
+            </fieldset>
+            <blockquote class="layui-elem-quote">
+            <form class="layui-form" method="post" id="searchFrm54">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">收费项:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="projectName"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch54">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </blockquote>
+            <!--搜索结束-->
+            <!-- 添加和修改的弹出层开始 -->
+            <div style="display: none;padding: 20px" id="saveOrUpdateDiv54" >
+                <form class="layui-form"  lay-filter="dataFrm54" id="dataFrm54" style="margin-top: 20px; margin-left: 20px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">收费项:</label>
+                            <div class="layui-input-inline">
+                                <input type="hidden" name="outpatientId">
+                                <input type="text" name="projectName" lay-verify="required"   placeholder="请输收费项" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                     <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">价格:</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="price" lay-verify="required"   placeholder="请输入价格" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                     </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">项目大类:</label>
+                            <div class="layui-input-inline">
+                                <select name="projectId" id="Projecttype1" lay-verify="required" lay-filter="xmFilter">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                       <div class="layui-inline">
+                            <label class="layui-form-label">单位:</label>
+                            <div class="layui-input-inline">
+                                <select name="unitId" id="unit" lay-verify="required" lay-filter="xmFilter">
+                                   <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">是否检查:</label>
+                            <div class="layui-input-inline">
+                                <input type="radio" name="ostate" value="1" title="检查项">
+                                <input type="radio" name="ostate" value="0" title="无">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                    <div class="layui-form-item" style="text-align: center;">
+                        <div class="layui-input-block" style=" margin-left:0px">
+                            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"  lay-filter="doSubmit54" lay-submit="">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- 添加和修改的弹出层结束 -->
+
+
+            <!-- 搜索条件结束 -->
+            <!-- 数据表格开始 -->
+            <div  style="display: none;" id="outpatienttypeToolBar">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">增加</button>
+            </div>
+            <table class="layui-hide" id="outpatienttypeTable" lay-filter="outpatienttypeTable"></table>
+
+            <div  id="outpatienttype" style="display: none;">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </div>
+            <!-- 数据表格结束 -->
+        </div>
+        <!-- =-------------------------------------->
+        <div class="layui-tab-item">
+            <!-- 搜索条件开始 -->
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>查询条件</legend>
+            </fieldset>
+            <blockquote class="layui-elem-quote">
+            <form class="layui-form" method="post" id="searchFrm5">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">收费项目:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="projectName"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch5">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </blockquote>
+            <!--搜索结束-->
+            <!-- 添加和修改的弹出层开始 -->
+            <div style="display: none;padding: 20px" id="saveOrUpdateDiv5" >
+                <form class="layui-form"  lay-filter="dataFrm5" id="dataFrm5" style="margin-top: 20px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">收费项:</label>
+                            <div class="layui-input-inline">
+                                <input type="hidden" name="inoutpatientId">
+                                <input type="text" name="projectName" lay-verify="required"   placeholder="请输入收费项" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+
+                        <div class="layui-inline">
+                            <label class="layui-form-label">价格:</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="price" lay-verify="required"   placeholder="请输入价格" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">项目大类:</label>
+                            <div class="layui-input-inline">
+                                <select name="projectId" id="Projecttype2" lay-verify="required" lay-filter="xmFilter">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">单位:</label>
+                            <div class="layui-input-inline">
+                                <select name="unitId" id="unit1" lay-verify="required" lay-filter="xmFilter">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="text-align: center;">
+                        <div class="layui-input-block" style=" margin-left:0px">
+                            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"  lay-filter="doSubmit5" lay-submit="">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- 添加和修改的弹出层结束 -->
+
+
+            <!-- 搜索条件结束 -->
+            <!-- 数据表格开始 -->
+            <div  style="display: none;" id="inoutpatienttypeToolBar">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">增加</button>
+            </div>
+            <table class="layui-hide" id="inoutpatienttypeTable" lay-filter="inoutpatienttypeTable"></table>
+            <div  id="inoutpatienttype" style="display: none;">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </div>
+            <!-- 数据表格结束 -->
+        </div>
+        <!--bed-->
+        <div class="layui-tab-item">
+            <!-------------------------------------------------->
+            <!-- 搜索条件开始 -->
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>查询条件</legend>
+            </fieldset>
+
+            <blockquote class="layui-elem-quote">
+            <form class="layui-form" method="post" id="searchFrm5432">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">床位:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="bedname"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch5432">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </blockquote>
+            <!--搜索结束-->
+            <!-- 添加和修改的弹出层开始 -->
+            <div style="display: none;padding: 20px" id="saveOrUpdateDiv5432" >
+                <form class="layui-form"  lay-filter="dataFrm5432" id="dataFrm5432" style="margin-top: 20px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类型:</label>
+                            <div class="layui-input-inline">
+                                <input type="hidden" name="bedId">
+                                <input type="text" name="bedname" lay-verify="required"   placeholder="请输入床位" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">价格:</label>
+                            <div class="layui-input-inline">
+                                <input type="number" name="price" value="10" lay-verify="required"   placeholder="价格" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">科室:</label>
+                            <div class="layui-input-inline">
+                                <select name="departmentId" id="departmentId" lay-verify="required" lay-filter="xmFilter">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="text-align: center;">
+                        <div class="layui-input-block" style=" margin-left:0px">
+                            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"  lay-filter="doSubmit5432" lay-submit="">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- 添加和修改的弹出层结束 -->
+
+
+            <!-- 搜索条件结束 -->
+            <!-- 数据表格开始 -->
+            <div  style="display: none;" id="bedToolBar">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">增加</button>
+            </div>
+            <table class="layui-hide" id="bedTable" lay-filter="bedTable"></table>
+
+            <div  id="bed" style="display: none;">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </div>
+            <!-- 数据表格结束 -->
+        </div>
+        <!--------------------------------------------->
+        <!--------------------------------------------->
+        <!--money-->
+        <div class="layui-tab-item">
+            <!-- 搜索条件开始 -->
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>查询条件</legend>
+            </fieldset>
+            <blockquote class="layui-elem-quote">
+            <form class="layui-form" method="post" id="searchFrm543">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">类型:</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="moneytype"  autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button type="button" class="layui-btn layui-btn-normal  layui-icon layui-icon-search" id="doSearch543">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </blockquote>
+            <!--搜索结束-->
+            <!-- 添加和修改的弹出层开始 -->
+            <div style="display: none;padding: 20px" id="saveOrUpdateDiv543" >
+                <form class="layui-form"  lay-filter="dataFrm543" id="dataFrm543" style="margin-top: 20px">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类型:</label>
+                            <div class="layui-input-inline">
+                                <input type="hidden" name="moneyId">
+                                <input type="text" name="moneytype" lay-verify="required"   placeholder="请输入报销类型" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">比例:</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="percent" lay-verify="required"   placeholder="请输入报销比例" autocomplete="off"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" style="text-align: center;">
+                        <div class="layui-input-block" style=" margin-left:0px">
+                            <button type="button" class="layui-btn layui-btn-normal layui-btn-sm layui-icon layui-icon-release"  lay-filter="doSubmit543" lay-submit="">提交</button>
+                            <button type="reset" class="layui-btn layui-btn-warm layui-btn-sm layui-icon layui-icon-refresh" >重置</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- 添加和修改的弹出层结束 -->
+
+
+            <!-- 搜索条件结束 -->
+            <!-- 数据表格开始 -->
+            <div  style="display: none;" id="moneytypeToolBar">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="add">增加</button>
+            </div>
+            <table class="layui-hide" id="moneytypeTable" lay-filter="moneytypeTable"></table>
+
+            <div  id="moneytype" style="display: none;">
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </div>
+            <!-- 数据表格结束 -->
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    layui.extend({
+        dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table','dtree','element'  ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var element = layui.element;
+
+//渲染数据表格
+        tableIns=table.render({
+            elem: '#projecttypeTable'   //渲染的目标对象
+            ,url:'prjectType/findAllProjecttype' //数据接口
+            ,title: '用户数据表'//数据导出来的标题
+            ,toolbar:"#projecttypeToolBar"   //表格的工具条
+            ,height:'full-245'
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [7, 20, 30]
+            ,limit: 7//默认采用3
+            ,cols: [[   //列表数据
+                {field:'projectId', title:'ID',align:'center',width:'30%'}
+                ,{field:'projectName', title:'项目大类',align:'center',width:"70%"}
+            ]]
+        })
+        //模糊查询
+        $("#doSearch54321").click(function(){
+            var params=$("#searchFrm54321").serialize();
+            tableIns.reload({
+                url:"prjectType/findAllProjecttype?"+params
+            })
+        });
+
+        //监听头部工具栏事件
+        table.on("toolbar(projecttypeTable)",function(obj){
+            switch(obj.event){
+                case 'add':
+                    openAddProjecttype();
+                    break;
+            };
+        })
+        //监听行工具事件
+        table.on('tool(projecttypeTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除【'+data.projectName+'】这个类别吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("prjectType/deleteProjecttype",{projectId:data.projectId},function(res){
+                        layer.msg(res);
+                        //刷新数据 表格
+                        tableIns.reload();
+                    })
+                });
+            }
+        });
+
+        var url;
+        var mainIndex;
+        //打开添加页面
+        function openAddProjecttype(){
+            mainIndex=layer.open({
+                type:1,
+                title:'添加项目大类',
+                content:$("#saveOrUpdateDiv54321"),
+                area:['380px','300px'],
+                success:function(index){
+                    //清空表单数据
+                    $("#dataFrm54321")[0].reset();
+                    url="prjectType/addProjecttype";
+                }
+            });
+        }
+
+        //保存
+        form.on("submit(doSubmit54321)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm54321").serialize();
+            $.post(url,params,function(obj){
+                layer.msg(obj);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns.reload();
+            })
+        });
+
+
+    });
+</script>
+<!---------->
+<script type="text/javascript" th:inline="none">
+    var tableIns2;
+    layui.use([ 'jquery', 'layer', 'form', 'table'  ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //渲染数据表格
+        tableIns2=table.render({
+            elem: '#bedTable'   //渲染的目标对象
+            ,url:'prjectType/findAllBed' //数据接口
+            ,title: '用户数据表'//数据导出来的标题
+            ,toolbar:"#bedToolBar"   //表格的工具条
+            ,height:'full-255'
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [7, 20, 30]
+            ,limit: 7//默认采用3
+            ,cols: [[   //列表数据
+                 {field:'bedId', title:'ID',align:'center',width:'10%'}
+                ,{field:'bedname', title:'床位',align:'center',width:"25%"}
+                ,{field:'price', title:'价格',align:'center',width:"20%"}
+                ,{field:'department', title:'科室',align:'center',width:"25%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#bed',align:'center',width:'20%'}
+            ]]
+        })
+        //模糊查询
+        $("#doSearch5432").click(function(){
+            var params=$("#searchFrm5432").serialize();
+            tableIns2.reload({
+                url:"prjectType/findAllBed?"+params
+            })
+        });
+
+        //监听头部工具栏事件
+        table.on("toolbar(bedTable)",function(obj){
+            switch(obj.event){
+                case 'add':
+                    openAddBed();
+                    break;
+            };
+        })
+        //监听行工具事件
+        table.on('tool(bedTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除【'+data.bedname+'】这个床位吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("prjectType/deleteBed",{bedId:data.bedId},function(res){
+                        layer.msg(res);
+                        //刷新数据 表格
+                        tableIns2.reload();
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                openUpdateBed(data);
+            }
+        });
+
+        var url;
+        var mainIndex;
+        //打开添加页面
+        function openAddBed(){
+            mainIndex=layer.open({
+                type:1,
+                title:'添加科室',
+                content:$("#saveOrUpdateDiv5432"),
+                area:['400px','400px'],
+                success:function(index){
+                    //清空表单数据
+                    $("#dataFrm5432")[0].reset();
+                    url="prjectType/addBed";
+                }
+            });
+        }
+        //打开修改页面
+        function openUpdateBed(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'修改医生',
+                content:$("#saveOrUpdateDiv5432"),
+                area:['400px','400px'],
+                success:function(index){
+                    form.val("dataFrm5432",data);
+                    url="prjectType/editBed";
+                }
+            });
+        }
+        //保存
+        form.on("submit(doSubmit5432)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm5432").serialize();
+            $.post(url,params,function(obj){
+                layer.msg(obj);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns2.reload();
+            })
+        });
+        //初始化添加or修改到下拉框中的值
+        $.ajax({
+            url: 'prjectType/departmentList',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#departmentId').append(new Option(item.department, item.departmentId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+
+
+
+    });
+</script>
+<!--       收费类型-->
+<script type="text/javascript" th:inline="none">
+    var tableIns3;
+    layui.use([ 'jquery', 'layer', 'form', 'table' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //渲染数据表格
+        tableIns3=table.render({
+            elem: '#moneytypeTable'   //渲染的目标对象
+            ,url:'prjectType/findAllMoneytype' //数据接口
+            ,title: '用户数据表'//数据导出来的标题
+            ,toolbar:"#moneytypeToolBar"   //表格的工具条
+            ,height:'full-255'
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [7, 20, 30]
+            ,limit: 7//默认采用3
+            ,cols: [[   //列表数据
+                {field:'moneyId', title:'ID',align:'center',width:'20%'}
+                ,{field:'moneytype', title:'类型',align:'center',width:"30%"}
+                ,{field:'percent', title:'报销百分比',align:'center',width:"30%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#moneytype',align:'center',width:'20%'}
+            ]]
+        })
+        //模糊查询
+        $("#doSearch543").click(function(){
+            var params=$("#searchFrm543").serialize();
+            tableIns3.reload({
+                url:"prjectType/findAllMoneytype?"+params
+            })
+        });
+
+        //监听头部工具栏事件
+        table.on("toolbar(moneytypeTable)",function(obj){
+            switch(obj.event){
+                case 'add':
+                    openAddMoneytype();
+                    break;
+            };
+        })
+        //监听行工具事件
+        table.on('tool(moneytypeTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除【'+data.moneytype+'】这个类型吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("prjectType/deleteMoneytype",{moneyId:data.moneyId},function(res){
+                        layer.msg(res);
+                        //刷新数据 表格
+                        tableIns3.reload();
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                openUpdateMoneytype(data);
+            }
+        });
+
+        var url;
+        var mainIndex;
+        //打开添加页面
+        function openAddMoneytype(){
+            mainIndex=layer.open({
+                type:1,
+                title:'添加报销类型',
+                content:$("#saveOrUpdateDiv543"),
+                area:['380px','300px'],
+                success:function(index){
+                    //清空表单数据
+                    $("#dataFrm543")[0].reset();
+                    url="prjectType/addMoneytype";
+                }
+            });
+        }
+        //打开修改页面
+        function openUpdateMoneytype(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'修改报销类型',
+                content:$("#saveOrUpdateDiv543"),
+                area:['380px','300px'],
+                success:function(index){
+                    form.val("dataFrm543",data);
+                    url="prjectType/editMoneytype";
+                }
+            });
+        }
+        //保存
+        form.on("submit(doSubmit543)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm543").serialize();
+            $.post(url,params,function(obj){
+                layer.msg(obj);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns3.reload();
+            })
+        });
+
+
+
+
+    });
+</script>
+<!--门诊收费项-->
+<!---------------------------------------------------->
+<script type="text/javascript" th:inline="none">
+    var tableIns4;
+    layui.use([ 'jquery', 'layer', 'form', 'table' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //渲染数据表格
+        tableIns4=table.render({
+            elem: '#outpatienttypeTable'   //渲染的目标对象
+            ,url:'prjectType/findAllOutpatienttype' //数据接口
+            ,title: '用户数据表'//数据导出来的标题
+            ,toolbar:"#outpatienttypeToolBar"   //表格的工具条
+            ,height:'full-255'
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [7, 20, 30]
+            ,limit: 7//默认采用3
+            ,cols: [[   //列表数据
+                {field:'outpatientId', title:'ID',align:'center',width:'10%'}
+                ,{field:'projectName', title:'收费项',align:'center',width:"20%"}
+                ,{field:'pprojectName', title:'项目大类',align:'center',width:"20%"}
+                ,{field:'price', title:'价格',align:'center',width:"10%"}
+                ,{field:'unitName', title:'单位',align:'center',width:"10%"}
+                ,{field:'ostate', title:'是否检查',align:'center',width:"10%",templet:function(d){
+                        return d.ostate=='1'?'<font color=blue>检查项</font>':'<font color=red>无</font>';
+                    }}
+                ,{fixed: 'right', title:'操作', toolbar: '#outpatienttype',align:'center',width:'20%'}
+            ]]
+        })
+        //模糊查询
+        $("#doSearch54").click(function(){
+            var params=$("#searchFrm54").serialize();
+            tableIns4.reload({
+                url:"prjectType/findAllOutpatienttype?"+params
+            })
+        });
+
+        //监听头部工具栏事件
+        table.on("toolbar(outpatienttypeTable)",function(obj){
+            switch(obj.event){
+                case 'add':
+                    openAddOutpatienttype();
+                    break;
+            };
+        })
+        //监听行工具事件
+        table.on('tool(outpatienttypeTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除【'+data.projectName+'】这个收费项吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("prjectType/deleteOutpatienttype",{outpatientId:data.outpatientId},function(res){
+                        layer.msg(res);
+                        //刷新数据 表格
+                        tableIns4.reload();
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                openUpdateOutpatienttype(data);
+            }
+        });
+
+        var url;
+        var mainIndex;
+        //打开添加页面
+        function openAddOutpatienttype(){
+            mainIndex=layer.open({
+                type:1,
+                title:'添加收费项',
+                content:$("#saveOrUpdateDiv54"),
+                area:['500px','500px'],
+                success:function(index){
+                    //清空表单数据
+                    $("#dataFrm54")[0].reset();
+                    url="prjectType/addOutpatienttype";
+                }
+            });
+        }
+        //打开修改页面
+        function openUpdateOutpatienttype(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'修改收费项',
+                content:$("#saveOrUpdateDiv54"),
+                area:['500px','500px'],
+                success:function(index){
+                form.val("dataFrm54",data);
+                    url="prjectType/editOutpatienttype";
+                }
+            });
+        }
+        //保存
+        form.on("submit(doSubmit54)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm54").serialize();
+            $.post(url,params,function(obj){
+                layer.msg(obj);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns4.reload();
+            })
+        });
+
+        //初始化添加or修改到下拉框中的值
+        $.ajax({
+            url: 'prjectType/findAllProjecttype1',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#Projecttype1').append(new Option(item.projectName, item.projectId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+        $.ajax({
+            url: 'prjectType/findAllUnit',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#unit').append(new Option(item.unitName, item.unitId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+
+    });
+</script>
+<!------------------------->
+<script type="text/javascript" th:inline="none">
+    var tableIns5;
+    layui.use([ 'jquery', 'layer', 'form', 'table' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        //渲染数据表格
+        tableIns5=table.render({
+            elem: '#inoutpatienttypeTable'   //渲染的目标对象
+            ,url:'prjectType/findAllInoutpatienttype' //数据接口
+            ,title: '用户数据表'//数据导出来的标题
+            ,toolbar:"#inoutpatienttypeToolBar"   //表格的工具条
+            ,height:'full-255'
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [7, 20, 30]
+            ,limit: 7//默认采用3
+            ,cols: [[   //列表数据
+                {field:'inoutpatientId', title:'ID',align:'center',width:'10%'}
+                ,{field:'projectName', title:'收费项',align:'center',width:"20%"}
+                ,{field:'pprojectName', title:'项目大类',align:'center',width:"20%"}
+                ,{field:'price', title:'价格',align:'center',width:"10%"}
+                ,{field:'unitName', title:'单位',align:'center',width:"19%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#inoutpatienttype',align:'center',width:'20%'}
+            ]]
+        })
+        //模糊查询
+        $("#doSearch5").click(function(){
+            var params=$("#searchFrm5").serialize();
+            tableIns5.reload({
+                url:"prjectType/findAllInoutpatienttype?"+params
+            })
+        });
+
+        //监听头部工具栏事件
+        table.on("toolbar(inoutpatienttypeTable)",function(obj){
+            switch(obj.event){
+                case 'add':
+                    openAddInoutpatienttype();
+                    break;
+            };
+        })
+        //监听行工具事件
+        table.on('tool(inoutpatienttypeTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+                layer.confirm('真的删除【'+data.projectName+'】这个收费项吗', function(index){
+                    //向服务端发送删除指令
+                    $.post("prjectType/deleteInoutpatienttype",{inoutpatientId:data.inoutpatientId},function(res){
+                        layer.msg(res);
+                        //刷新数据 表格
+                        tableIns5.reload();
+                    })
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                openUpdateInoutpatienttype(data);
+            }
+        });
+
+        var url;
+        var mainIndex;
+        //打开添加页面
+        function openAddInoutpatienttype(){
+            mainIndex=layer.open({
+                type:1,
+                title:'添加住院项目大类',
+                content:$("#saveOrUpdateDiv5"),
+                area:['500px','500px'],
+                success:function(index){
+                    //清空表单数据
+                    $("#dataFrm5")[0].reset();
+                    url="prjectType/addInoutpatienttype";
+                }
+            });
+        }
+        //打开修改页面
+        function openUpdateInoutpatienttype(data){
+            mainIndex=layer.open({
+                type:1,
+                title:'修改住院项目大类',
+                content:$("#saveOrUpdateDiv5"),
+                area:['500px','500px'],
+                success:function(index){
+
+                    form.val("dataFrm5",data);
+
+                    url="prjectType/editInoutpatienttype";
+
+                }
+            });
+        }
+        //保存
+        form.on("submit(doSubmit5)",function(obj){
+            //序列化表单数据
+            var params=$("#dataFrm5").serialize();
+            $.post(url,params,function(obj){
+                layer.msg(obj);
+                //关闭弹出层
+                layer.close(mainIndex)
+                //刷新数据 表格
+                tableIns5.reload();
+            })
+        });
+
+        //初始化添加or修改到下拉框中的值
+        $.ajax({
+            url: 'prjectType/findAllProjecttype2',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#Projecttype2').append(new Option(item.projectName, item.projectId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+        $.ajax({
+            url: 'prjectType/findAllUnit1',
+            dataType: 'json',
+            type: 'post',
+            success: function (data) {
+                $.each(data, function (index, item) {
+                    $('#unit1').append(new Option(item.unitName, item.unitId));// 下拉菜单里添加元素
+                });
+                layui.form.render("select");//重新渲染 固定写法
+            }
+        })
+
+
+    });
+</script>
+</body>
+</html>

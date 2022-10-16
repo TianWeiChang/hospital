@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>缺货药品显示</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+<body>
+
+<span style="font-family: 新宋体;font-size: 1.3em;margin-left: 470px;" >
+ 仓库药品数量不足30请及时补充</span>
+<table class="layui-hide" id="userTable" lay-filter="userTable"></table>
+<div style="display: none;" id="userToolBar">
+</div>
+<div  id="userBar" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="add">添加</a>
+</div>
+
+<span  style="font-family: 新宋体;font-size: 1.5em;margin-left: 550px;">库房采购单</span>
+<table class="layui-hide" id="userTable1" lay-filter="userTable1"></table>
+<div style="display: none;" id="userToolBar1" >
+</div>
+<div  id="userBar1" style="display: none;">
+    <a class="layui-btn layui-btn-xs" lay-event="del">删除</a>
+</div>
+
+
+<script th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:inline="none">
+    var tableIns;
+    layui.extend({
+        // dtree:'layui_ext/dist/dtree'
+    }).use([ 'jquery', 'layer', 'form', 'table' ,'util','laydate' ], function() {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var  util = layui.util;
+        var laydate = layui.laydate;
+        tableIns=table.render({
+            elem: '#userTable'   //渲染的目标对象
+            ,url:'../seldrugstore/selectlackdrug' //数量过少的药品有哪些
+            ,title: '库房药品表'//数据导出来的标题
+            ,toolbar:"#userToolBar"   //表格的工具条
+            ,height:'full-280'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                {field:'rugstoreId', title:'ID',align:'center',width:"100"}
+                ,{field:'warehouseName', title:'库房',align:'center',width:"100"}
+                ,{field:'drugstoreName', title:'名称',align:'center',width:"100"}
+                ,{field:'supplierName', title:'供货商',align:'center',width:"100"}
+                ,{field:'skullName', title:'经办人',align:'center',width:"100"}
+                ,{field:'unitName', title:'单位',align:'center',width:"100"}
+                ,{field:'tradePrice', title:'批发价',align:'center',width:"100"}
+                ,{field:'sellingPrice', title:'售价',align:'center',width:"100"}
+                ,{field:'areaName', title:'产地',align:'center',width:"100"}
+                ,{field:'produceDate', title:'生产日期',align:'center',width:"100"}
+                ,{field:'validDate', title:'有效日期',align:'center',width:"100"}
+                ,{field:'batch', title:'批号',align:'center',width:"100"}
+                ,{field:'typeName', title:'类型',align:'center',width:"100"}
+                ,{field:'drugstorenum', title:'剩余数量',align:'center',width:"100"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar',align:'center',width:'120'}
+            ]]
+        });
+        //监听行工具事件
+        table.on('tool(userTable)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'add') { //
+                layer.prompt({
+                    title: '请输入数量',
+                    formType: 0, //输入框类型，支持0（文本）默认1（密码）2（多行文本）
+                    value:'', //初始时的值，默认空字符
+                    maxlength: 140, //可输入文本的最大长度，默认500
+                    btn:['确认','取消'],
+                }, function (value, index, elem) {
+                    if (value=='') {
+                        layer.msg("请输入数量")
+                    } else {
+                        $.post("../seldrugstore/addcaigou", {
+                            caigouname: data.drugstoreName,
+                            gonghuoshang: data.supplierName, danwei: data.unitName,
+                            candi: data.areaName, leixing: data.typeName, shuliang: value
+                        }, function (res) {
+                            if (res == 1) {
+                                layer.msg("已加入采购单");
+                                tableIns.reload();
+                                layer.close(index);
+                            } else {
+                                layer.msg("加入失败");
+                            }
+
+                        })
+                    }
+
+
+                });
+
+            }
+
+            });
+
+        tableIns=table.render({
+            elem: '#userTable1'   //渲染的目标对象
+            ,url:'../seldrugstore/selcaigou' //数量过少的药品有哪些
+            ,title: '库房药品表'//数据导出来的标题
+            ,toolbar:"#userToolBar1"   //表格的工具条
+            ,height:'full-280'
+            ,cellMinWidth:150 //设置列的最小默认宽度
+            ,page: 1  //是否启用分页, limits: [10, 20, 30]
+            ,limits: [10, 20, 30]
+            ,limit: 10//默认采用3
+            ,cols: [[   //列表数据
+                {field:'caigouid', title:'ID',align:'center',width:"13%"}
+                ,{field:'caigouname', title:'药品',align:'center',width:"13%"}
+                ,{field:'gonghuoshang', title:'供货商',align:'center',width:"13%"}
+                ,{field:'danwei', title:'单位',align:'center',width:"12%"}
+                ,{field:'candi', title:'产地',align:'center',width:"11%"}
+                ,{field:'leixing', title:'类型',align:'center',width:"11%"}
+                ,{field:'shuliang', title:'预计采购数量',align:'center',width:"12%"}
+                ,{fixed: 'right', title:'操作', toolbar: '#userBar1',align:'center',width:'14%'}
+
+            ]]
+        });
+        //监听行工具事件
+        table.on('tool(userTable1)', function(obj){
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            if(layEvent === 'del'){ //删除
+
+                    //向服务端发送删除指令
+                    $.post("../seldrugstore/delcaigou",{caigouid:data.caigouid},function(res){
+                        if(res==1){
+                            layer.closeAll('dialog');
+                            layer.msg("删除成功");
+                            //刷新数据 表格
+                            tableIns.reload();
+                        }else{
+                            layer.msg("删除失败");
+                        }
+
+                    })
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

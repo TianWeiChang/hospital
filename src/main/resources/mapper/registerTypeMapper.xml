@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.RegisteredTypeMapper">
+
+<select id="registeredTypeList" resultType="Registeredtype">
+    select*from registeredtype
+    <where>
+    <if test="type!=null and type!=''">
+        type like concat('%',concat(#{type},'%'))
+    </if>
+</where>
+</select>
+    <insert id="addRegisteredType" parameterType="Registeredtype">
+        insert into Registeredtype(type,price)values(#{type},#{price})
+    </insert>
+    <delete id="deleteType" parameterType="Integer">
+        delete from Registeredtype where registeredId=#{registeredId}
+    </delete>
+    <update id="editRegisteredType" parameterType="Registeredtype">
+        update Registeredtype set price=#{price} where registeredId=#{registeredId}
+    </update>
+    <select id="count" resultType="int">
+        select count(*) from registeredtype where type=#{type}
+
+    </select>
+</mapper>

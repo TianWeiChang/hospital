@@ -1,0 +1,42 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.MainMapper">
+    <select id="one" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.one  != '无班' and d.dstate!=3
+    </select>
+    <select id="two" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.two  != '无班' and d.dstate!=3
+    </select>
+    <select id="three" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.three  != '无班' and d.dstate!=3
+    </select>
+    <select id="four" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.four  != '无班' and d.dstate!=3
+    </select>
+    <select id="five" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.five  != '无班' and d.dstate!=3
+    </select>
+    <select id="six" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.six  != '无班' and d.dstate!=3
+    </select>
+    <select id="seven" resultType="paiban">
+        select d.doctorName doctorName,d.doctorId from doctor d, paiban p where d.doctorId=p.doctorId and p.seven  != '无班' and d.dstate!=3
+    </select>
+    <select id="currentNum" resultType="Integer">
+      select count(*) from report where DATE_FORMAT(time,'%Y-%m-%d')=DATE_FORMAT(SYSDATE(),'%Y-%m-%d') and  state!=0
+     </select>
+    <select id="currentZhuYuan" resultType="Integer">
+         SELECT count(*) FROM register where DATE_FORMAT(registerDate,'%Y-%m-%d')=DATE_FORMAT(NOW(),'%Y-%m-%d')
+     </select>
+    <!--门诊总数-->
+    <select id="Total" resultType="Integer">
+         SELECT count(*) FROM report where state!=0
+     </select>
+    <!--住院总数-->
+    <select id="zhuyuanTotal" resultType="Integer">
+         select count(*) from register  where state!=0
+     </select>
+
+</mapper>

@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.PharmacyMapper">
+    <!--查询药房药品清单-->
+    <select id="selpharmacy" resultType="Ypharmacy">
+        select DISTINCT p.pharmacyId,p.pharmacyName,sk.skullName,un.unitName,p.sellingPrice,
+        ar.areaName,ty.typeName,p.produceDate,p.validDate,p.skullbatch,p.drugstorenum from pharmacy p,drugstore dr,skull sk,warehuose wa,unit un,area ar,type ty where  p.skullId=sk.skullId AND
+        p.warehouseId=wa.warehouseId and p.unit=un.unitId and p.area=ar.areaId and p.type=ty.typeId
+   <if test="pharmacyName!=null and pharmacyName!=''">
+          and p.pharmacyName like concat('%' ,concat(#{pharmacyName},'%'))
+      </if>
+        ORDER BY p.pharmacyId desc
+
+    </select>
+    <insert id="addbaoque" parameterType="Baoque" >
+            INSERT into baoque(baoqueName,baoqueNum)VALUES(#{baoqueName},#{baoqueNum})
+    </insert>
+   <!-- 添加报缺药品时 查询报缺表是否已存在此药-->
+<select id="selbaoqueName" resultType="Integer">
+    SELECT count(*)from  baoque where baoqueName=#{baoqueName}
+
+</select>
+ <!--   已存在则修改数量-->
+    <update id="upbaoquenum">
+        UPDATE baoque set baoqueNum =(baoqueNum+#{baoqueNum}) where baoqueName=#{baoqueName}
+    </update>
+<!--    回收给药房-->
+<delete id="delpharymacy" >
+delete  from pharmacy where pharmacyId =#{pharmacyId}
+</delete>
+ <!--   添加到回收表-->
+    <insert id="addhuishou" parameterType="Huishou">
+        insert into huishou(huishouname,huishounumber,huishoupihao,jbr,beizhu) VALUES(#{huishouname},#{huishounumber},#{huishoupihao},#{jbr},#{beizhu});
+    </insert>
+   <!-- 查询药房回收表数据-->
+    <select id="selhuishou" resultType="Huishou">
+        select  * from huishou
+    </select>
+    <delete id="delhuishou">
+        delete  from huishou where huishouid  =#{huishouid}
+    </delete>
+</mapper>

@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.CheckupMapper">
+    <insert id="addCheckup" parameterType="com.tian.entity.Lcheckup">
+        insert into checkup(registerid,content,ctime) values(#{registerid},#{content},NOW())
+    </insert>
+    <update id="updPrice" parameterType="com.tian.entity.Lcheckup">
+        update register set price=ifnull(price,0)+200*(1-(cast(replace(discount,'%','') as decimal(18,2))/100)) where registerid=#{registerid}
+    </update>
+    <select id="selCheckup" parameterType="com.tian.entity.Lcheckup" resultType="com.tian.entity.Lcheckup">
+        select c.cid,r.userName,c.ctime,c.content from checkup c,register r where c.registerid=r.registerid and r.registerid=#{registerid} order by c.ctime desc
+    </select>
+</mapper>

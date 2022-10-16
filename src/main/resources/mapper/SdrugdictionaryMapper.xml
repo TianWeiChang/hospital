@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.SdrugdictionaryMapper">
+ <select id="findAllSdrugdictionary" resultType="Sdrugdictionary">
+     select d.drugId, d.drugName,d.typeId,d.unitId,d.areaId, u.unitName,d.sellingPrice,a.areaName,t.typeName from drugdictionary d,unit u,area a,type t where d.areaId=a.areaId and d.typeId=t.typeId and u.unitId=d.unitId
+     <if test="drugName!=null and drugName!=''">
+         and drugName like concat('%',concat(#{drugName},'%'))
+     </if> order by d.drugId asc
+ </select>
+    <insert id="addSdrugdictionary" parameterType="Sdrugdictionary">
+        insert into drugdictionary(drugName,unitId,sellingPrice,areaId,typeId)values(#{drugName},#{unitId},#{sellingPrice},#{areaId},#{typeId})
+    </insert>
+    <update id="editSdrugdictionary" parameterType="Sdrugdictionary">
+        update drugdictionary set drugName=#{drugName},unitId=#{unitId},sellingPrice=#{sellingPrice},areaId=#{areaId},typeId=#{typeId} where drugId=#{drugId}
+    </update>
+    <delete id="deleteSdrugdictionary" parameterType="Integer">
+        delete from drugdictionary where drugId=#{drugId}
+    </delete>
+    <select id="findAllArea" resultType="Area">
+        select*from area
+    </select>
+    <select id="findAllType" resultType="Type">
+        select*from type
+   </select>
+    <select id="findAllUnit" resultType="Unit">
+        select*from unit
+    </select>
+    <select id="count" resultType="int">
+        select count(*) from drugdictionary where drugName=#{drugName}
+    </select>
+</mapper>

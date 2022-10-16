@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tian.mapper.RecordMapper">
+    <!--查询药房药品清单-->
+    <select id="selrecord" resultType="Record">
+    select * from jilu
+
+  <if test="jilutype!=null">
+    where  jilutype like concat('%' ,concat(#{jilutype},'%'))
+      </if>
+  order by  jiluid desc
+
+    </select>
+    <insert id="addjilu" parameterType="Record">
+
+        INSERT into jilu(jiluname,jilutime,jilutype,jilupeople,jilupihao,jilunumber)VALUES
+        (#{jiluname},now(),#{jilutype},#{jilupeople},#{jilupihao},#{jilunumber})
+    </insert>
+
+
+</mapper>
