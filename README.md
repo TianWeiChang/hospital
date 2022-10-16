@@ -322,123 +322,123 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.1.1挂号
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image002.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image002.jpg)
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image004.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image004.jpg)
 
  
 
 ##### 4.1.2选择挂号病人
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image006.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image006.jpg)
 
 填写医生给患者诊查信息
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image008.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image008.jpg)
 
 ##### 4.1.3按照病因选择相应的药物
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image010.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image010.jpg)
 
 如若有需要检查的项目
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image012.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image012.jpg)
 
 ##### 4.1.4选择相应的检查项目
 
-![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image014.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image014.jpg)
 
 ##### 4.1.5项目中有需要检查的项目与非检查项
 
-![img](assets/clip_image016.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image016.jpg)
 
 ##### 4.1.6选择相应的患者
 
-![img](assets/clip_image018.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image018.jpg)
 
 ##### 4.1.7开始收费
 
  
 
-![img](assets/clip_image020.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image020.jpg)
 
 ##### 4.1.8为检查会有相应的状态
 
-![img](assets/clip_image022.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image022.jpg)
 
 ##### 4.1.9检查过后填写病因
 
-![img](assets/clip_image024.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image024.jpg)
 
-![img](clip_image026.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image026.jpg)
 
 ##### 4.1.10检查过后可以再次回到处方划价开取相应的药物
 
-![img](assets/clip_image028.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image028.jpg)
 
-![img](assets/clip_image030.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image030.jpg)
 
 ##### 4.1.11出院缴费
 
  
 
-![img](assets/clip_image032.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image032.jpg)
 
 ##### 4.1.12选择患者进行药品取药
 
  
 
-![img](assets/clip_image034.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image034.jpg)
 
 ##### 4.1.13门诊记录
 
-![img](assets/clip_image036.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image036.jpg)
 
 某一患者的详情记录
 
-![img](assets/clip_image038.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image038.jpg)
 
 #### 4.2住院管理
 
 ##### 4.2.1入院登记或从门诊转到住院
 
-![img](assets/clip_image040.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image040.jpg)
 
-![img](assets/clip_image042.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image042.jpg)
 
 ##### 4.2.2缴费管理
 
-![img](assets/clip_image044.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image044.jpg)
 
 预缴金会相应的增加
 
-![img](assets/clip_image046.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image046.jpg)
 
  
 
 ##### 4.2.3药品记账
 
-![img](assets/clip_image048.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image048.jpg)
 
 ##### 4.2.4手术项目记账 
 
-![img](assets/clip_image050.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image050.jpg)
 
 ##### 4.2.5药房取药
 
-![img](assets/clip_image052.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image052.jpg)
 
 ##### 4.2.6出院结算，会查询出所用费用，退下余额
 
-![img](assets/clip_image054.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image054.jpg)
 
 ##### 4.2.7患者出院记录
 
-![img](assets/clip_image056.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image056.jpg)
 
-![img](assets/clip_image058.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image058.jpg)
 
-![img](assets/clip_image060.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image060.jpg)
 
 #### 4.3系统设置
 
@@ -446,45 +446,45 @@ typeName	Varchar(50)	Not null		-- 类型
 
 添加登陆用户，有默认密码，或选择可用不可用
 
-![img](assets/clip_image062.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image062.jpg)
 
 编辑
 
-![img](assets/clip_image064.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image064.jpg)
 
 ##### 4.3.2重置密码
 
 重置初始状态
 
-![img](assets/clip_image066.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image066.jpg)
 
 ##### 4.3.3分配可用角色
 
-![img](assets/clip_image068.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image068.jpg)
 
 ##### 4.3.4添加角色
 
-![img](assets/clip_image070.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image070.jpg)
 
 编辑
 
-![img](assets/clip_image072.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image072.jpg)
 
 ##### 4.3.5给角色分配菜单
 
-![img](assets/clip_image074.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image074.jpg)
 
 ##### 4.3.6菜单管理
 
 点击相应的左侧菜单会进行查询
 
-![img](assets/clip_image076.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image076.jpg)
 
 3.7添加菜单
 
  
 
-![img](assets/clip_image078.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image078.jpg)
 
  
 
@@ -492,59 +492,59 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.4.4门诊月统计或根据时间查询
 
-![img](assets/clip_image080.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image080.jpg)
 
 ##### 4.4.5住院月统计或根据时间查询
 
  
 
-![img](assets/clip_image082.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image082.jpg)
 
 ##### 4.4.6门诊年统计
 
-![img](assets/clip_image084.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image084.jpg)
 
 ##### 4.4.7住院年统计
 
  
 
-![img](assets/clip_image086.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image086.jpg)
 
 ##### 4.4.8医生统计对比
 
-![img](assets/clip_image088.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image088.jpg)
 
-![img](assets/clip_image090.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image090.jpg)
 
 #### 5.5排班管理
 
-![img](assets/clip_image092.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image092.jpg)
 
 #### 6.6数据中心
 
 ##### 4.6.1添加科室
 
-![img](assets/clip_image094.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image094.jpg)
 
 ##### 4.6.2添加医生选择医生相应的科室
 
-![img](assets/clip_image096.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image096.jpg)
 
 ##### 4.6.3药品生产地
 
-![img](assets/clip_image098.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image098.jpg)
 
 ##### 4.6.4项目大类
 
-![img](assets/clip_image100.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image100.jpg)
 
-![img](assets/clip_image102.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image102.jpg)
 
-![img](assets/clip_image104.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image104.jpg)
 
 ##### 4.6.5挂号类型
 
-![img](assets/clip_image106.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image106.jpg)
 
 ##### 4.6.6经办人
 
@@ -552,23 +552,25 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.6.7药品计量单位
 
-![img](assets/clip_image108.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image108.jpg)
 
 ##### 4.6.8供货商
 
-##### ![img](assets/clip_image110.jpg)![img](assets/clip_image112.jpg)
+  ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image110.jpg)
+
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image112.jpg)
 
 
 
 ##### 4.6.9药品供货商
 
-![img](assets/clip_image114.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image114.jpg)
 
 ##### 4.6.10药品字典
 
 药品字典指的时仓库采药需要从药品字典中选取药品相当与药品采购单
 
-![img](assets/clip_image116.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image116.jpg)
 
  
 
@@ -576,11 +578,11 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.7.1查询所有从库房调来的药品
 
-![img](assets/clip_image118.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image118.jpg)
 
 ##### 4.7.2根据药品的数量报缺
 
-##### ![img](assets/clip_image118-1663328822877.jpg)
+ ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image118-1663328822877.jpg)
 
 
 
@@ -594,13 +596,13 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.8.2根据医院购药清单选择药品
 
-##### ![img](assets/clip_image120.jpg)
+##### ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image120.jpg)
 
-![img](assets/clip_image122.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image122.jpg)
 
 ##### 4.8.2查询入库药品
 
-![img](assets/clip_image124.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image124.jpg)
 
 ##### 4.8.3出库单
 
@@ -610,9 +612,9 @@ typeName	Varchar(50)	Not null		-- 类型
 
 从仓库调到药房
 
-![img](assets/clip_image126.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image126.jpg)
 
-![img](assets/clip_image128.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image128.jpg)
 
 ##### 4.8.4库存不足
 
@@ -622,13 +624,13 @@ typeName	Varchar(50)	Not null		-- 类型
 
  
 
-![img](assets/clip_image130.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image130.jpg)
 
 ##### 4.8.5过期提醒
 
 药品保质期已过药品会进行提示销毁
 
-![img](assets/clip_image132.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image132.jpg)
 
 ##### 4.8.6操作记录
 
@@ -638,7 +640,7 @@ typeName	Varchar(50)	Not null		-- 类型
 
  
 
-![img](assets/clip_image134.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image134.jpg)
 
  
 
@@ -648,7 +650,7 @@ typeName	Varchar(50)	Not null		-- 类型
 
 #### 1、门诊管理 
 
-![img](assets/clip_image136.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image136.jpg)
 
 处理功能描述
 
@@ -686,7 +688,7 @@ typeName	Varchar(50)	Not null		-- 类型
 
 #### 2、住院管理
 
-![img](assets/clip_image138.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image138.jpg)
 
  
 
@@ -778,7 +780,7 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 5.6操作记录
 
-![img](assets/clip_image140.jpg)
+![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image140.jpg)
 
 操作记录值得是药品的出库记录，或者说药房报缺，这是紧急报缺补给记录，入库记录等信息。 
 
