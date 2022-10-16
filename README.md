@@ -2,11 +2,11 @@
 
 目前各医疗机构中，绝大部分中小型医疗机构内部没有实现任何信息化管理，医院临床信息，业务流程的数据依然采取纸质记录，造成数据容易丢失，对医院造成重大损失。
 
-![1663329398371](assets/1663329398371.png)
+![1663329398371](https://github.com/TianWeiChang/hospital/blob/main/assets/1663329398371.png)
 
 医院内部的挂号、收费、药房、药库、科室、病床的信息管理都存在缺漏，对患者的临床信息不能做到完整保存，高效查询，数据的容易出错、遗漏，造成换院治病难，医院不敢治，错过最佳治疗期等现状，对患者的治疗造成严重的影响。 
 
-![1663329642212](assets/1663329642212.png)
+![1663329642212](https://github.com/TianWeiChang/hospital/blob/main/assets/1663329642212.png)
 
 
 
@@ -801,3 +801,9 @@ typeName	Varchar(50)	Not null		-- 类型
 
 #### 2、功能扩展
 
+
+### 在线刷题
+
+![在线刷题](https://mmbiz.qpic.cn/mmbiz_png/07BicZywOVtlO7E6oFZ4EGwxcx7Q1rrctf3fXWCPSCVibLe8icHIuibUIplt7whKh0ZWGD8CzyRa81NGw8Q8btdWHA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+https://mmbiz.qpic.cn/mmbiz_png/07BicZywOVtlO7E6oFZ4EGwxcx7Q1rrctf3fXWCPSCVibLe8icHIuibUIplt7whKh0ZWGD8CzyRa81NGw8Q8btdWHA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1
