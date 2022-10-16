@@ -322,27 +322,27 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ##### 4.1.1挂号
 
-![img](assets/clip_image002.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image002.jpg)
 
-![img](assets/clip_image004.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image004.jpg)
 
  
 
 ##### 4.1.2选择挂号病人
 
-![img](assets/clip_image006.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image006.jpg)
 
 填写医生给患者诊查信息
 
-![img](assets/clip_image008.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image008.jpg)
 
 ##### 4.1.3按照病因选择相应的药物
 
-![img](assets/clip_image010.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image010.jpg)
 
 如若有需要检查的项目
 
-![img](assets/clip_image012.jpg)
+![img](https://github.com/TianWeiChang/hospital/tree/main/assets/clip_image012.jpg)
 
 ##### 4.1.4选择相应的检查项目
 
