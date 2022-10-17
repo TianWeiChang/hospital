@@ -318,6 +318,155 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ### 四．功能演示
 
+#### 效果图
+ 
+ 
+ ![](https://files.mdnice.com/user/6311/fb7d657a-32d0-4e44-994c-a112245e7760.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/81fa3103-3a50-40ff-810d-39665373bcd5.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/15cdf47d-0373-4f77-b4d3-7e52c100c39e.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/38c34913-29b4-40d3-a84c-569679dc7772.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/ef9eafcd-4828-43c4-8d4f-2b4f7e33f59a.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/6099c431-69cd-4531-9306-80e45d36a8a2.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/a5d75880-367d-4c32-958a-547928246eed.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/34d879aa-6040-426c-bf2c-ad5788d7a7bf.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/e790c340-6eae-49c4-a35c-b77fc0daf56c.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/d6e1106d-d245-485d-8e51-ab5d71026dec.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/2aaccf6a-4253-4de6-8cd4-01d21ef7d0cc.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/c5faee85-042d-4edf-9a18-70d317e309e8.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/9be75c4a-05b7-4248-ae1c-3fa0c88c9942.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/554f66ba-ef12-45f6-9b27-6d706f24e082.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/f61b588d-bc70-4835-8eb9-6edbf6d34b62.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/2d310e23-9e6d-4c38-b7d6-261f547f0181.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/cd43d2e2-11f1-4ac3-a667-24f534562112.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/3c21e4c3-3ddc-4ec5-bd5b-f38aa8afd804.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/52b04038-b254-44ca-86f6-def91451e143.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/cf5bdf26-e661-465f-bb5d-4629a6b5e1f3.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/bbb09ff4-0d93-4370-85f4-b33eb50e5616.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/d83793fd-f9c1-4bfc-a720-b7c25b237a9f.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/811b5577-3df6-4d09-9fa0-d8dba5fa08c1.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/778c4b02-5910-410d-a3a0-623143689294.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/d667c2fb-25dd-4880-afd3-cd50cf814f56.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/3824a5ed-e29b-47e6-886a-8dddee5b8208.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/6e48b9b8-eb84-468e-8b5e-5df54157612f.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/9e549b59-8573-48b5-b5eb-6a9873e19078.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/b8523cfd-d0e2-48ba-9968-8c93853619e2.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/e60afab6-cc52-45e5-9fa1-ac74b59a2c15.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/5ce45eb0-60dc-4a7e-9a2e-30295f5c7986.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/55416a9e-8bac-42ed-85d7-65c84a25e866.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/e2b2b306-48ad-45b1-98a6-7c425df10030.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/9f6de55b-6538-4074-8317-6adf59d6e595.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/296fa021-9b08-4038-9ba9-0f48c7208bd1.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/9496bce7-aad6-4139-8255-57ec17e660a2.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/8712dffa-8363-4786-a26f-5bc99ec6f6a0.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/512987fe-0acd-419e-baa0-9f89c0122ff2.png)
+ 
+ ![](https://files.mdnice.com/user/6311/57c6c409-770c-4cf6-b739-4edac8957dbb.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/598e532f-a78f-44ef-a11b-68f52fdf6d1f.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/b67023f4-59f8-4338-a666-c547f8d02719.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/45c4d2fa-bcfc-48c9-9b06-3fcf80231a2b.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/24a39905-8f20-41c3-bbc0-0687e967f24d.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/ba25919c-ca4f-4785-9820-10a91c462f70.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/077b3382-344f-4d5a-9525-c2216c18fd49.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/75e492bf-5c74-481d-894d-275fefeeaf4b.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/c1f60464-1f0b-4ec4-9cb1-46e3495575c1.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/86154eb5-bca6-4592-ba32-19e2e477bd30.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/2e35e7bb-6375-4f63-9dee-89dff3a9ebc5.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/440759e9-f987-41f6-9234-f37eb5628fcc.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/0f0213bc-50ae-4ec2-b55d-c68964b30fd4.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/d2f4021d-f48f-439b-87a6-f216cda83529.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/3b27281e-362b-45d0-8459-d1531281e625.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/362ce261-5ab6-46b9-bc80-a8fb92bcd5ef.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/a61596d3-beec-49f1-925c-f9cef04042ac.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/c8377b40-64d8-42fb-8a59-94b4d134ed53.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/84b660ff-4198-4824-b80b-bb28c83f6fe4.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/60d62188-6cd4-48a0-aca4-2b2b90a5aa09.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/81a90875-d699-4438-b0e8-bf3e1dd00d30.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/0a860dc0-8ea5-489b-865d-4fc6836a59f4.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/b020352f-1d20-42fb-848a-e3a0b1546392.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/c64c8e4f-7d84-44c1-ae46-06c81aabd0b2.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/6b04fb9f-4496-44a4-9b90-287653d65827.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/7853a150-d1ee-40ad-ba73-10da2d700dc1.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/bb49cca0-ec00-4338-87fe-9dc067e5209c.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/c696a047-88e1-4d6a-b76f-e01145cff0cf.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/1ab48857-867f-45e3-93ce-7e15df143169.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/71db85aa-b2bd-4931-ab20-546a63cf8c74.png)
+ 
+ ![](https://files.mdnice.com/user/6311/3844e6a0-b80f-4966-9972-73655d880432.png)
+ 
+ ![](https://files.mdnice.com/user/6311/7e7bce8f-4387-4103-92cc-44d8a51ce9a1.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/03cd9da8-940d-4b9f-aff3-8c4fe6b83f4c.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/aed5b80c-a000-4918-998b-d6126f5f8a47.jpg)
+ 
+ ![](https://files.mdnice.com/user/6311/55b6198d-78db-4074-82b1-ec7183029d23.jpg)
+
 #### 4.1门诊管理
 
 ##### 4.1.1挂号
@@ -510,79 +659,50 @@ typeName	Varchar(50)	Not null		-- 类型
 
 ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image086.jpg)
 
-##### 4.4.8医生统计对比
+##### 4.4.8医生统计对比 
 
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image088.jpg)
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image090.jpg)
-
-#### 5.5排班管理
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image092.jpg)
+#### 5.5排班管理 
 
 #### 6.6数据中心
 
 ##### 4.6.1添加科室
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image094.jpg)
-
+ 
 ##### 4.6.2添加医生选择医生相应的科室
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image096.jpg)
+ 
 
 ##### 4.6.3药品生产地
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image098.jpg)
+ 
 
 ##### 4.6.4项目大类
+ 
 
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image100.jpg)
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image102.jpg)
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image104.jpg)
-
-##### 4.6.5挂号类型
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image106.jpg)
+##### 4.6.5挂号类型 
 
 ##### 4.6.6经办人
 
 药品入库的中间人，一个记录
 
 ##### 4.6.7药品计量单位
+ 
 
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image108.jpg)
-
-##### 4.6.8供货商
-
-  ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image110.jpg)
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image112.jpg)
-
+##### 4.6.8供货商 
 
 
 ##### 4.6.9药品供货商
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image114.jpg)
-
+ 
 ##### 4.6.10药品字典
 
-药品字典指的时仓库采药需要从药品字典中选取药品相当与药品采购单
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image116.jpg)
+药品字典指的时仓库采药需要从药品字典中选取药品相当与药品采购单 
 
  
 
 #### 7.7药房管理
 
 ##### 4.7.1查询所有从库房调来的药品
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image118.jpg)
+ 
 
 ##### 4.7.2根据药品的数量报缺
-
- ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image118-1663328822877.jpg)
+ 
 
 
 
@@ -595,14 +715,10 @@ typeName	Varchar(50)	Not null		-- 类型
  
 
 ##### 4.8.2根据医院购药清单选择药品
-
-##### ![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image120.jpg)
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image122.jpg)
+ 
 
 ##### 4.8.2查询入库药品
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image124.jpg)
+ 
 
 ##### 4.8.3出库单
 
@@ -611,10 +727,7 @@ typeName	Varchar(50)	Not null		-- 类型
  
 
 从仓库调到药房
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image126.jpg)
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image128.jpg)
+ 
 
 ##### 4.8.4库存不足
 
@@ -623,14 +736,11 @@ typeName	Varchar(50)	Not null		-- 类型
 选择添加到库房采购
 
  
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image130.jpg)
-
+ 
 ##### 4.8.5过期提醒
 
 药品保质期已过药品会进行提示销毁
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image132.jpg)
+ 
 
 ##### 4.8.6操作记录
 
@@ -639,8 +749,7 @@ typeName	Varchar(50)	Not null		-- 类型
 或者根据库存的数量进行药房库存报缺
 
  
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image134.jpg)
+ 
 
  
 
@@ -649,8 +758,7 @@ typeName	Varchar(50)	Not null		-- 类型
  
 
 #### 1、门诊管理 
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image136.jpg)
+ 
 
 处理功能描述
 
@@ -686,9 +794,7 @@ typeName	Varchar(50)	Not null		-- 类型
 
 已经就诊过后缴完费的患者信息，可以查询该患者所用的药品以及项目和检查结果。
 
-#### 2、住院管理
-
-![img](https://github.com/TianWeiChang/hospital/blob/main/assets/clip_image138.jpg)
+#### 2、住院管理 
 
  
 
@@ -802,154 +908,7 @@ typeName	Varchar(50)	Not null		-- 类型
 #### 2、功能扩展
 
 
-### 效果图
 
-
-![](https://files.mdnice.com/user/6311/fb7d657a-32d0-4e44-994c-a112245e7760.jpg)
-
-![](https://files.mdnice.com/user/6311/81fa3103-3a50-40ff-810d-39665373bcd5.jpg)
-
-![](https://files.mdnice.com/user/6311/15cdf47d-0373-4f77-b4d3-7e52c100c39e.jpg)
-
-![](https://files.mdnice.com/user/6311/38c34913-29b4-40d3-a84c-569679dc7772.jpg)
-
-![](https://files.mdnice.com/user/6311/ef9eafcd-4828-43c4-8d4f-2b4f7e33f59a.jpg)
-
-![](https://files.mdnice.com/user/6311/6099c431-69cd-4531-9306-80e45d36a8a2.jpg)
-
-![](https://files.mdnice.com/user/6311/a5d75880-367d-4c32-958a-547928246eed.jpg)
-
-![](https://files.mdnice.com/user/6311/34d879aa-6040-426c-bf2c-ad5788d7a7bf.jpg)
-
-![](https://files.mdnice.com/user/6311/e790c340-6eae-49c4-a35c-b77fc0daf56c.jpg)
-
-![](https://files.mdnice.com/user/6311/d6e1106d-d245-485d-8e51-ab5d71026dec.jpg)
-
-![](https://files.mdnice.com/user/6311/2aaccf6a-4253-4de6-8cd4-01d21ef7d0cc.jpg)
-
-![](https://files.mdnice.com/user/6311/c5faee85-042d-4edf-9a18-70d317e309e8.jpg)
-
-![](https://files.mdnice.com/user/6311/9be75c4a-05b7-4248-ae1c-3fa0c88c9942.jpg)
-
-![](https://files.mdnice.com/user/6311/554f66ba-ef12-45f6-9b27-6d706f24e082.jpg)
-
-![](https://files.mdnice.com/user/6311/f61b588d-bc70-4835-8eb9-6edbf6d34b62.jpg)
-
-![](https://files.mdnice.com/user/6311/2d310e23-9e6d-4c38-b7d6-261f547f0181.jpg)
-
-![](https://files.mdnice.com/user/6311/cd43d2e2-11f1-4ac3-a667-24f534562112.jpg)
-
-![](https://files.mdnice.com/user/6311/3c21e4c3-3ddc-4ec5-bd5b-f38aa8afd804.jpg)
-
-![](https://files.mdnice.com/user/6311/52b04038-b254-44ca-86f6-def91451e143.jpg)
-
-![](https://files.mdnice.com/user/6311/cf5bdf26-e661-465f-bb5d-4629a6b5e1f3.jpg)
-
-![](https://files.mdnice.com/user/6311/bbb09ff4-0d93-4370-85f4-b33eb50e5616.jpg)
-
-![](https://files.mdnice.com/user/6311/d83793fd-f9c1-4bfc-a720-b7c25b237a9f.jpg)
-
-![](https://files.mdnice.com/user/6311/811b5577-3df6-4d09-9fa0-d8dba5fa08c1.jpg)
-
-![](https://files.mdnice.com/user/6311/778c4b02-5910-410d-a3a0-623143689294.jpg)
-
-![](https://files.mdnice.com/user/6311/d667c2fb-25dd-4880-afd3-cd50cf814f56.jpg)
-
-![](https://files.mdnice.com/user/6311/3824a5ed-e29b-47e6-886a-8dddee5b8208.jpg)
-
-![](https://files.mdnice.com/user/6311/6e48b9b8-eb84-468e-8b5e-5df54157612f.jpg)
-
-![](https://files.mdnice.com/user/6311/9e549b59-8573-48b5-b5eb-6a9873e19078.jpg)
-
-![](https://files.mdnice.com/user/6311/b8523cfd-d0e2-48ba-9968-8c93853619e2.jpg)
-
-![](https://files.mdnice.com/user/6311/e60afab6-cc52-45e5-9fa1-ac74b59a2c15.jpg)
-
-![](https://files.mdnice.com/user/6311/5ce45eb0-60dc-4a7e-9a2e-30295f5c7986.jpg)
-
-![](https://files.mdnice.com/user/6311/55416a9e-8bac-42ed-85d7-65c84a25e866.jpg)
-
-![](https://files.mdnice.com/user/6311/e2b2b306-48ad-45b1-98a6-7c425df10030.jpg)
-
-![](https://files.mdnice.com/user/6311/9f6de55b-6538-4074-8317-6adf59d6e595.jpg)
-
-![](https://files.mdnice.com/user/6311/296fa021-9b08-4038-9ba9-0f48c7208bd1.jpg)
-
-![](https://files.mdnice.com/user/6311/9496bce7-aad6-4139-8255-57ec17e660a2.jpg)
-
-![](https://files.mdnice.com/user/6311/8712dffa-8363-4786-a26f-5bc99ec6f6a0.jpg)
-
-![](https://files.mdnice.com/user/6311/512987fe-0acd-419e-baa0-9f89c0122ff2.png)
-
-![](https://files.mdnice.com/user/6311/57c6c409-770c-4cf6-b739-4edac8957dbb.jpg)
-
-![](https://files.mdnice.com/user/6311/598e532f-a78f-44ef-a11b-68f52fdf6d1f.jpg)
-
-![](https://files.mdnice.com/user/6311/b67023f4-59f8-4338-a666-c547f8d02719.jpg)
-
-![](https://files.mdnice.com/user/6311/45c4d2fa-bcfc-48c9-9b06-3fcf80231a2b.jpg)
-
-![](https://files.mdnice.com/user/6311/24a39905-8f20-41c3-bbc0-0687e967f24d.jpg)
-
-![](https://files.mdnice.com/user/6311/ba25919c-ca4f-4785-9820-10a91c462f70.jpg)
-
-![](https://files.mdnice.com/user/6311/077b3382-344f-4d5a-9525-c2216c18fd49.jpg)
-
-![](https://files.mdnice.com/user/6311/75e492bf-5c74-481d-894d-275fefeeaf4b.jpg)
-
-![](https://files.mdnice.com/user/6311/c1f60464-1f0b-4ec4-9cb1-46e3495575c1.jpg)
-
-![](https://files.mdnice.com/user/6311/86154eb5-bca6-4592-ba32-19e2e477bd30.jpg)
-
-![](https://files.mdnice.com/user/6311/2e35e7bb-6375-4f63-9dee-89dff3a9ebc5.jpg)
-
-![](https://files.mdnice.com/user/6311/440759e9-f987-41f6-9234-f37eb5628fcc.jpg)
-
-![](https://files.mdnice.com/user/6311/0f0213bc-50ae-4ec2-b55d-c68964b30fd4.jpg)
-
-![](https://files.mdnice.com/user/6311/d2f4021d-f48f-439b-87a6-f216cda83529.jpg)
-
-![](https://files.mdnice.com/user/6311/3b27281e-362b-45d0-8459-d1531281e625.jpg)
-
-![](https://files.mdnice.com/user/6311/362ce261-5ab6-46b9-bc80-a8fb92bcd5ef.jpg)
-
-![](https://files.mdnice.com/user/6311/a61596d3-beec-49f1-925c-f9cef04042ac.jpg)
-
-![](https://files.mdnice.com/user/6311/c8377b40-64d8-42fb-8a59-94b4d134ed53.jpg)
-
-![](https://files.mdnice.com/user/6311/84b660ff-4198-4824-b80b-bb28c83f6fe4.jpg)
-
-![](https://files.mdnice.com/user/6311/60d62188-6cd4-48a0-aca4-2b2b90a5aa09.jpg)
-
-![](https://files.mdnice.com/user/6311/81a90875-d699-4438-b0e8-bf3e1dd00d30.jpg)
-
-![](https://files.mdnice.com/user/6311/0a860dc0-8ea5-489b-865d-4fc6836a59f4.jpg)
-
-![](https://files.mdnice.com/user/6311/b020352f-1d20-42fb-848a-e3a0b1546392.jpg)
-
-![](https://files.mdnice.com/user/6311/c64c8e4f-7d84-44c1-ae46-06c81aabd0b2.jpg)
-
-![](https://files.mdnice.com/user/6311/6b04fb9f-4496-44a4-9b90-287653d65827.jpg)
-
-![](https://files.mdnice.com/user/6311/7853a150-d1ee-40ad-ba73-10da2d700dc1.jpg)
-
-![](https://files.mdnice.com/user/6311/bb49cca0-ec00-4338-87fe-9dc067e5209c.jpg)
-
-![](https://files.mdnice.com/user/6311/c696a047-88e1-4d6a-b76f-e01145cff0cf.jpg)
-
-![](https://files.mdnice.com/user/6311/1ab48857-867f-45e3-93ce-7e15df143169.jpg)
-
-![](https://files.mdnice.com/user/6311/71db85aa-b2bd-4931-ab20-546a63cf8c74.png)
-
-![](https://files.mdnice.com/user/6311/3844e6a0-b80f-4966-9972-73655d880432.png)
-
-![](https://files.mdnice.com/user/6311/7e7bce8f-4387-4103-92cc-44d8a51ce9a1.jpg)
-
-![](https://files.mdnice.com/user/6311/03cd9da8-940d-4b9f-aff3-8c4fe6b83f4c.jpg)
-
-![](https://files.mdnice.com/user/6311/aed5b80c-a000-4918-998b-d6126f5f8a47.jpg)
-
-![](https://files.mdnice.com/user/6311/55b6198d-78db-4074-82b1-ec7183029d23.jpg)
 
 
 ### 在线刷题
