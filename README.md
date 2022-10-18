@@ -1,7 +1,7 @@
 
 各位老铁记得 右上角  **Star**
 
-需要学习资料的盆友，可以关注我的公众号：Java后端技术全栈，
+需要学习资料的盆友，可以关注我的公众号：[Java后端技术全栈](https://mp.weixin.qq.com/s/-S43ZLRi3333CyaCILPhIQ)，
 
 加我微信：tj20120622。
 ![微信](http://tianwc.oss-cn-beijing.aliyuncs.com/dev/20220412/1649754187314.jpg)
