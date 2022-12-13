@@ -71,7 +71,7 @@ h1,h2,h3{font-size: 14px;}
 .layui-side-child .layui-nav-tree .layui-this>a, 
 .layui-side-child .layui-nav-tree .layui-nav-child dd.layui-this, 
 .layui-side-child .layui-nav-tree .layui-nav-child dd.layui-this a{background: none; color: #5FB878 !important;}
-.layui-side-child .layui-nav .layui-nav-child a:hover{color: #009688 !important} 
+.layui-side-child .layui-nav .layui-nav-child a:hover{color: #4093D0 !important}
 .layui-side-child .layui-nav-bar{background-color: #5FB878;}
 
 
@@ -186,7 +186,7 @@ body .layui-layout-admin .footer-demo{height: 50px; line-height: 50px; padding: 
 body .site-tips p{margin: 0;}
 body .layui-layer-notice .layui-layer-content{padding: 20px; line-height: 26px; background-color: #393D49; color: #fff; font-weight: 300;}
 .layui-layer-notice .layui-text{color: #f8f8f8;}
-.layui-layer-notice .layui-text a{color: #009688;}
+.layui-layer-notice .layui-text a{color: #4093D0;}
 
 /* 鐩綍 */
 .site-dir{display: none;}
@@ -345,13 +345,13 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 
 
 /* 鐙珛缁勪欢 涓� 涓婚〉 */
-.alone{text-align: center; background-color: #009688; color: #fff; font-weight: 300; transition: all .3s; -webkit-transition: all .3s;}
+.alone{text-align: center; background-color: #4093D0; color: #fff; font-weight: 300; transition: all .3s; -webkit-transition: all .3s;}
 .alone:hover{background-color: #5FB878;}
 .alone a{display: block; padding: 50px 20px; color: #fff; font-size: 30px;}
 .alone a cite{display: block; padding-top: 10px; font-size: 14px;}
 
 
-.alone-banner{height: 190px; text-align: center; font-weight: 300; background-color: #009688; color:#fff;}
+.alone-banner{height: 190px; text-align: center; font-weight: 300; background-color: #4093D0; color:#fff;}
 .alone-banner h1{padding-top: 60px; line-height: 32px; font-size: 30px; font-weight: 300;}
 .alone-banner p{padding-top: 20px; color: #e2e2e2; color: rgba(255,255,255,.8);}
 
@@ -368,7 +368,7 @@ body .site-demo-nav .layui-nav-item{line-height: 40px}
 .alone-download-btn{text-align: center; margin-top: 50px; font-size: 0;}
 .alone-download-btn .layui-btn{position: relative; width: 206px; height: 60px; line-height: 60px; font-size: 26px; font-weight: 300;}
 .alone-download-btn .layui-btn+.layui-btn{margin: 0;}
-.alone-download-btn .alone-download-right{margin-left: 20px !important; border-color: #009688; background: none; color: #009688;}
+.alone-download-btn .alone-download-right{margin-left: 20px !important; border-color: #4093D0; background: none; color: #4093D0;}
 .alone-download-btn .layui-btn img{position: relative; top: -3px; width: 118px;}
 
 

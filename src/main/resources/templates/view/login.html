@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/public.css}" media="all"/>
     <style>
         .loginBody{
-            background: url(../images/login_bg.jpg) no-repeat center center;
+            background: url(../images/index.png) no-repeat center center;
             margin-top: 580px;
             -webkit-background-size: 1920px;
             background-size: 1720px 930px;
@@ -18,14 +18,14 @@
 </head>
 <body class="loginBody">
 <form class="layui-form" id="loginFrm" th:action="@{/sel/login}" method="post">
-    <div class="login_face"><img src="../images/timg.jpg" class="userAvatar"></div>
+    <div class="login_face"><img src="../images/hospital_mini.jpeg" class="userAvatar"></div>
     <div class="layui-form-item input-item">
         <label>用户名</label>
-        <input type="text" id="loginname" placeholder="请输入用户名" autocomplete="off" name="loginname" class="layui-input" lay-verify="required">
+        <input type="text" id="loginname" placeholder="请输入用户名" autocomplete="off" name="loginname" class="layui-input" lay-verify="required" value="admin">
     </div>
     <div class="layui-form-item input-item">
         <label>密码</label>
-        <input type="password" id="pwd" placeholder="请输入密码" autocomplete="off" name="pwd" class="layui-input" lay-verify="required">
+        <input type="password" id="pwd" placeholder="请输入密码" autocomplete="off" name="pwd" class="layui-input" lay-verify="required" value="123456">
     </div>
     <div class="layui-form-item input-item">
         <span id="msg" th:text="${msg}"></span>

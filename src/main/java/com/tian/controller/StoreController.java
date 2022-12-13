@@ -114,6 +114,8 @@ public class StoreController {
         //将分页后的数据返回（每页要显示的数据）
         drugstoresData.put("data", pageInfo.getList());
 
+
+
         return drugstoresData;
     }
 

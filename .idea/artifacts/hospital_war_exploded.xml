@@ -58,7 +58,6 @@
           <element id="library" level="project" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:1.3.2" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.6" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.3.2" />
-          <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.31" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.16" />
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper-spring-boot-starter:1.2.3" />
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper-spring-boot-autoconfigure:1.2.3" />
@@ -74,6 +73,7 @@
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.28" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.1.10.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.10.RELEASE" />
+          <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.31" />
         </element>
       </element>
       <element id="directory" name="META-INF">

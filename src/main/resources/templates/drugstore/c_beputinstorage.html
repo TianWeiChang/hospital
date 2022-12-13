@@ -343,6 +343,7 @@
         table.on('tool(userTable)', function(obj){
             var data = obj.data; //获得当前行数据
             var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            //选择药品时候
             if(layEvent === 'edit') { //编辑
                 var gonghuo = $("#text_upplier").val();
                 if (gonghuo == "") {
@@ -369,6 +370,7 @@
                             dataType: 'JSON',
                             type: 'post',
                             success: function (data) {
+                                console.log(data);
                                 //当前药品的剩余数量
                                 $("#dqkucun").val((data+0)+ "" + dName);
                             }

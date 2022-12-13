@@ -5,18 +5,49 @@ import java.sql.Date;
 
 public class CReport {
     private int reportId;
+    /**
+     * 姓名
+     */
     private String reportName;
+    /**
+     * 行不
+     */
     private String sex;
+    /**
+     * 年龄
+     */
     private int age;
+    /**
+     * 挂号费用价格
+     */
     private double price;
+    /**
+     * 部门
+     */
     private Integer department;
+    /**
+     * 医生
+     */
     private Integer doctor;
+    /**
+     * 挂号类型（专家、普通）
+     */
     private Integer reporttype;
     private Date time;
+    /**
+     * 当前录入用户
+     */
     private String users;
     private Integer state;
+    /**
+     * 身份证号
+     */
     private String carid;
+    /**
+     * 手机号
+     */
     private String phone;
+
     private String zhuan;
 
     public String getZhuan() {

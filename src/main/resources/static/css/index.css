@@ -158,7 +158,7 @@ iframe {
 }
 
 .admin-header-lock-name {
-    color: #009688;
+    color: #4093D0;
     margin: 8px 0 15px 0;
 }
 
@@ -170,7 +170,7 @@ iframe {
 .admin-header-lock-input {
     width: 170px;
     color: #fff;
-    background-color: #009688;
+    background-color: #4093D0;
     float: left;
     margin: 0 10px 0 40px;
     border: none;
@@ -225,7 +225,7 @@ iframe {
     text-align: center;
     padding: 5px 5px;
     color: #fff;
-    background-color: #1AA094;
+    background-color: #4093D0;
 }
 
 .hideMenu:hover {
@@ -336,7 +336,7 @@ iframe {
 .layui-nav-itemed:before {
     width: 5px;
     height: 100%;
-    background-color: #009688;
+    background-color: #4093D0;
     position: absolute;
     content: '';
     left: 0;
@@ -396,8 +396,8 @@ iframe {
 /*layui-body*/
 .layui-body {
     overflow: hidden;
-    border-top: 5px solid #1AA094;
-    border-left: 2px solid #1AA094;
+    border-top: 5px solid #4093D0;
+    border-left: 2px solid #4093D0;
     background: #fff;
 }
 
@@ -413,7 +413,7 @@ iframe {
 }
 
 .layui-tab-title .layui-this {
-    background-color: #1AA094;
+    background-color: #4093D0;
     color: #fff;
 }
 
@@ -546,7 +546,7 @@ iframe {
 .footer {
     text-align: center;
     line-height: 44px;
-    border-left: 2px solid #1AA094;
+    border-left: 2px solid #4093D0;
     z-index: 999;
 }
 

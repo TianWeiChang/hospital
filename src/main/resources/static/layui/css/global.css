@@ -261,7 +261,7 @@ h1, h2, h3 {
 }
 
 .layui-side-child .layui-nav .layui-nav-child a:hover {
-    color: #009688 !important
+    color: #4093D0 !important
 }
 
 .layui-side-child .layui-nav-bar {
@@ -710,7 +710,7 @@ body .layui-layer-notice .layui-layer-content {
 }
 
 .layui-layer-notice .layui-text a {
-    color: #009688;
+    color: #4093D0;
 }
 
 /* 鐩綍 */
@@ -1360,7 +1360,7 @@ body .site-demo-nav .layui-nav-item {
 /* 鐙珛缁勪欢 涓� 涓婚〉 */
 .alone {
     text-align: center;
-    background-color: #009688;
+    background-color: #4093D0;
     color: #fff;
     font-weight: 300;
     transition: all .3s;
@@ -1388,7 +1388,7 @@ body .site-demo-nav .layui-nav-item {
     height: 190px;
     text-align: center;
     font-weight: 300;
-    background-color: #009688;
+    background-color: #4093D0;
     color: #fff;
 }
 
@@ -1458,9 +1458,9 @@ body .site-demo-nav .layui-nav-item {
 
 .alone-download-btn .alone-download-right {
     margin-left: 20px !important;
-    border-color: #009688;
+    border-color: #4093D0;
     background: none;
-    color: #009688;
+    color: #4093D0;
 }
 
 .alone-download-btn .layui-btn img {

@@ -266,13 +266,13 @@
                             ,{field:'durgnum', title:'数量',align:'center',width:"20%"}
                             ,{field:'repiceprice', title:'单价',align:'center',width:"20%"}
                             ,{field:'repicetotal', title:'小计',align:'center',width:"20%"}
-                            ,{fixed: 'right', title:'操作',align:'center',width:'20%',templet:function(d){
+                            ,{fixed: 'right', title:'操作',align:'center',width:'20%', templet:function(d){
                                     if(d.state==1){
                                         if(d.ostate==0){
                                             return '项目'
                                         }else if(d.mstate==0){
                                             return '<font color=blue>未缴费</font>'
-                                        }else if(d.jie==null||d.jie==''){
+                                        }else if(d.jie==null || d.jie==''){
                                             return '<font color=red>未检查</font>'
                                         }else{
                                             return'<a class="layui-btn layui-btn-xs" lay-event="look">查看</a>'
